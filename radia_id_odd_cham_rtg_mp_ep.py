@@ -180,10 +180,10 @@ class Undulator():
         d.insert(0, 0)
 
         # --- Field computation
-        bz = rad.Fld(self.obj, b, xyz)
-
+        ba = rad.Fld(self.obj, b, xyz)
+        #np.savetxt("test_x"+str("{:+03.0f}".format(x[0]))+"y"+str("{:+04.0f}".format(y[0]))+"_"+b+".csv", np.transpose([d,ba]), header='ME/eV,test', comments='', delimiter=",")
         # --- Return
-        return x, y, z, d, bz
+        return x, y, z, d, ba
 
     def plot_field(self, xyz_end, xyz_start=[0, 0, 0], n=100, b='bz', x_axis='d', plot_show=True, plot_title=''):
         """"
@@ -199,7 +199,7 @@ class Undulator():
         """
 
         # --- Compute the field
-        x, y, z, d, bz = self.field(xyz_end=xyz_end, xyz_start=xyz_start, n=n, b=b)
+        x, y, z, d, ba = self.field(xyz_end=xyz_end, xyz_start=xyz_start, n=n, b=b)
         # --- Plot
         fig = figure()
         if x_axis == 'x':
@@ -210,11 +210,11 @@ class Undulator():
             l = z
         else:
             l = d
-        plot(l, bz)
+        plot(l, ba)
         xlabel('Distance (mm)')
         ylabel('Field (T)')
         title(plot_title)
-        #np.savetxt("test_y.txt", (l,bz), delimiter=",")
+        #np.savetxt("test_x"+str("{:+02.0f}".format(x[0]))+"z"+str("{:+02.0f}".format(z[0]))+"_"+b+".csv", np.transpose([l,ba]), header='ME/eV,test', comments='', delimiter=",")
         if plot_show:
             show()
         return fig
@@ -1250,5 +1250,3 @@ class HybridWiggler(Undulator):
             print('PM block length: ', ly_mag , ' mm')
             print('Pole material: ', self.radia_und_param.pole_mat)
             print('Gap: ', self.radia_und_param.gap, ' mm')
-
-
