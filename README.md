@@ -26,4 +26,8 @@ https://www.radiasoft.net/jupyter-server/
 ## Usage
 Run the mpw.py after the main parameters are setup in mpw.py.
 
-## Notes
+## Youtube
+https://www.youtube.com/channel/UCeSigU1yYzv8_lmQxHp3fsg
+
+
+![XPS C1s spectrum](https://github.com/heitler/Radia_MPW/blob/master/images/Screen Shot 2022-02-01 at 0.43.43.png "PyVista 3D magnetic field")
