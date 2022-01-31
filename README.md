@@ -30,4 +30,4 @@ Run the mpw.py after the main parameters are setup in mpw.py.
 https://www.youtube.com/channel/UCeSigU1yYzv8_lmQxHp3fsg
 
 
-![XPS C1s spectrum](https://github.com/heitler/Radia_MPW/blob/master/images/Screen Shot 2022-02-01 at 0.43.43.png "PyVista 3D magnetic field")
+![VectorField](https://github.com/hidecode221b/Radia_MPW/blob/main/images/Screen%20Shot%202022-02-01%20at%200.43.43.png "PyVista 3D magnetic field")
