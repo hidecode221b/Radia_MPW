@@ -17,6 +17,12 @@ https://www.esrf.fr/Accelerators/Groups/InsertionDevices/Software/Radia
 OpenGL is not available in macosx, but vtk file generated can be displayed by ParaView.
 https://www.paraview.org/
 
+Magnetic geometry and vector field plot by PyVISTA.
+https://docs.pyvista.org/
+
+Radia jupyter cloud service provided by RadiaSoft.
+https://www.radiasoft.net/jupyter-server/
+
 ## Usage
 Run the mpw.py after the main parameters are setup in mpw.py.
 
