@@ -4,7 +4,7 @@ Magnetic field simulation codes in Radia on Mathematica and Python for developme
 ## Features
 - The number of poles can be varied either in even or odd. 
 - Magnetic field can be plotted in the vector field based on PyVISTA.
-- Magnet geometry can be plotted by PyVISTA from VTK file.
+- Magnet geometry can be displayed by PyVISTA from VTK file.
 - 
 
 ## Environment
