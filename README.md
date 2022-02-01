@@ -1,5 +1,11 @@
 # Radia_MPW
-Magnetic field simulation by Radia on Mathematica and Python for in-vacuum hybrid Undulator/Multipole Wiggler to generate hard X-ray in synchrotron storage ring.
+Magnetic field simulation codes in Radia on Mathematica and Python for development of in-vacuum hybrid Undulator/Multipole Wiggler to generate higher flux and harder X-ray in the synchrotron storage ring.
+
+## Features
+- The number of poles can be varied either in even or odd. 
+- Magnetic field can be plotted in the vector field based on PyVISTA.
+- Magnet geometry can be plotted by PyVISTA from VTK file.
+- 
 
 ## Environment
 Radia python package is available from the link below.
