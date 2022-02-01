@@ -5,7 +5,9 @@
 #
 # Gael Le Bec, ESRF, 2019
 # ----------------------------------------------------------
-
+# Modified for Hybrid wiggler and 3D vector field
+# Hideki Nakajima, SLRI, 2022
+# ----------------------------------------------------------
 # --- Imports
 import radia as rad
 import radia_util as rad_uti
@@ -16,6 +18,7 @@ import pickle
 import numpy as np
 from datetime import datetime
 import csv
+import pyvista as pv
 
 # Constants
 h = 4.135667516e-15 # Plank constant (eV s)
@@ -54,8 +57,7 @@ class HybridWigParam(UndParam):
         :param pole_height=90: height of the poles (mm)
         :param pole_chamfer=[9, 9, 10]: pole chamfer [x, y, z] (mm)
         :param ext_pole=[20,0]: extremity pole params [pole_length (mm), distance to previous obj (mm)]
-        :param ext_mag=[37.5,0,10]: extremity mag params [mag_length (mm), distance to extremity pole (mm),
-                                                        extremity chamfer (mm)]]
+        :param ext_mag=[37.5,0,10]: extremity mag params [mag_length (mm), distance to extremity pole (mm),extremity chamfer (mm)]]
         :param mag_mat='ndfeb': magnet block material
         :param br=1.3: remanent field (T)
         :param pole_mat='xc6': pole material
@@ -105,7 +107,6 @@ class PrecParams():
         """
         self.tolerance = tolerance
         self.max_iter = max_iter
-
 
 # -------------------------------------------
 # Radia undulator class
@@ -218,6 +219,46 @@ class Undulator():
         if plot_show:
             show()
         return fig
+
+    def plot_vector_field(self, x0,x1,dx,y0,y1,dy,z0,z1,dz, fac=3):
+        """"
+        Compute and plot the 3D field specfied in (x0,y0,z0:x1,y1,z1)
+        :param x0,x1,dx: start, end, step for x axis, and so on
+        :param fac: factor of arrow head size
+        :return pyvista plot
+        """
+
+        nx = int((x1-x0-1)/dx) + 1
+        ny = int((y1-y0-1)/dy) + 1
+        nz = int((z1-z0-1)/dz) + 1
+        ptsx = complex(0,nx)
+        ptsy = complex(0,ny)
+        ptsz = complex(0,nz)
+        bx,by,bz = [],[],[]
+
+        for j in range(z0,z1,dz):
+            for k in range(y0,y1,dy):
+                x, y, z, d, ba = self.field(xyz_end=[x0, k, j], xyz_start=[x1, k, j], n=nx, b='bx')
+                bx = np.append(bx, ba)
+                x, y, z, d, ba = self.field(xyz_end=[x0, k, j], xyz_start=[x1, k, j], n=nx, b='by')
+                by = np.append(by, ba)
+                x, y, z, d, ba = self.field(xyz_end=[x0, k, j], xyz_start=[x1, k, j], n=nx, b='bz')
+                bz = np.append(bz, ba)
+
+        x, y, z = np.mgrid[x0:x1:ptsx, y0:y1:ptsy, z0:z1:ptsz]
+        grid = pv.StructuredGrid(x, y, z)
+        B = np.column_stack((bx.ravel(), by.ravel(), bz.ravel()))
+        #np.savetxt(fileName + "_B.csv", B, header='Bx,By,Bz', comments='', delimiter=",")
+        grid["ABC field magnitude"] = np.linalg.norm(B, axis=1)
+        grid["ABC field vectors"] = B
+        grid.set_active_vectors("ABC field vectors")
+        arrows_grid = grid.glyph(orient="ABC field vectors", factor=fac)
+
+        p = pv.Plotter()
+        #p.add_mesh(grid, cmap=cmap)
+        p.show_grid(color='black')
+        p.add_mesh(arrows_grid, cmap="viridis")
+        p.show()
 
     def traj(self, e, init_cond=[0, 0, 0, 0], y_range=None, n_points=100):
         """
