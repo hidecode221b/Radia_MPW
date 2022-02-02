@@ -5,6 +5,7 @@ import sys
 
 # Import the radia_id module
 import radia_id_odd_cham_rtg_mp_ep as rid
+import pyvista as pv
 
 build = 'full'
 # full, main, side, pole, side_pole, main_pole, main_side
@@ -53,11 +54,12 @@ else:
     # Plot VTK by PyVISTA
     grid = pv.read(fileName+'.vtk')
     grid.plot(cmap='viridis',show_scalar_bar=False,show_axes=False,show_edges=True,window_size = [1000, 580],lighting=True,component=1)
-
+"""
 # Plot results (need to plot geometry above)
-#und.plot_field(xyz_end=[0, 1000, 0], xyz_start=[0, -1000, 0], n=1000, b='bz', x_axis='d', plot_show=False, plot_title='field_y')
+#und.plot_field(xyz_end=[0, 1000, 0], xyz_start=[0, -1000, 0], n=1000, b='bz', x_axis='d', plot_show=True, plot_title='field_y')
 # Plot 3D vector field by pyvista
-#und.plot_vector_field(-100,101,5,-200,201,5,-15,16,5,3, plot_show=True, plot_title='vector_field_3d')
+und.plot_vector_field(-100,101,5,-200,201,5,-15,16,5,3,plot_save=True, plot_title=fileName)
+"""
 """
 und.plot_field(xyz_end=[0, 1000, 0], xyz_start=[0, -1000, 0], n=1000, b='bz', x_axis='d', plot_show=True, plot_title='field_y')
 und.plot_field([50, 0, 0], [-50, 0, 0], n=1000, b='bz', x_axis='d', plot_show=True, plot_title='field_x')

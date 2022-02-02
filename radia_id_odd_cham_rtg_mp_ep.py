@@ -40,10 +40,7 @@ class HybridWigParam(UndParam):
     """
     Radia parameters for hybrid wigglers
     """
-    def __init__(self, period, n_poles, gap, mag_width=120, mag_height=[130, 110, 80], mag_chamfer=[10, 9, 10], pole_length=35,
-                 pole_width=70, pole_height=90, pole_chamfer=[9, 9, 10], ext_pole=[20, 0], ext_mag=[37.5, 0, 10], mag_mat='ndfeb', br=1.29, sep_exp=[0, 0, 0],
-                 pole_mat='fecov', mag_area_max=200, pole_area_max=100, mag_long_sub=[1, 1], pole_long_sub=[2, 2],
-                 mag_color=[[0, 1, 1],[0, 0.5, 1]], pole_color=[1, 0, 1], wig_build='full'):
+    def __init__(self, period, n_poles, gap, mag_width=120, mag_height=[130, 110, 80], mag_chamfer=[10, 9, 10], pole_length=35, pole_width=70, pole_height=90, pole_chamfer=[9, 9, 10], ext_pole=[20, 0], ext_mag=[37.5, 0, 10], mag_mat='ndfeb', br=1.29, sep_exp=[0, 0, 0], pole_mat='fecov', mag_area_max=200, pole_area_max=100, mag_long_sub=[1, 1], pole_long_sub=[2, 2], mag_color=[[0, 1, 1],[0, 0.5, 1]], pole_color=[1, 0, 1], wig_build='full'):
         """
         Parameters for hybrid wiggler -- SLRI BL1 type
         :param period: period (mm)
@@ -63,8 +60,8 @@ class HybridWigParam(UndParam):
         :param pole_mat='xc6': pole material
         :param mag_area_max=200: max triangle area in magnet blocks
         :param pole_area_max=100: max triangle area in poles
-        :param mag_long_sub=4: long. subdivision in magnets [4,1]
-        :param pole_long_sub=6: long. subdivision in poles [6,2]
+        :param mag_long_sub=[4,1]: long. subdivision in magnets [4,1]
+        :param pole_long_sub=[6,2]: long. subdivision in poles [6,2]
         :param mag_color=[[0,1,1],[0,0.5,1]]: color of magnet blocks [main, side]
         :param pole_color=[1,0,1]: color of poles
         :param build='full': building elements
@@ -220,7 +217,7 @@ class Undulator():
             show()
         return fig
 
-    def plot_vector_field(self, x0,x1,dx,y0,y1,dy,z0,z1,dz, fac=3):
+    def plot_vector_field(self,x0,x1,dx,y0,y1,dy,z0,z1,dz,fac=3,plot_save=True,plot_title='test'):
         """"
         Compute and plot the 3D field specfied in (x0,y0,z0:x1,y1,z1)
         :param x0,x1,dx: start, end, step for x axis, and so on
@@ -253,7 +250,9 @@ class Undulator():
         grid["ABC field vectors"] = B
         grid.set_active_vectors("ABC field vectors")
         arrows_grid = grid.glyph(orient="ABC field vectors", factor=fac)
-
+        if plot_save:
+            arrows_grid.save(plot_title + '_v3d.vtk')
+            
         p = pv.Plotter()
         #p.add_mesh(grid, cmap=cmap)
         p.show_grid(color='black')
