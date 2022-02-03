@@ -30,7 +30,14 @@ Radia jupyter cloud service provided by RadiaSoft.
 https://www.radiasoft.net/jupyter-server/
 
 ## Usage
-Run the mpw.py after the main parameters are setup in mpw.py.
+### Python from RadiaID gitlab
+Run the mpw.py after the main parameters are setup in mpw.py and radia_id_odd_cham_rtg_mp_ep.py
+
+### Mathematica from ESRF Radia website
+Example#3mpw_fullrtg_chamf.nb
+
+### Jupyter notebook from RadiaSoft Jupyter server
+Wiggler_HYB.ipynb
 
 ## Youtube
 https://www.youtube.com/channel/UCeSigU1yYzv8_lmQxHp3fsg
