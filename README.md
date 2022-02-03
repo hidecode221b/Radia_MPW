@@ -36,4 +36,4 @@ Run the mpw.py after the main parameters are setup in mpw.py.
 https://www.youtube.com/channel/UCeSigU1yYzv8_lmQxHp3fsg
 
 
-![VectorField](https://github.com/hidecode221b/Radia_MPW/blob/main/images/Screen%20Shot%202022-02-01%20at%200.43.43.png "PyVista 3D magnetic field")
+![VectorField](https://github.com/hidecode221b/Radia_MPW/blob/main/images/Screen%20Shot%202022-02-03%20at%2020.05.15.png "ParaView 3D magnetic field visualization with magnet geometry")
