@@ -29,6 +29,10 @@ https://docs.pyvista.org/
 Radia jupyter cloud service provided by RadiaSoft.
 https://www.radiasoft.net/jupyter-server/
 
+## Model of MPW in calculation
+MPW simulation is based on the design of MPW at BL1 in SPL (SLRI, Thailand). However, the MPW was designed, contructed, and donated by the ASTeC, UK.
+https://www.astec.stfc.ac.uk/
+
 ## Usage
 ### Python from RadiaID gitlab
 Run the mpw.py after the main parameters are setup in mpw.py and radia_id_odd_cham_rtg_mp_ep.py
