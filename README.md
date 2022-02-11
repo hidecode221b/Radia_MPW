@@ -35,10 +35,12 @@ https://www.astec.stfc.ac.uk/
 
 ## Usage
 ### Python from RadiaID gitlab
-Run the mpw.py after the main parameters are setup in mpw.py and radia_id_odd_cham_rtg_mp_ep.py
+Run the mpw.py after the main parameters are setup in mpw.py and radia_id_odd_cham_rtg_mp_ep.py 
+
+Examples object and VTK files are available in examples directory.
 
 ### Mathematica from ESRF Radia website
-Example#3mpw_fullrtg_chamf.nb
+Example#3mpw.nb
 
 ### Jupyter notebook from RadiaSoft Jupyter server
 Wiggler_HYB.ipynb
