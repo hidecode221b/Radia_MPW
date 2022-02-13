@@ -35,7 +35,7 @@ https://www.astec.stfc.ac.uk/
 
 ## Usage
 ### Python from RadiaID gitlab
-Run the mpw.py after the main parameters are setup in mpw.py and radia_id_odd_cham_rtg_mp_ep.py 
+Run the mpw.py after the main parameters are setup in mpw.py and radia_id_mpw_hyb.py 
 
 Examples object and VTK files are available in examples directory.
 
