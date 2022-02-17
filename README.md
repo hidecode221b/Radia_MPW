@@ -6,6 +6,7 @@ Magnetic field simulation codes in Radia on Mathematica and Python for developme
 - Magnetic field can be plotted in the vector field based on PyVISTA.
 - Magnet geometry can be displayed by PyVISTA from VTK file.
 - ParaView overlays magnetic field and magnet geometry based on VTK files.
+- Calculate the magnetic force on half pole array from the whole structure.
 
 ## Environment
 Radia python package is available from the link below.
