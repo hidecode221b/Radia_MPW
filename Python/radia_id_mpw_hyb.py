@@ -446,6 +446,13 @@ class Undulator():
         rad.ObjDrwOpenGL(self.obj, option)
         #rad.ObjDrwVTK(self.obj, option)
 
+    def plot_geo2(self, obj, option):
+        """
+        Plot the specific geometry
+        """
+        rad.ObjDrwOpenGL(obj, option)
+        #rad.ObjDrwVTK(self.obj, option)
+
     def save(self, filename, path=''):
         """
         Save the undulator object to filename.rad and its parameters to filename.radp.
@@ -539,22 +546,29 @@ class Undulator():
         print('Magnetic forces (fz): ', fz, ' N')
         #return fx, fy, fz
 
-    def force2(self, dis, src):
+    def force2(self, k):
         """
-        Compute the forces from one part of the object to the other part
-        The object is cut in two subparts defined by a plane and a point
-        :param normal_plane=None: normal vector [nx, ny, nz] ([0, 0, 1] if None)
-        :param point=None: [0, 0, 0] if None
+        Compute the forces from whole structure to half of pole array
+        Get half of pole array from the global variable in class
+        self.obj is full (whole) structure
+        k specifies subdivision of destination object [1,1,2]
+        because force above does not work
         :return: fx, fy, fz : magnetic forces (N)
         """
 
         # --- Compute the forces
         # FORCES COMPUTATIONS NOT YET AVAILABLE WITH RADIA PYTHON !!!!
-        fx, fy, fz = rad.FldEnrFrc(dis, src,'fx|fy|fz',[1, 1, 2])
-        print('Magnetic forces (fx): ', fx, ' N')
-        print('Magnetic forces (fy): ', fy, ' N')
-        print('Magnetic forces (fz): ', fz, ' N')
+        ft= rad.FldEnrFrc(und_frc, self.obj,'f',k)
+        print('Magnetic forces (fx,fy,fz): ', ft, ' Newton')
         #return fx, fy, fz
+
+    def test_obj_export_vtk(self):
+        """
+        export und_frc in vtk to check geometry
+        """
+
+        self.exportGeometryToVTK2(und_frc, "und_frc")
+        self.plot_geo2(und_frc, 'EdgeLines->True')
 
     def wavelength(self, e=6, n=1, theta=0):
         """
@@ -671,12 +685,60 @@ class Undulator():
             f.write('COLOR_SCALARS Radia_colours 3\n')
             writer.writerows(colors)
 
+    def exportGeometryToVTK2(self, obj, fileName='radia_Geometry'):
+        '''
+        Writes the geometry of RADIA object "obj" to file fileName.vtk for use in Paraview. The format is VTK legacy, because it's simple. The file consists of polygons only (no cells).
+        '''
+
+        vtkData = rad.ObjDrwVTK(obj, 'Axes->False')
+
+        lengths = vtkData['polygons']['lengths']
+        nPoly = len(lengths)
+        offsets = list(accumulate(lengths))
+        offsets.insert(0, 0) # prepend list with a zero
+        points = vtkData['polygons']['vertices']
+        nPnts = int(len(points)/3)
+
+        # format the points array to be floats rather than double
+        points = [round(num, 8) for num in points]
+
+        # define the connectivity list
+        conn = list(range(nPnts))
+
+        # define colours array
+        colors = vtkData['polygons']['colors']
+
+        # pre-process the output lists to have chunkLength items per line
+        chunkLength = 9 # this writes 9 numbers per line (9 is the number used in Paraview if data is saved as the VTK Legacy format)
+        offsets = list(self.chunks(offsets, chunkLength))
+        points = list(self.chunks(points, chunkLength))
+        conn = list(self.chunks(conn, chunkLength))
+        colors = list(self.chunks(colors, chunkLength))
+
+        # write the data to file
+        with open(fileName + ".vtk", "w", newline="") as f:
+            f.write('# vtk DataFile Version 5.1\n')
+            f.write('vtk output\nASCII\nDATASET POLYDATA\n')
+            f.write('POINTS ' + str(nPnts) + ' float\n')
+
+            writer = csv.writer(f, delimiter=" ")
+            writer.writerows(points)
+            f.write('\n')
+            f.write('POLYGONS ' + str(nPoly+1) + ' ' + str(nPnts) + '\n')
+            f.write('OFFSETS vtktypeint64\n')
+            writer.writerows(offsets)
+            f.write('CONNECTIVITY vtktypeint64\n')
+            writer.writerows(conn)
+            f.write('\n')
+            f.write('CELL_DATA ' + str(nPoly) + '\n')
+            f.write('COLOR_SCALARS Radia_colours 3\n')
+            writer.writerows(colors)
 
 # -------------------------------------------
 # Planar Hybrid wiggler class
 # -------------------------------------------
 class HybridWiggler(Undulator):
-    def __init__(self, radia_und_param, radia_prec_param=None, sym=True, solve_switch=True, print_switch=True):
+    def __init__(self, radia_und_param, radia_prec_param=None, sym=True, solve_switch=True, print_switch=False):
         # Hold parameters
         self.radia_und_param = radia_und_param
 
@@ -1143,9 +1205,11 @@ class HybridWiggler(Undulator):
 
         # --- Hold the symmetry
         self.sym = sym
-
+        # global quantities for force calc (half of pole array)
+        global und_frc
         # --- Build an empty container
         und = rad.ObjCnt([])
+        und_frc = rad.ObjCnt([])
         n_poles = self.radia_und_param.n_poles
         # --- Build all the periods
         if n_poles < 2:
@@ -1153,6 +1217,7 @@ class HybridWiggler(Undulator):
             mag_side_0 = self.build_block_side(0, 0)
             pole_0 = self.build_pole(0, 0)
             rad.ObjAddToCnt(und, [mag_0, mag_side_0, pole_0]) # full
+            rad.ObjAddToCnt(und_frc, [pole_0]) # und_frc
             if n_poles == 1:
                 # --- Undulator extremity
                 mag_main_ext_1 = self.build_block_main(1, 0) # Last 2 standard magnet
@@ -1161,6 +1226,7 @@ class HybridWiggler(Undulator):
                 mag_ext = self.build_block_ext() # Extremity magnet
                 if self.radia_und_param.wig_build[:4] == 'full':
                     rad.ObjAddToCnt(und, [mag_main_ext_1, mag_side_ext_1, pole_ext_1, mag_ext]) # full
+                    rad.ObjAddToCnt(und_frc, [pole_ext_1]) # und_frc
                 elif self.radia_und_param.wig_build[:4] == 'main':
                     rad.ObjAddToCnt(und, [mag_main_ext_1, mag_ext]) # main
                 elif self.radia_und_param.wig_build[:4] == 'side':
@@ -1184,6 +1250,7 @@ class HybridWiggler(Undulator):
                 # Add to the container
                 if self.radia_und_param.wig_build[:4] == 'full':
                     rad.ObjAddToCnt(und, [mag_0, mag_1, mag_side_0, pole_0]) # full
+                    rad.ObjAddToCnt(und_frc, [pole_0]) # und_frc
                 elif self.radia_und_param.wig_build[:4] == 'main':
                     rad.ObjAddToCnt(und, [mag_0, mag_1]) # main
                 elif self.radia_und_param.wig_build[:4] == 'side':
@@ -1206,6 +1273,7 @@ class HybridWiggler(Undulator):
             if self.radia_und_param.wig_build[:4] == 'full':
                 #pass
                 rad.ObjAddToCnt(und, [mag_main_ext_1, mag_side_ext_1, pole_ext_1, mag_ext]) # full
+                rad.ObjAddToCnt(und_frc, [pole_ext_1]) # und_frc
             elif self.radia_und_param.wig_build[:4] == 'main':
                 rad.ObjAddToCnt(und, [mag_main_ext_1, mag_ext]) # main
             elif self.radia_und_param.wig_build[:4] == 'side':
@@ -1231,6 +1299,7 @@ class HybridWiggler(Undulator):
                 # Add to the container
                 if self.radia_und_param.wig_build[:4] == 'full':
                     rad.ObjAddToCnt(und, [mag_0, mag_1, mag_side_0, mag_side_1, pole_0, pole_1]) # full
+                    rad.ObjAddToCnt(und_frc, [pole_0, pole_1]) # und_frc
                 elif self.radia_und_param.wig_build[:4] == 'main':
                     rad.ObjAddToCnt(und, [mag_0, mag_1]) # main
                 elif self.radia_und_param.wig_build[:4] == 'side':
@@ -1255,6 +1324,7 @@ class HybridWiggler(Undulator):
 
             if self.radia_und_param.wig_build[:4] == 'full':
                 rad.ObjAddToCnt(und, [mag_main_ext_0, mag_main_ext_1, mag_side_ext_0, mag_side_ext_1, pole_ext_0, pole_ext_1, mag_ext]) # full
+                rad.ObjAddToCnt(und_frc, [pole_ext_0, pole_ext_1]) # und_frc
             elif self.radia_und_param.wig_build[:4] == 'main':
                 rad.ObjAddToCnt(und, [mag_main_ext_0, mag_main_ext_1, mag_ext]) # main
             elif self.radia_und_param.wig_build[:4] == 'side':
@@ -1272,10 +1342,12 @@ class HybridWiggler(Undulator):
         if n_poles >= 0:
             tr = rad.TrfTrsl([0, 0, self.radia_und_param.gap / 2])
             rad.TrfOrnt(und, tr)
+            rad.TrfOrnt(und_frc, tr)
 
         # --- Symmetries
         if sym:
             rad.TrfZerPerp(und, [0, 0, 0], [1, 0, 0])
+            rad.TrfZerPerp(und_frc, [0, 0, 0], [1, 0, 0])
             if n_poles > 0:
                 if self.radia_und_param.wig_build[len(self.radia_und_param.wig_build)-4:] == 'half':
                     pass
@@ -1283,8 +1355,10 @@ class HybridWiggler(Undulator):
                     rad.TrfZerPara(und, [0, 0, 0], [0, 0, 1])
             if n_poles % 2 == 0 and n_poles > 0:
                 rad.TrfZerPara(und, [0, 0, 0], [0, 1, 0])
+                rad.TrfZerPara(und_frc, [0, 0, 0], [0, 1, 0])
             else:
                 rad.TrfZerPerp(und, [0, 0, 0], [0, 1, 0])
+                rad.TrfZerPerp(und_frc, [0, 0, 0], [0, 1, 0])
 
         # --- Cut the half of the first magnet
         #und = rad.ObjCutMag(und, [20,20,20], [0,0,1], 'Frame->Lab')[0]
