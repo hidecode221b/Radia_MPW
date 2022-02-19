@@ -43,7 +43,7 @@ Examples object and VTK files are available in examples directory.
 ### Mathematica from ESRF Radia website
 Example#3mpw.nb
 
-### Jupyter notebook from RadiaSoft Jupyter server
+### Jupyter notebook from RadiaSoft Jupyter server with RadiaID
 Wiggler_HYB.ipynb
 
 ## Youtube
