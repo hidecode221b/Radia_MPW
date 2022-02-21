@@ -42,7 +42,7 @@ class HybridWigParam(UndParam):
     """
     Radia parameters for hybrid wigglers
     """
-    def __init__(self, period, n_poles, gap, mag_width=120, mag_height=[130, 110, 80], mag_chamfer=[10, 9, 10], pole_length=35, pole_width=70, pole_height=90, pole_chamfer=[9, 9, 10], ext_pole=[20, 0], ext_mag=[37.5, 0, 10], mag_mat='ndfeb', br=1.29, sep_exp=[0, 0, 0], pole_mat='fecov', mag_area_max=200, pole_area_max=100, mag_long_sub=[1, 1], pole_long_sub=[2, 2], mag_color=[[0, 1, 1],[0, 0.5, 1]], pole_color=[1, 0, 1], wig_build='full'):
+    def __init__(self, period, n_poles, gap, mag_width=120, mag_height=[130, 110, 80], mag_chamfer=[10, 9, 10], pole_length=35, pole_width=70, pole_height=90, pole_chamfer=[9, 9, 10], ext_pole=[20, 0], ext_mag=[37.5, 0, 10], mag_mat='ndfeb', br=1.29, sep_exp=[0, 0, 0], pole_mat='fecov', mag_area_max=200, pole_area_max=100, mag_long_sub=[2, 2], pole_long_sub=[2, 2], mag_color=[[0, 1, 1],[0, 0.5, 1]], pole_color=[1, 0, 1], wig_build='full'):
         """
         Parameters for hybrid wiggler -- SLRI BL1 type
         :param period: period (mm)
@@ -578,6 +578,7 @@ class Undulator():
         :param theta: observer angle (rad)
         :return: wavelength (nm), energy (keV)
         """
+
         try:
             sep_y = self.radia_und_param.sep[1]
             period = self.radia_und_param.period + 6 * sep_y
@@ -629,6 +630,8 @@ class Undulator():
         print('Peak field: ', peak_field, ' T')
         print('K: ', k)
         print('Total length: ', total_length, ' mm')
+
+
 
 # https://github.com/ochubar/Radia/issues/17
     def chunks(self, lst, n):
