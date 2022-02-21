@@ -46,6 +46,11 @@ Example#3mpw.nb
 ### Jupyter notebook from RadiaSoft Jupyter server with RadiaID
 Wiggler_HYB.ipynb
 
+## Issues and testing in progress
+- Optmization process of peak field and field integrals on pole, pm dimensions, and its ratio
+- Radia Viewer in sirepo server
+- 
+
 ## Youtube
 https://www.youtube.com/channel/UCeSigU1yYzv8_lmQxHp3fsg
 
