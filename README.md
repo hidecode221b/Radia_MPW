@@ -43,8 +43,11 @@ Examples object and VTK files are available in examples directory.
 ### Mathematica from ESRF Radia website
 Example#3mpw.nb
 
-### Jupyter notebook from RadiaSoft Jupyter server with RadiaID
+### Jupyter notebook with RadiaID
 Wiggler_HYB.ipynb
+
+### Jupyter notebook based on RadiaSoft Jupyter server
+Radia_Ex03r.ipynb
 
 ## Issues and testing in progress
 - Optmization process of peak field and field integrals on pole, pm dimensions, and its ratio
