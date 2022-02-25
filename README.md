@@ -50,8 +50,6 @@ Wiggler_HYB.ipynb
 Radia_Ex03r.ipynb
 
 ## Issues and testing in progress
-- Optmization process of peak field and field integrals on pole, pm dimensions, and its ratio
-- Radia Viewer in sirepo server
 - 
 
 ## Youtube
