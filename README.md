@@ -12,7 +12,7 @@ Magnetic field simulation codes in Radia on Mathematica and Python for developme
 Radia python package is available from the link below.
 https://github.com/ochubar/Radia
 
-Radia python package for macosx is available from link below.
+Radia python for macOS is available from link below.
 https://github.com/hidecode221b/Radia
 
 Python code is based on the Radia ID developed by the ESRF, so the necessary files are required to run the code in addition to Radia python.
