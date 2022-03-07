@@ -1,12 +1,17 @@
 # Radia_MPW
 Magnetic field simulation codes in Radia on Mathematica and Python for development of in-vacuum hybrid Undulator/Multipole Wiggler to generate higher flux and harder X-ray in the synchrotron storage ring.
 
-## Features
+## Highlight features
 - The number of poles can be varied either in even or odd. 
 - Magnetic field can be plotted in the vector field based on PyVISTA.
 - Magnet geometry can be displayed by PyVISTA from VTK file.
 - ParaView overlays magnetic field and magnet geometry based on VTK files.
 - Calculate the magnetic force on half pole array from the whole structure.
+
+## Abstract
+The insertion devices generate a high energy and flux of synchrotron radiation without major upgrade of 3rd generation storage ring. The undulator utilizes the coherence of radiation from the periodic magnet array to produce the X-rays with high flux rather than high energy. The wiggler creates the higher magnetic field than the bending magnet does to produce the X-rays with high energy rather than high flux. The permanent magnets are limited in its magnetization, so the superconducting magnets can be an option for the creation of highest magnetic field. However, the cost of cryogenic facility and its maintenance is typically expensive.
+
+The soft magnetic materials with high permeability combined with permanent magnets enables us to achieve higher magnetic field than the pure permanent magnet does to concentrate and control the magnetic flux in a specific direction. This is a hybrid type of insertion device. However, the magnetic structure has to be carefully designed to maximize the magnetic field under the operating conditions of storage ring.
 
 ## Environment
 Radia python package is available from the link below.
@@ -67,3 +72,7 @@ https://www.youtube.com/channel/UCeSigU1yYzv8_lmQxHp3fsg
 
 
 ![VectorField](https://github.com/hidecode221b/Radia_MPW/blob/main/images/Screen%20Shot%202022-02-03%20at%2020.05.15.png "ParaView 3D magnetic field visualization with magnet geometry")
+
+## References
+- The Science and Technology of Undulators and Wigglers, James A. Clarke (Oxford University Press, 2004) DOI:10.1093/acprof:oso/9780198508557.001.0001
+- 
