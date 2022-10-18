@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[    183757,       3840]
-NotebookOptionsPosition[    175137,       3656]
-NotebookOutlinePosition[    176338,       3701]
-CellTagsIndexPosition[    176295,       3698]
+NotebookDataLength[    130535,       2560]
+NotebookOptionsPosition[    122315,       2385]
+NotebookOutlinePosition[    123516,       2430]
+CellTagsIndexPosition[    123473,       2427]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -1328,8 +1328,8 @@ fullMag[u_,x_,y_,z_]:=(",
    3.8745458278707504`*^9, 3.8745458278707504`*^9}, {3.8745458638773203`*^9, 
    3.8745458638773203`*^9}, {3.8745459210829096`*^9, 
    3.8745460547152157`*^9}, {3.874548386023799*^9, 3.874548386203787*^9}},
- AspectRatioFixed->
-  True,ExpressionUUID->"f9610f9d-2237-404b-bdbc-ee8eeedef1ac"]
+ AspectRatioFixed->True,
+ CellLabel->"In[17]:=",ExpressionUUID->"f9610f9d-2237-404b-bdbc-ee8eeedef1ac"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -1349,13 +1349,20 @@ representing the structure in space, and plot it.\
   True,ExpressionUUID->"5e3354bb-12e3-478d-8e39-b51d423c832d"],
 
 Cell[TextData[{
- StyleBox["draw=radObjDrw",
+ StyleBox["draw=",
+  FontColor->GrayLevel[0]],
+ StyleBox["radObjDrw",
   FontColor->RGBColor[1, 0, 0]],
  StyleBox["[und];",
   FontColor->GrayLevel[0]],
  StyleBox["\n\nRadPlot3DOptions",
   FontColor->RGBColor[1, 0, 0]],
- "[];\nShow[Graphics3D[draw]\n,ViewPoint->{5,-1.5,2}\n,PlotRange->All]"
+ "[];\nShow[Graphics3D[draw]\n,ViewPoint->{5,-1.5,2}\n,PlotRange->All]\n\n\
+Export[FileNameJoin[{NotebookDirectory[],\"Mag_5p_n2_g20_3D.vtk\"}], \
+Graphics3D[",
+ StyleBox["draw",
+  FontColor->GrayLevel[0]],
+ "]]"
 }], "Input",
  CellChangeTimes->{
   3.3998980155276566`*^9, {3.3999126650776253`*^9, 3.3999126661557503`*^9}, {
@@ -1375,9 +1382,16 @@ Cell[TextData[{
    3.853896571811363*^9}, {3.853896662946783*^9, 3.8538966699670277`*^9}, 
    3.853896777338599*^9, {3.854428169919366*^9, 3.8544281723117733`*^9}, {
    3.8544912741195087`*^9, 3.8544912746035175`*^9}, {3.854759299049115*^9, 
-   3.8547593016975613`*^9}, {3.8547599838227797`*^9, 3.854760017470727*^9}},
- AspectRatioFixed->True,
- CellLabel->"In[99]:=",ExpressionUUID->"c7896b99-1018-444a-acab-41eef79736aa"]
+   3.8547593016975613`*^9}, {3.8547599838227797`*^9, 3.854760017470727*^9}, {
+   3.874969408880315*^9, 3.874969472976459*^9}, 3.8749695586022234`*^9, {
+   3.8749696304161386`*^9, 3.8749697099541645`*^9}, 3.87497056317663*^9, {
+   3.8749713777933464`*^9, 3.8749714041090994`*^9}, {3.874971435152404*^9, 
+   3.8749714964802756`*^9}, {3.8749791275597878`*^9, 3.87497914703551*^9}, {
+   3.874979230505808*^9, 3.874979271378941*^9}, 3.874983658785466*^9, 
+   3.874983841641162*^9, {3.8749843111986*^9, 3.874984331958038*^9}, {
+   3.8749843719787507`*^9, 3.8749844277385683`*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"c7896b99-1018-444a-acab-41eef79736aa"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -1421,8 +1435,7 @@ Field Bz(0,0,0) : \",N[",
   3.8517482640160313`*^9, 3.8517482656009192`*^9}, {3.873838158361765*^9, 
   3.873838214173647*^9}},
  AspectRatioFixed->True,
- CellLabel->
-  "In[1861]:=",ExpressionUUID->"177175c9-89ec-406b-9603-c0cf26effe5b"]
+ CellLabel->"In[62]:=",ExpressionUUID->"177175c9-89ec-406b-9603-c0cf26effe5b"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -1746,14 +1759,14 @@ Cell[BoxData[{
      RowBox[{"PlotRange", "->", 
       RowBox[{"{", 
        RowBox[{"All", ",", "All", ",", "All"}], "}"}]}], " ", "\n", ",", 
-     RowBox[{"ScaleFactor", "->", "15"}]}], "]"}]}], "\[IndentingNewLine]", 
+     RowBox[{"ScaleFactor", "->", "15"}]}], "]"}]}], "\n", 
   RowBox[{"(*", 
    RowBox[{"Print", "[", 
     RowBox[{"fldvec", "[", 
      RowBox[{"[", 
       RowBox[{"1", ",", 
        RowBox[{"2", ";;", " ", ";;", " ", "5"}], ",", "1", ",", "1"}], "]"}], 
-     "]"}], "]"}], "*)"}], "\n", 
+     "]"}], "]"}], "*)"}], "\[IndentingNewLine]", 
   RowBox[{"(*", 
    RowBox[{"Print", "[", 
     RowBox[{"fldvec", "[", 
@@ -1781,14 +1794,23 @@ Cell[BoxData[{
             RowBox[{"2", " ", ";;", " ", ";;", " ", "5"}], ",", " ", "1", ",",
              "2"}], "]"}], "]"}], "}"}], ",", "3"}], "]"}], ",", "1"}], "]"}],
      "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+    RowBox[{"FileNameJoin", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+       "\"\<Mag_5p_n2_g00_vec.dat\>\""}], "}"}], "]"}], ",", "t"}], "]"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{"Export", "[", 
   RowBox[{
    RowBox[{"FileNameJoin", "[", 
     RowBox[{"{", 
      RowBox[{
       RowBox[{"NotebookDirectory", "[", "]"}], ",", 
-      "\"\<Mag_5p_n2_g00_vec.dat\>\""}], "}"}], "]"}], ",", "t"}], 
-  "]"}]}], "Input",
+      "\"\<Mag_5p_n2_g20_vec.vtk\>\""}], "}"}], "]"}], ",", 
+   RowBox[{"Graphics3D", "[", "fldvec", "]"}]}], "]"}]}], "Input",
  CellChangeTimes->{
   3.3999178362963753`*^9, 3.3999185101870003`*^9, {3.849673971733321*^9, 
    3.8496739827637234`*^9}, {3.8496740967892575`*^9, 3.849674131559239*^9}, {
@@ -1827,9 +1849,10 @@ Cell[BoxData[{
    3.8743775633717065`*^9}, {3.8743785062663565`*^9, 3.8743785166111174`*^9}, 
    3.8743793461444187`*^9, 3.8743816810590243`*^9, 3.8743817311037846`*^9, {
    3.8743819526729507`*^9, 3.8743819723438663`*^9}, 3.8745338738947926`*^9, {
-   3.874548328093648*^9, 
-   3.874548339503828*^9}},ExpressionUUID->"38b94814-3bb7-4c90-8e7f-\
-ddbabc2517b2"]
+   3.874548328093648*^9, 3.874548339503828*^9}, {3.8749715164329185`*^9, 
+   3.874971522584694*^9}, 3.87497160355783*^9},
+ CellLabel->
+  "In[132]:=",ExpressionUUID->"38b94814-3bb7-4c90-8e7f-ddbabc2517b2"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -2292,814 +2315,10 @@ in the Radia.exe  file.",
  AspectRatioFixed->
   True,ExpressionUUID->"742ac2b3-d67f-4920-b35d-4703457ac75c"],
 
-Cell[CellGroupData[{
-
 Cell["?rad*", "Input",
  AspectRatioFixed->True,
  CellLabel->
   "In[112]:=",ExpressionUUID->"4d7b3697-ab5f-45d8-84ba-8880dfcc4657"],
-
-Cell[BoxData[
- StyleBox[
-  FrameBox[GridBox[{
-     {
-      DynamicModuleBox[{Typeset`open$$ = True}, 
-       PaneSelectorBox[{False->
-        ButtonBox[
-         RowBox[{
-          
-          DynamicBox[FEPrivate`FrontEndResource[
-           "FEBitmaps", "RightPointerOpener"]], " ", 
-          StyleBox["Global`", "InformationGridGroupHeader"]}],
-         Appearance->None,
-         BaseStyle->"InformationGridLink",
-         ButtonFunction:>FEPrivate`Set[Typeset`open$$, True],
-         Evaluator->Automatic,
-         Method->"Preemptive"], True->
-        PaneBox[GridBox[{
-           {
-            ButtonBox[
-             RowBox[{
-              
-              DynamicBox[FEPrivate`FrontEndResource[
-               "FEBitmaps", "DownPointerOpener"],
-               ImageSizeCache->{10., {3., 7.}}], " ", 
-              StyleBox["Global`", "InformationGridGroupHeader"]}],
-             Appearance->None,
-             BaseStyle->"InformationGridLink",
-             ButtonFunction:>FEPrivate`Set[Typeset`open$$, False],
-             Evaluator->Automatic,
-             Method->"Preemptive"]},
-           {
-            PaneBox[GridBox[{
-               {
-                ButtonBox[
-                 StyleBox["radFld", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radFld", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radFldLenTol", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radFldLenTol", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjArcPgnMag", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjArcPgnMag", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjFlmCur", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjFlmCur", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjScaleCur", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjScaleCur", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radTrfRot", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radTrfRot", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic]},
-               {
-                ButtonBox[
-                 StyleBox["radFldCmpCrt", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radFldCmpCrt", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radFldLst", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radFldLst", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjBckg", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjBckg", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjGeoLim", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjGeoLim", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjThckPgn", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjThckPgn", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radTrfTrsl", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radTrfTrsl", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic]},
-               {
-                ButtonBox[
-                 StyleBox["radFldCmpPrc", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radFldCmpPrc", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radFldPtcTrj", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radFldPtcTrj", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjCenFld", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjCenFld", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjGeoVol", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjGeoVol", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radRlxAuto", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radRlxAuto", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radUtiDel", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radUtiDel", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic]},
-               {
-                ButtonBox[
-                 StyleBox["radFldEnr", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radFldEnr", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radFldShimSig", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radFldShimSig", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjCnt", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjCnt", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjM", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjM", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radRlxMan", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radRlxMan", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radUtiDelAll", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radUtiDelAll", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic]},
-               {
-                ButtonBox[
-                 StyleBox["radFldEnrFrc", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radFldEnrFrc", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radFldUnits", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radFldUnits", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjCntStuf", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjCntStuf", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjMltExtPgn", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjMltExtPgn", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radRlxPre", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radRlxPre", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radUtiDmp", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radUtiDmp", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic]},
-               {
-                ButtonBox[
-                 StyleBox["radFldEnrTrq", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radFldEnrTrq", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radMatApl", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radMatApl", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjCutMag", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjCutMag", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjMltExtPgnCur", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjMltExtPgnCur", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radRlxUpdSrc", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radRlxUpdSrc", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radUtiDmpPrs", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radUtiDmpPrs", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic]},
-               {
-                ButtonBox[
-                 StyleBox["radFldFocKick", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radFldFocKick", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radMatLin", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radMatLin", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjCylMag", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjCylMag", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjMltExtPgnMag", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjMltExtPgnMag", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radSolve", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radSolve", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radUtiIntrptTim", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radUtiIntrptTim", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic]},
-               {
-                ButtonBox[
-                 StyleBox["radFldFocKickPer", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radFldFocKickPer", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radMatMvsH", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radMatMvsH", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjDegFre", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjDegFre", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjMltExtRtg", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjMltExtRtg", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radTrfCmbL", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radTrfCmbL", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radUtiVer", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radUtiVer", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic]},
-               {
-                ButtonBox[
-                 StyleBox["radFldFocPot", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radFldFocPot", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radMatSatAniso", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radMatSatAniso", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjDivMag", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjDivMag", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjMltExtTri", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjMltExtTri", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radTrfCmbR", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radTrfCmbR", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], ""},
-               {
-                ButtonBox[
-                 StyleBox["radFldFrc", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radFldFrc", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radMatSatIso", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radMatSatIso", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjDpl", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjDpl", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjPolyhdr", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjPolyhdr", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radTrfInv", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radTrfInv", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], ""},
-               {
-                ButtonBox[
-                 StyleBox["radFldFrcShpRtg", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radFldFrcShpRtg", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radMatSatLam", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radMatSatLam", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjDrw", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjDrw", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjRaceTrk", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjRaceTrk", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radTrfMlt", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radTrfMlt", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], ""},
-               {
-                ButtonBox[
-                 StyleBox["radFldInt", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radFldInt", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjAddToCnt", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjAddToCnt", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjDrwAtr", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjDrwAtr", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjRecCur", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjRecCur", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radTrfOrnt", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radTrfOrnt", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], ""},
-               {
-                ButtonBox[
-                 StyleBox["radFldLenRndSw", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radFldLenRndSw", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjArcCur", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjArcCur", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjDrwOpenGL", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjDrwOpenGL", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radObjRecMag", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radObjRecMag", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["radTrfPlSym", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-ee5518eb-bcbf-455c-8c10-be90a8315516", {
-                   "radTrfPlSym", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], ""}
-              },
-              DefaultBaseStyle->"Text",
-              
-              GridBoxAlignment->{
-               "Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
-              GridBoxItemSize->{"Columns" -> {{
-                   Scaled[0.15833333333333333`]}}}],
-             ImageMargins->{{10, 0}, {0, 2}}]}
-          },
-          GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
-         FrameMargins->{{0, 0}, {8, 0}}]}, Dynamic[Typeset`open$$],
-        ImageSize->Automatic]]}
-    },
-    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
-    GridBoxDividers->{"ColumnsIndexed" -> {{False}}, "RowsIndexed" -> {}},
-    GridBoxSpacings->{"Columns" -> {
-        Offset[0.27999999999999997`], {
-         Offset[0.5599999999999999]}, 
-        Offset[0.27999999999999997`]}, "Rows" -> {
-        Offset[0.2], {
-         Offset[0.8]}, 
-        Offset[0.2]}}],
-   BaseStyle->"InformationTitleFrame"], "InformationGridPlain"]], "Output",
- CellChangeTimes->{3.8731497948689117`*^9},
- CellLabel->
-  "Out[112]=",ExpressionUUID->"ea76a19a-f1bd-49ff-bbac-656aa22e926b"]
-}, Open  ]],
 
 Cell[TextData[StyleBox["The following command gives the template and the \
 description of the function  \"radObjArcCur\".",
@@ -3136,482 +2355,10 @@ Init.m file. These functions are fully written in ",
  AspectRatioFixed->
   True,ExpressionUUID->"284281e6-6e4f-4ae1-9e97-69b9d9742e53"],
 
-Cell[CellGroupData[{
-
 Cell["?Rad*", "Input",
  AspectRatioFixed->True,
  CellLabel->
   "In[125]:=",ExpressionUUID->"05136f8d-7cda-4537-9b50-de11ac86b179"],
-
-Cell[BoxData[
- StyleBox[
-  FrameBox[GridBox[{
-     {
-      DynamicModuleBox[{Typeset`open$$ = True}, 
-       PaneSelectorBox[{False->
-        ButtonBox[
-         RowBox[{
-          
-          DynamicBox[FEPrivate`FrontEndResource[
-           "FEBitmaps", "RightPointerOpener"]], " ", 
-          StyleBox["System`", "InformationGridGroupHeader"]}],
-         Appearance->None,
-         BaseStyle->"InformationGridLink",
-         ButtonFunction:>FEPrivate`Set[Typeset`open$$, True],
-         Evaluator->Automatic,
-         Method->"Preemptive"], True->
-        PaneBox[GridBox[{
-           {
-            ButtonBox[
-             RowBox[{
-              
-              DynamicBox[FEPrivate`FrontEndResource[
-               "FEBitmaps", "DownPointerOpener"],
-               ImageSizeCache->{10., {3., 7.}}], " ", 
-              StyleBox["System`", "InformationGridGroupHeader"]}],
-             Appearance->None,
-             BaseStyle->"InformationGridLink",
-             ButtonFunction:>FEPrivate`Set[Typeset`open$$, False],
-             Evaluator->Automatic,
-             Method->"Preemptive"]},
-           {
-            PaneBox[GridBox[{
-               {
-                ButtonBox[
-                 StyleBox["RadialAxisPlot", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadialAxisPlot", "System`"}, False},
-                 ButtonNote->"System`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadialityCentrality", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadialityCentrality", "System`"}, False},
-                 ButtonNote->"System`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadioButton", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadioButton", "System`"}, False},
-                 ButtonNote->"System`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadioButtonBoxOptions", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadioButtonBoxOptions", "System`"}, False},
-                 ButtonNote->"System`",
-                 Evaluator->Automatic]},
-               {
-                ButtonBox[
-                 StyleBox["RadialGradientFilling", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadialGradientFilling", "System`"}, False},
-                 ButtonNote->"System`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadicalBox", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadicalBox", "System`"}, False},
-                 ButtonNote->"System`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadioButtonBar", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadioButtonBar", "System`"}, False},
-                 ButtonNote->"System`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["Radon", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "Radon", "System`"}, False},
-                 ButtonNote->"System`",
-                 Evaluator->Automatic]},
-               {
-                ButtonBox[
-                 StyleBox["RadialGradientImage", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadialGradientImage", "System`"}, False},
-                 ButtonNote->"System`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadicalBoxOptions", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadicalBoxOptions", "System`"}, False},
-                 ButtonNote->"System`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadioButtonBox", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadioButtonBox", "System`"}, False},
-                 ButtonNote->"System`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadonTransform", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadonTransform", "System`"}, False},
-                 ButtonNote->"System`",
-                 Evaluator->Automatic]}
-              },
-              DefaultBaseStyle->"Text",
-              
-              GridBoxAlignment->{
-               "Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
-              GridBoxItemSize->{"Columns" -> {{
-                   Scaled[0.2375]}}}],
-             ImageMargins->{{10, 0}, {0, 2}}]}
-          },
-          GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
-         FrameMargins->{{0, 0}, {8, 0}}]}, Dynamic[Typeset`open$$],
-        ImageSize->Automatic]]},
-     {
-      DynamicModuleBox[{Typeset`open$$ = True}, 
-       PaneSelectorBox[{False->
-        ButtonBox[
-         RowBox[{
-          
-          DynamicBox[FEPrivate`FrontEndResource[
-           "FEBitmaps", "RightPointerOpener"]], " ", 
-          StyleBox["Global`", "InformationGridGroupHeader"]}],
-         Appearance->None,
-         BaseStyle->"InformationGridLink",
-         ButtonFunction:>FEPrivate`Set[Typeset`open$$, True],
-         Evaluator->Automatic,
-         Method->"Preemptive"], True->
-        PaneBox[GridBox[{
-           {
-            ButtonBox[
-             RowBox[{
-              
-              DynamicBox[FEPrivate`FrontEndResource[
-               "FEBitmaps", "DownPointerOpener"],
-               ImageSizeCache->{10., {3., 7.}}], " ", 
-              StyleBox["Global`", "InformationGridGroupHeader"]}],
-             Appearance->None,
-             BaseStyle->"InformationGridLink",
-             ButtonFunction:>FEPrivate`Set[Typeset`open$$, False],
-             Evaluator->Automatic,
-             Method->"Preemptive"]},
-           {
-            PaneBox[GridBox[{
-               {
-                ButtonBox[
-                 StyleBox["Rad", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "Rad", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadMatAFK502", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadMatAFK502", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadMatSmCo5", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadMatSmCo5", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadObjExtRtg", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadObjExtRtg", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadSolve", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadSolve", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadUtiLoad", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadUtiLoad", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic]},
-               {
-                ButtonBox[
-                 StyleBox["RadLinkPattern", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadLinkPattern", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadMatFerrite", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadMatFerrite", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadMatSteel37", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadMatSteel37", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadObjFullMag", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadObjFullMag", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadTrfAxisPerm", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadTrfAxisPerm", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadUtiMem", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadUtiMem", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic]},
-               {
-                ButtonBox[
-                 StyleBox["Radlk", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "Radlk", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadMatNdFeB", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadMatNdFeB", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadMatSteel42", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadMatSteel42", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadPlot3DOptions", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadPlot3DOptions", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadTrfZerPara", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadTrfZerPara", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadUtiSave", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadUtiSave", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic]},
-               {
-                ButtonBox[
-                 StyleBox["RadMatAFK1", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadMatAFK1", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadMatSm2Co17", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadMatSm2Co17", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadMatXc06", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadMatXc06", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadPlotOptions", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadPlotOptions", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadTrfZerPerp", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadTrfZerPerp", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic], 
-                ButtonBox[
-                 StyleBox["RadUtiVer", "InformationGridButton"],
-                 Appearance->None,
-                 BaseStyle->"InformationGridLink",
-                 
-                 ButtonData:>{
-                  "Info-c0acf993-e330-481a-a909-de8394ea3377", {
-                   "RadUtiVer", "Global`"}, False},
-                 ButtonNote->"Global`",
-                 Evaluator->Automatic]}
-              },
-              DefaultBaseStyle->"Text",
-              
-              GridBoxAlignment->{
-               "Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
-              GridBoxItemSize->{"Columns" -> {{
-                   Scaled[0.15833333333333333`]}}}],
-             ImageMargins->{{10, 0}, {0, 2}}]}
-          },
-          GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
-         FrameMargins->{{0, 0}, {8, 0}}]}, Dynamic[Typeset`open$$],
-        ImageSize->Automatic]]}
-    },
-    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
-    GridBoxDividers->{
-     "ColumnsIndexed" -> {{False}}, "RowsIndexed" -> {2 -> GrayLevel[0.85]}},
-    GridBoxSpacings->{"Columns" -> {
-        Offset[0.27999999999999997`], {
-         Offset[0.5599999999999999]}, 
-        Offset[0.27999999999999997`]}, "Rows" -> {
-        Offset[0.2], {
-         Offset[0.8]}, 
-        Offset[0.2]}}],
-   BaseStyle->"InformationTitleFrame"], "InformationGridPlain"]], "Output",
- CellChangeTimes->{3.873152330552639*^9},
- CellLabel->
-  "Out[125]=",ExpressionUUID->"13d1cafe-0610-4415-a0c5-afc8072d093f"]
-}, Closed]],
 
 Cell[TextData[{
  "The following command gives the full mathematica definition of the function \
@@ -3620,8 +2367,6 @@ Cell[TextData[{
   FontSlant->"Italic"],
  ". "
 }], "Text",ExpressionUUID->"24c81614-623f-4844-81ed-bc4048b37110"],
-
-Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"??", 
@@ -3635,23 +2380,7 @@ Cell[BoxData[
   3.8495758510074816`*^9, 3.8495759120888677`*^9, {3.8495760884780216`*^9, 
    3.849576104682849*^9}},
  CellLabel->
-  "In[126]:=",ExpressionUUID->"f8fc8852-812b-4696-aca0-0afef93de670"],
-
-Cell[BoxData[
- RowBox[{"Information", "[", 
-  RowBox[{
-   ButtonBox["RadMatXc06",
-    Appearance->Automatic,
-    BaseStyle->"InformationLink",
-    ButtonData:>{"Info3670072199-3171275", {"RadMatXc06", "Global`"}},
-    ButtonNote->"Global`",
-    Evaluator->Automatic,
-    Method->"Preemptive"], ",", 
-   RowBox[{"LongForm", "\[Rule]", "True"}]}], "]"}]], "Output",
- CellChangeTimes->{3.8731523371607046`*^9},
- CellLabel->
-  "Out[126]=",ExpressionUUID->"0216b702-c635-441a-8419-22b21733af51"]
-}, Closed]]
+  "In[126]:=",ExpressionUUID->"f8fc8852-812b-4696-aca0-0afef93de670"]
 }, Closed]]
 },
 PrintingStyleEnvironment->"Working",
@@ -3743,104 +2472,95 @@ Cell[56393, 1100, 236, 5, 34, "Section",ExpressionUUID->"41b9a76f-0607-4676-9b4f
  Evaluatable->False],
 Cell[56632, 1107, 990, 30, 41, "Text",ExpressionUUID->"5e0d4460-f976-471c-bfde-5c529251cdb7",
  Evaluatable->False],
-Cell[57625, 1139, 13127, 192, 728, "Input",ExpressionUUID->"f9610f9d-2237-404b-bdbc-ee8eeedef1ac"]
+Cell[57625, 1139, 13148, 192, 728, "Input",ExpressionUUID->"f9610f9d-2237-404b-bdbc-ee8eeedef1ac"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[70789, 1336, 206, 4, 34, "Section",ExpressionUUID->"6a40f96f-68cb-45d3-903a-0cca6a81d7d5",
+Cell[70810, 1336, 206, 4, 34, "Section",ExpressionUUID->"6a40f96f-68cb-45d3-903a-0cca6a81d7d5",
  Evaluatable->False],
-Cell[70998, 1342, 246, 6, 24, "Text",ExpressionUUID->"5e3354bb-12e3-478d-8e39-b51d423c832d",
+Cell[71019, 1342, 246, 6, 24, "Text",ExpressionUUID->"5e3354bb-12e3-478d-8e39-b51d423c832d",
  Evaluatable->False],
-Cell[71247, 1350, 1762, 29, 133, "Input",ExpressionUUID->"c7896b99-1018-444a-acab-41eef79736aa"]
+Cell[71268, 1350, 2422, 43, 167, "Input",ExpressionUUID->"c7896b99-1018-444a-acab-41eef79736aa"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[73046, 1384, 128, 3, 34, "Section",ExpressionUUID->"f2047b13-2bc0-4c07-9f29-d3a1640badca",
+Cell[73727, 1398, 128, 3, 34, "Section",ExpressionUUID->"f2047b13-2bc0-4c07-9f29-d3a1640badca",
  Evaluatable->False],
-Cell[73177, 1389, 303, 7, 24, "Text",ExpressionUUID->"74e90033-9ad3-4443-87b6-7ba9132b1854",
+Cell[73858, 1403, 303, 7, 24, "Text",ExpressionUUID->"74e90033-9ad3-4443-87b6-7ba9132b1854",
  Evaluatable->False],
-Cell[73483, 1398, 1251, 26, 235, "Input",ExpressionUUID->"177175c9-89ec-406b-9603-c0cf26effe5b"]
+Cell[74164, 1412, 1246, 25, 235, "Input",ExpressionUUID->"177175c9-89ec-406b-9603-c0cf26effe5b"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[74771, 1429, 190, 4, 34, "Section",ExpressionUUID->"13a563cc-9ccb-4a8d-94c4-8905ca7468b5",
+Cell[75447, 1442, 190, 4, 34, "Section",ExpressionUUID->"13a563cc-9ccb-4a8d-94c4-8905ca7468b5",
  Evaluatable->False],
-Cell[74964, 1435, 2002, 34, 184, "Input",ExpressionUUID->"c23c1001-0828-48db-935f-f2cd6a792019"],
-Cell[76969, 1471, 1392, 26, 167, "Input",ExpressionUUID->"e9f58193-654c-4f92-8a2c-0c0bd8095936"]
+Cell[75640, 1448, 2002, 34, 184, "Input",ExpressionUUID->"c23c1001-0828-48db-935f-f2cd6a792019"],
+Cell[77645, 1484, 1392, 26, 167, "Input",ExpressionUUID->"e9f58193-654c-4f92-8a2c-0c0bd8095936"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[78398, 1502, 153, 3, 34, "Section",ExpressionUUID->"e828e54d-83b4-4eec-9b65-9a304282b9bf",
+Cell[79074, 1515, 153, 3, 34, "Section",ExpressionUUID->"e828e54d-83b4-4eec-9b65-9a304282b9bf",
  Evaluatable->False],
-Cell[78554, 1507, 358, 7, 24, "Text",ExpressionUUID->"f141ba92-ffae-45d5-8d00-15d26515a7ef",
+Cell[79230, 1520, 358, 7, 24, "Text",ExpressionUUID->"f141ba92-ffae-45d5-8d00-15d26515a7ef",
  Evaluatable->False],
-Cell[78915, 1516, 1718, 34, 252, "Input",ExpressionUUID->"9113889a-20af-485c-be53-acb2e2734784"]
+Cell[79591, 1529, 1718, 34, 252, "Input",ExpressionUUID->"9113889a-20af-485c-be53-acb2e2734784"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[80670, 1555, 243, 5, 34, "Section",ExpressionUUID->"e04a0304-5016-4e5e-8082-9f5a6046bd21",
+Cell[81346, 1568, 243, 5, 34, "Section",ExpressionUUID->"e04a0304-5016-4e5e-8082-9f5a6046bd21",
  Evaluatable->False],
-Cell[80916, 1562, 5449, 79, 303, "Input",ExpressionUUID->"87010605-74fc-48a9-915f-936cc44eff69"]
+Cell[81592, 1575, 5449, 79, 303, "Input",ExpressionUUID->"87010605-74fc-48a9-915f-936cc44eff69"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[86402, 1646, 213, 4, 34, "Section",ExpressionUUID->"a2a1ed25-3eb1-4bb4-a51c-16e39b7cdbb1",
+Cell[87078, 1659, 213, 4, 34, "Section",ExpressionUUID->"a2a1ed25-3eb1-4bb4-a51c-16e39b7cdbb1",
  Evaluatable->False],
-Cell[86618, 1652, 3394, 53, 150, "Input",ExpressionUUID->"2148320c-9341-4d90-84da-6b03cbbe43c4"]
+Cell[87294, 1665, 3394, 53, 150, "Input",ExpressionUUID->"2148320c-9341-4d90-84da-6b03cbbe43c4"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[90049, 1710, 273, 5, 34, "Section",ExpressionUUID->"9f4fbd33-34e8-4c18-a846-4d6c516cc774",
+Cell[90725, 1723, 273, 5, 34, "Section",ExpressionUUID->"9f4fbd33-34e8-4c18-a846-4d6c516cc774",
  Evaluatable->False],
-Cell[90325, 1717, 312, 7, 24, "Text",ExpressionUUID->"547c101f-275c-4514-9faf-65051eb7d800",
+Cell[91001, 1730, 312, 7, 24, "Text",ExpressionUUID->"547c101f-275c-4514-9faf-65051eb7d800",
  Evaluatable->False],
-Cell[90640, 1726, 5094, 105, 240, "Input",ExpressionUUID->"38b94814-3bb7-4c90-8e7f-ddbabc2517b2"]
+Cell[91316, 1739, 5526, 115, 275, "Input",ExpressionUUID->"38b94814-3bb7-4c90-8e7f-ddbabc2517b2"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[95771, 1836, 138, 3, 34, "Section",ExpressionUUID->"d15fabc2-96b4-4a55-b25d-8819783997ee",
+Cell[96879, 1859, 138, 3, 34, "Section",ExpressionUUID->"d15fabc2-96b4-4a55-b25d-8819783997ee",
  Evaluatable->False],
-Cell[95912, 1841, 891, 20, 41, "Text",ExpressionUUID->"b91a60b9-8c56-4759-a8a7-0709b316b6a3",
+Cell[97020, 1864, 891, 20, 41, "Text",ExpressionUUID->"b91a60b9-8c56-4759-a8a7-0709b316b6a3",
  Evaluatable->False],
-Cell[96806, 1863, 1698, 42, 134, "Input",ExpressionUUID->"49ef75ca-1487-4a29-b498-91c185383a97"]
+Cell[97914, 1886, 1698, 42, 134, "Input",ExpressionUUID->"49ef75ca-1487-4a29-b498-91c185383a97"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[98541, 1910, 240, 4, 34, "Section",ExpressionUUID->"da6efea5-2765-4b3e-99fc-4997ed78ea2f",
+Cell[99649, 1933, 240, 4, 34, "Section",ExpressionUUID->"da6efea5-2765-4b3e-99fc-4997ed78ea2f",
  Evaluatable->False],
-Cell[98784, 1916, 583, 12, 41, "Text",ExpressionUUID->"a3592047-feec-4b42-88ad-40a01e8a5b1a",
+Cell[99892, 1939, 583, 12, 41, "Text",ExpressionUUID->"a3592047-feec-4b42-88ad-40a01e8a5b1a",
  Evaluatable->False],
-Cell[99370, 1930, 6444, 102, 609, "Input",ExpressionUUID->"9279ef9f-baea-4903-b5a1-eb035aebc7f2"]
+Cell[100478, 1953, 6444, 102, 609, "Input",ExpressionUUID->"9279ef9f-baea-4903-b5a1-eb035aebc7f2"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[105851, 2037, 430, 8, 34, "Section",ExpressionUUID->"86fab811-3e67-43b6-889c-dabd0fb90927",
+Cell[106959, 2060, 430, 8, 34, "Section",ExpressionUUID->"86fab811-3e67-43b6-889c-dabd0fb90927",
  Evaluatable->False],
-Cell[106284, 2047, 583, 12, 41, "Text",ExpressionUUID->"31fe8877-035f-437e-95c3-29f142885a28",
+Cell[107392, 2070, 583, 12, 41, "Text",ExpressionUUID->"31fe8877-035f-437e-95c3-29f142885a28",
  Evaluatable->False],
-Cell[106870, 2061, 3966, 67, 337, "Input",ExpressionUUID->"7c577dcf-29f6-4104-b3de-12c260e1ee51"],
-Cell[110839, 2130, 4228, 70, 354, "Input",ExpressionUUID->"b55ebfdd-804e-4c31-9d32-d62728080c52"]
+Cell[107978, 2084, 3966, 67, 337, "Input",ExpressionUUID->"7c577dcf-29f6-4104-b3de-12c260e1ee51"],
+Cell[111947, 2153, 4228, 70, 354, "Input",ExpressionUUID->"b55ebfdd-804e-4c31-9d32-d62728080c52"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[115104, 2205, 214, 4, 34, "Section",ExpressionUUID->"f6c6205a-4abc-4639-8baf-7f06c1cc5fe9",
+Cell[116212, 2228, 214, 4, 34, "Section",ExpressionUUID->"f6c6205a-4abc-4639-8baf-7f06c1cc5fe9",
  Evaluatable->False],
-Cell[115321, 2211, 583, 12, 41, "Text",ExpressionUUID->"fe642e10-e03e-4330-b4e7-e37838182556",
+Cell[116429, 2234, 583, 12, 41, "Text",ExpressionUUID->"fe642e10-e03e-4330-b4e7-e37838182556",
  Evaluatable->False],
-Cell[115907, 2225, 2787, 50, 371, "Input",ExpressionUUID->"6fdeb01d-bf8b-43e4-ab50-17585b125c3a"]
+Cell[117015, 2248, 2787, 50, 371, "Input",ExpressionUUID->"6fdeb01d-bf8b-43e4-ab50-17585b125c3a"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[118731, 2280, 182, 4, 34, "Section",ExpressionUUID->"7fe160c3-17a9-4432-abc7-23d9121950e5",
+Cell[119839, 2303, 182, 4, 34, "Section",ExpressionUUID->"7fe160c3-17a9-4432-abc7-23d9121950e5",
  Evaluatable->False],
-Cell[118916, 2286, 265, 6, 24, "Text",ExpressionUUID->"742ac2b3-d67f-4920-b35d-4703457ac75c",
+Cell[120024, 2309, 265, 6, 24, "Text",ExpressionUUID->"742ac2b3-d67f-4920-b35d-4703457ac75c",
  Evaluatable->False],
-Cell[CellGroupData[{
-Cell[119206, 2296, 130, 3, 48, "Input",ExpressionUUID->"4d7b3697-ab5f-45d8-84ba-8880dfcc4657"],
-Cell[119339, 2301, 33840, 799, 330, "Output",ExpressionUUID->"ea76a19a-f1bd-49ff-bbac-656aa22e926b"]
-}, Open  ]],
-Cell[153194, 3103, 283, 6, 24, "Text",ExpressionUUID->"f05d35ce-682b-401a-9b5e-b5bc7ed6b5c4",
+Cell[120292, 2317, 130, 3, 48, "Input",ExpressionUUID->"4d7b3697-ab5f-45d8-84ba-8880dfcc4657"],
+Cell[120425, 2322, 283, 6, 24, "Text",ExpressionUUID->"f05d35ce-682b-401a-9b5e-b5bc7ed6b5c4",
  Evaluatable->False],
-Cell[153480, 3111, 270, 8, 48, "Input",ExpressionUUID->"1459a613-b464-440b-86d3-1b2f0448148b"],
-Cell[153753, 3121, 472, 15, 24, "Text",ExpressionUUID->"284281e6-6e4f-4ae1-9e97-69b9d9742e53",
+Cell[120711, 2330, 270, 8, 48, "Input",ExpressionUUID->"1459a613-b464-440b-86d3-1b2f0448148b"],
+Cell[120984, 2340, 472, 15, 24, "Text",ExpressionUUID->"284281e6-6e4f-4ae1-9e97-69b9d9742e53",
  Evaluatable->False],
-Cell[CellGroupData[{
-Cell[154250, 3140, 130, 3, 48, "Input",ExpressionUUID->"05136f8d-7cda-4537-9b50-de11ac86b179"],
-Cell[154383, 3145, 19489, 467, 257, "Output",ExpressionUUID->"13d1cafe-0610-4415-a0c5-afc8072d093f"]
-}, Closed]],
-Cell[173887, 3615, 251, 6, 23, "Text",ExpressionUUID->"24c81614-623f-4844-81ed-bc4048b37110"],
-Cell[CellGroupData[{
-Cell[174163, 3625, 453, 12, 50, "Input",ExpressionUUID->"f8fc8852-812b-4696-aca0-0afef93de670"],
-Cell[174619, 3639, 490, 13, 60, "Output",ExpressionUUID->"0216b702-c635-441a-8419-22b21733af51"]
-}, Closed]]
+Cell[121459, 2357, 130, 3, 48, "Input",ExpressionUUID->"05136f8d-7cda-4537-9b50-de11ac86b179"],
+Cell[121592, 2362, 251, 6, 23, "Text",ExpressionUUID->"24c81614-623f-4844-81ed-bc4048b37110"],
+Cell[121846, 2370, 453, 12, 50, "Input",ExpressionUUID->"f8fc8852-812b-4696-aca0-0afef93de670"]
 }, Closed]]
 }
 ]
