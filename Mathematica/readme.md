@@ -9,3 +9,6 @@ Eample#3mpw_noc.nb represents the MPW mode without pole chamfers, and export dat
 
 Rev. 20221012
 Eample#3mpw_noc.nb exports data files to plot in the software. Igor procedure is uploaded for 3D magnetic vector in gizmo plot.
+
+Rev. 20221018
+Eample#3mpw_noc.nb exports VTK files on geometry and magnetization field vector.
