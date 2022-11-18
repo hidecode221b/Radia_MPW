@@ -12,3 +12,6 @@ Eample#3mpw_noc.nb exports data files to plot in the software. Igor procedure is
 
 Rev. 20221018
 Eample#3mpw_noc.nb exports VTK files on geometry and magnetization field vector.
+
+Rev. 20221118
+Eample#3mpw_noc_pgn.nb can make the side chamfers on magnets based on the pgn instead of rtg.
