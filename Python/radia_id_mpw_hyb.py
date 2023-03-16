@@ -42,7 +42,7 @@ class HybridWigParam(UndParam):
     """
     Radia parameters for hybrid wigglers
     """
-    def __init__(self, period, n_poles, gap, mag_width=120, mag_height=[130, 110, 80], mag_chamfer=[10, 9, 10], pole_length=35, pole_width=70, pole_height=90, pole_chamfer=[9, 9, 10], ext_pole=[20, 0], ext_mag=[37.5, 0, 10], mag_mat='ndfeb', br=1.29, sep_exp=[0, 0, 0], pole_mat='fecov', mag_area_max=200, pole_area_max=100, mag_long_sub=[2, 2], pole_long_sub=[2, 2], mag_color=[[0, 1, 1],[0, 0.5, 1]], pole_color=[1, 0, 1], wig_build='full'):
+    def __init__(self, period, n_poles, gap, mag_width=120, mag_height=[130, 110, 32], mag_chamfer=[10, 0, 10], pole_length=35, pole_width=70, pole_height=90, pole_chamfer=[0, 0, 10], ext_pole=[20, 0], ext_mag=[37.5, 0, 10], mag_mat='ndfeb', br=1.29, sep_exp=[0, 0, 0], pole_mat='fecov', mag_area_max=200, pole_area_max=100, mag_long_sub=[2, 2], pole_long_sub=[1, 1], mag_color=[[0, 1, 1],[0, 0.5, 1]], pole_color=[1, 0, 1], wig_build='full'):
         """
         Parameters for hybrid wiggler -- SLRI BL1 type
         :param period: period (mm)
@@ -288,8 +288,7 @@ class Undulator():
         # --- Return the trajectory
         return trj_tr
 
-    def plot_traj(self, e, init_cond=[0, 0, 0, 0], y_range=None, n_points=100, x_or_z='x',
-                  plot_show=True, plot_title=''):
+    def plot_traj(self, e, init_cond=[0, 0, 0, 0], y_range=None, n_points=100, x_or_z='x', plot_show=True, plot_title=''):
         """
         Compute and plot the trajectory of a particle in the undulator
         :param e: energy of the electron (GeV)
@@ -307,6 +306,9 @@ class Undulator():
         :return: a matplotlib figure
         """
 
+        n_poles = self.radia_und_param.n_poles
+        gap = self.radia_und_param.gap
+        sub_div = self.radia_und_param.pole_long_sub[0]
         # --- Compute the trajectory
         y, x, dxdy, z, dzdy = self.traj(e, init_cond, y_range, n_points)
         # --- Plot
@@ -327,6 +329,9 @@ class Undulator():
             trj = y
             ylab = 'Long. position (mm)'
         plot(y, trj)
+
+        np.savetxt("traj_"+ x_or_z + "_g"+ str("{:02.0f}".format(gap)) + "_p" +  str("{:02.0f}".format(n_poles)) + "_n"+ str("{:01.0f}".format(sub_div)) + ".csv", np.transpose([y,trj]), header='ME/eV,test', comments='', delimiter=",")
+
         xlabel('Long. position (mm)')
         ylabel(ylab)
         title(plot_title)
@@ -578,7 +583,6 @@ class Undulator():
         :param theta: observer angle (rad)
         :return: wavelength (nm), energy (keV)
         """
-
         try:
             sep_y = self.radia_und_param.sep[1]
             period = self.radia_und_param.period + 6 * sep_y
@@ -630,8 +634,6 @@ class Undulator():
         print('Peak field: ', peak_field, ' T')
         print('K: ', k)
         print('Total length: ', total_length, ' mm')
-
-
 
 # https://github.com/ochubar/Radia/issues/17
     def chunks(self, lst, n):
@@ -1230,18 +1232,19 @@ class HybridWiggler(Undulator):
                 if self.radia_und_param.wig_build[:4] == 'full':
                     rad.ObjAddToCnt(und, [mag_main_ext_1, mag_side_ext_1, pole_ext_1, mag_ext]) # full
                     rad.ObjAddToCnt(und_frc, [pole_ext_1]) # und_frc
-                elif self.radia_und_param.wig_build[:4] == 'main':
-                    rad.ObjAddToCnt(und, [mag_main_ext_1, mag_ext]) # main
-                elif self.radia_und_param.wig_build[:4] == 'side':
-                    rad.ObjAddToCnt(und, [mag_side_ext_1]) # side
-                elif self.radia_und_param.wig_build[:4] == 'pole':
-                    rad.ObjAddToCnt(und, [pole_ext_1]) # pole
                 elif self.radia_und_param.wig_build[:9] == 'side_pole':
                     rad.ObjAddToCnt(und, [mag_side_ext_1, pole_ext_1]) # side & pole
                 elif self.radia_und_param.wig_build[:9] == 'main_pole':
                     rad.ObjAddToCnt(und, [mag_main_ext_1, mag_ext, pole_ext_1]) # main & pole
                 elif self.radia_und_param.wig_build[:9] == 'main_side':
                     rad.ObjAddToCnt(und, [mag_main_ext_1, mag_ext, mag_side_ext_1]) # main & side
+                elif self.radia_und_param.wig_build[:4] == 'main':
+                    rad.ObjAddToCnt(und, [mag_main_ext_1, mag_ext]) # main
+                elif self.radia_und_param.wig_build[:4] == 'side':
+                    rad.ObjAddToCnt(und, [mag_side_ext_1]) # side
+                elif self.radia_und_param.wig_build[:4] == 'pole':
+                    rad.ObjAddToCnt(und, [pole_ext_1]) # pole
+
         elif n_poles % 2 == 0:
             n_half_poles = int(n_poles / 2)
             for k in range(n_half_poles):
@@ -1254,18 +1257,19 @@ class HybridWiggler(Undulator):
                 if self.radia_und_param.wig_build[:4] == 'full':
                     rad.ObjAddToCnt(und, [mag_0, mag_1, mag_side_0, pole_0]) # full
                     rad.ObjAddToCnt(und_frc, [pole_0]) # und_frc
-                elif self.radia_und_param.wig_build[:4] == 'main':
-                    rad.ObjAddToCnt(und, [mag_0, mag_1]) # main
-                elif self.radia_und_param.wig_build[:4] == 'side':
-                    rad.ObjAddToCnt(und, [mag_side_0]) # side
-                elif self.radia_und_param.wig_build[:4] == 'pole':
-                    rad.ObjAddToCnt(und, [pole_0]) # pole
                 elif self.radia_und_param.wig_build[:9] == 'side_pole':
                     rad.ObjAddToCnt(und, [mag_side_0, pole_0]) # side & pole
                 elif self.radia_und_param.wig_build[:9] == 'main_pole':
                     rad.ObjAddToCnt(und, [mag_0, mag_1, pole_0]) # main & pole
                 elif self.radia_und_param.wig_build[:9] == 'main_side':
                     rad.ObjAddToCnt(und, [mag_0, mag_1, mag_side_0]) # main & side
+                elif self.radia_und_param.wig_build[:4] == 'main':
+                    rad.ObjAddToCnt(und, [mag_0, mag_1]) # main
+                elif self.radia_und_param.wig_build[:4] == 'side':
+                    rad.ObjAddToCnt(und, [mag_side_0]) # side
+                elif self.radia_und_param.wig_build[:4] == 'pole':
+                    rad.ObjAddToCnt(und, [pole_0]) # pole
+
             # --- Undulator extremity
             mag_main_ext_1 = self.build_block_main(1, n_half_poles) # Last 2 standard magnet
             mag_side_ext_1 = self.build_block_side_ext(1) # Extremity side magnet block
@@ -1277,18 +1281,19 @@ class HybridWiggler(Undulator):
                 #pass
                 rad.ObjAddToCnt(und, [mag_main_ext_1, mag_side_ext_1, pole_ext_1, mag_ext]) # full
                 rad.ObjAddToCnt(und_frc, [pole_ext_1]) # und_frc
-            elif self.radia_und_param.wig_build[:4] == 'main':
-                rad.ObjAddToCnt(und, [mag_main_ext_1, mag_ext]) # main
-            elif self.radia_und_param.wig_build[:4] == 'side':
-                rad.ObjAddToCnt(und, [mag_side_ext_1]) # side
-            elif self.radia_und_param.wig_build[:4] == 'pole':
-                rad.ObjAddToCnt(und, [pole_ext_1]) # pole
             elif self.radia_und_param.wig_build[:9] == 'side_pole':
                 rad.ObjAddToCnt(und, [mag_side_ext_1, pole_ext_1]) # side & pole
             elif self.radia_und_param.wig_build[:9] == 'main_pole':
                 rad.ObjAddToCnt(und, [mag_main_ext_1, mag_ext, pole_ext_1]) # main & pole
             elif self.radia_und_param.wig_build[:9] == 'main_side':
                 rad.ObjAddToCnt(und, [mag_main_ext_1, mag_ext, mag_side_ext_1]) # main & side
+            elif self.radia_und_param.wig_build[:4] == 'main':
+                rad.ObjAddToCnt(und, [mag_main_ext_1, mag_ext]) # main
+            elif self.radia_und_param.wig_build[:4] == 'side':
+                rad.ObjAddToCnt(und, [mag_side_ext_1]) # side
+            elif self.radia_und_param.wig_build[:4] == 'pole':
+                rad.ObjAddToCnt(und, [pole_ext_1]) # pole
+
         else:
             n_half_poles = int((n_poles - 1) / 2)
             for k in range(n_half_poles):
@@ -1303,18 +1308,19 @@ class HybridWiggler(Undulator):
                 if self.radia_und_param.wig_build[:4] == 'full':
                     rad.ObjAddToCnt(und, [mag_0, mag_1, mag_side_0, mag_side_1, pole_0, pole_1]) # full
                     rad.ObjAddToCnt(und_frc, [pole_0, pole_1]) # und_frc
-                elif self.radia_und_param.wig_build[:4] == 'main':
-                    rad.ObjAddToCnt(und, [mag_0, mag_1]) # main
-                elif self.radia_und_param.wig_build[:4] == 'side':
-                    rad.ObjAddToCnt(und, [mag_side_0, mag_side_1]) # side
-                elif self.radia_und_param.wig_build[:4] == 'pole':
-                    rad.ObjAddToCnt(und, [pole_0, pole_1]) # pole
                 elif self.radia_und_param.wig_build[:9] == 'side_pole':
                     rad.ObjAddToCnt(und, [mag_side_0, mag_side_1, pole_0, pole_1]) # side & pole
                 elif self.radia_und_param.wig_build[:9] == 'main_pole':
                     rad.ObjAddToCnt(und, [mag_0, mag_1, pole_0, pole_1]) # main & pole
                 elif self.radia_und_param.wig_build[:9] == 'main_side':
                     rad.ObjAddToCnt(und, [mag_0, mag_1, mag_side_0, mag_side_1]) # main & side
+                elif self.radia_und_param.wig_build[:4] == 'main':
+                    rad.ObjAddToCnt(und, [mag_0, mag_1]) # main
+                elif self.radia_und_param.wig_build[:4] == 'side':
+                    rad.ObjAddToCnt(und, [mag_side_0, mag_side_1]) # side
+                elif self.radia_und_param.wig_build[:4] == 'pole':
+                    rad.ObjAddToCnt(und, [pole_0, pole_1]) # pole
+
             # --- Undulator extremity
             mag_main_ext_0 = self.build_block_main(0, n_half_poles) # Last 1 standard magnet
             mag_main_ext_1 = self.build_block_main(1, n_half_poles) # Last 2 standard magnet
@@ -1328,18 +1334,18 @@ class HybridWiggler(Undulator):
             if self.radia_und_param.wig_build[:4] == 'full':
                 rad.ObjAddToCnt(und, [mag_main_ext_0, mag_main_ext_1, mag_side_ext_0, mag_side_ext_1, pole_ext_0, pole_ext_1, mag_ext]) # full
                 rad.ObjAddToCnt(und_frc, [pole_ext_0, pole_ext_1]) # und_frc
-            elif self.radia_und_param.wig_build[:4] == 'main':
-                rad.ObjAddToCnt(und, [mag_main_ext_0, mag_main_ext_1, mag_ext]) # main
-            elif self.radia_und_param.wig_build[:4] == 'side':
-                rad.ObjAddToCnt(und, [mag_side_ext_0, mag_side_ext_1]) # side
-            elif self.radia_und_param.wig_build[:4] == 'pole':
-                rad.ObjAddToCnt(und, [pole_ext_0, pole_ext_1]) # pole
             elif self.radia_und_param.wig_build[:9] == 'side_pole':
                 rad.ObjAddToCnt(und, [mag_side_ext_0, mag_side_ext_1, pole_ext_0, pole_ext_1]) # side & pole
             elif self.radia_und_param.wig_build[:9] == 'main_pole':
                 rad.ObjAddToCnt(und, [mag_main_ext_0, mag_main_ext_1, mag_ext, pole_ext_0, pole_ext_1]) # main & pole
             elif self.radia_und_param.wig_build[:9] == 'main_side':
                 rad.ObjAddToCnt(und, [mag_main_ext_0, mag_main_ext_1, mag_ext, mag_side_ext_0, mag_side_ext_1]) # main & side
+            elif self.radia_und_param.wig_build[:4] == 'main':
+                rad.ObjAddToCnt(und, [mag_main_ext_0, mag_main_ext_1, mag_ext]) # main
+            elif self.radia_und_param.wig_build[:4] == 'side':
+                rad.ObjAddToCnt(und, [mag_side_ext_0, mag_side_ext_1]) # side
+            elif self.radia_und_param.wig_build[:4] == 'pole':
+                rad.ObjAddToCnt(und, [pole_ext_0, pole_ext_1]) # pole
 
         # --- Move to the specified gap
         if n_poles >= 0:
