@@ -1,6 +1,6 @@
-MPW simulation is based on the design of MPW at BL1 in SPL (SLRI, Thailand). However, the MPW was designed, contructed, and donated by the ASTeC, UK.
+MPW simulation is based on the design of MPW at BL1 in SPL (SLRI, Thailand). However, the MPW was designed, constructed, and donated by the ASTeC, UK.
 
-Optimizing parameters are required to initialize the parameters prior to rerun the different optimization.
+Optimizing parameters are required to initialize the parameters prior to rerunning the different optimization.
 
 Environment: Wolfram Mathematica 13.0.0.0 on Windows 10, Radia version 4.31
 
@@ -8,10 +8,13 @@ Rev. 20220926
 Eample#3mpw_noc.nb represents the MPW mode without pole chamfers, and export data in text for field, field integral, and trajectories.
 
 Rev. 20221012
-Eample#3mpw_noc.nb exports data files to plot in the software. Igor procedure is uploaded for 3D magnetic vector in gizmo plot.
+Eample#3mpw_noc.nb exports data files to plot in the software. Igor procedure is uploaded for a 3D magnetic vector in a gizmo plot.
 
 Rev. 20221018
-Eample#3mpw_noc.nb exports VTK files on geometry and magnetization field vector.
+Eample#3mpw_noc.nb exports VTK files on geometry and magnetization field vectors.
 
 Rev. 20221118
 Eample#3mpw_noc_pgn.nb can make the side chamfers on magnets based on the pgn instead of rtg.
+
+Rev. 20230815
+Eample#3mpw_noc_pgn_nos.nb can build the magnet arrays without side magnets, which enables us to set up the same width in pole and magnet. The misalignment of magnetization can also be set up.
