@@ -4,18 +4,16 @@ import sys
 #sys.path.append('../PyRadia/RadiaUtils/')# Magnetic materials, Radia export functions, etc.
 
 # Import the radia_id module
-import radia_id_mpw_hyb as rid
+import radia_id_mpw_hyb_vac79sd as rid
 import pyvista as pv
-import numpy as np
-import matplotlib.pyplot as plt
 
 build = 'full'
 # full, main, side, pole, side_pole, main_pole, main_side
 # full_half makes upper array
 
 # Main undulator parameters
-period = 220 # Undulator period (mm)
-gap = 20 # Udulator gap (mm)
+period = 230 # Undulator period (mm)
+gap = 15 # Udulator gap (mm)
 #n_periods = 4 # Number of periods
 n_poles = 5 # Number of poles
 
@@ -47,7 +45,7 @@ und.print_wavelength(e=1.2, n=1, theta=0)
 und.save(fileName) # save parameters and model
 # Save VTK
 und.exportGeometryToVTK(fileName)
-"""
+
 # Plot geometry
 if sys.platform == "win32":
     und.plot_geo('EdgeLines->True')
@@ -56,15 +54,16 @@ else:
     # Plot VTK by PyVISTA
     grid = pv.read(fileName+'.vtk')
     grid.plot(cmap='viridis',show_scalar_bar=False,show_axes=False,show_edges=True,window_size = [1000, 580],lighting=True,component=1)
-"""
-"""
+
 # Plot results (need to plot geometry above)
-#und.plot_field(xyz_end=[0, 1000, 0], xyz_start=[0, -1000, 0], n=1000, b='bz', x_axis='d', plot_show=True, plot_title='field_y')
+und.plot_field(xyz_end=[0, 1000, 0], xyz_start=[0, -1000, 0], n=1000, b='bz', x_axis='d', plot_show=True, plot_title='field_y')
+"""
 # Plot 3D vector field by pyvista
 #und.plot_vector_field(-100,101,5,-200,201,5,-15,16,5,3,plot_save=True, plot_title=fileName)
 #und.plot_field([50, 0, 0], [-50, 0, 0], n=1000, b='bz', x_axis='d', plot_show=True, plot_title='field_x')
 #und.plot_field_int(xyz_end=[50, 0, 0], xyz_start=[-50, 0, 0], dir_int=[0, 1, 0], n=1000, b='bz', x_axis='d', plot_show=True, plot_title='field_int')
 """
+# und.plot_traj(e=1.2, init_cond=[0, 0, 0, 0], y_range=None, n_points=1000, x_or_z='x', plot_show=True, plot_title='traj_y')
 """
 und.plot_field(xyz_end=[0, 1000, 0], xyz_start=[0, -1000, 0], n=1000, b='bz', x_axis='d', plot_show=True, plot_title='field_y')
 und.plot_field([50, 0, 0], [-50, 0, 0], n=1000, b='bz', x_axis='d', plot_show=True, plot_title='field_x')
@@ -83,24 +82,4 @@ for gap in [800,400,200,150,110,90,70,50,40,30,25,20,15,10,5,3]:
     params = rid.HybridWigParam(period, n_poles, gap, mag_mat='ndfeb', br=1.29, wig_build=build)
     und = rid.HybridWiggler(params)
     und.force2(k=[1,1,2])
-"""
-"""
-# optimization
-Bmax=[]
-pw=np.linspace(5, 80, 20)
-for p in range(len(pw)):
-    pole_width = pw[p]
-    params = rid.HybridWigParam(period, n_poles, gap, pole_width, mag_mat='ndfeb', br=1.29, wig_build=build)
-    und = rid.HybridWiggler(params)
-    Bmax = np.append(Bmax, und.wavelength()[3])
-    print(pole_width, und.wavelength()[3])
-
-# plot Bmax vs Pole width
-plt.figure(figsize=(7,4.3))
-plt.plot(pw, Bmax, linewidth = 2.0)
-plt.title(r'maximum $B$ field versus pole width')
-plt.xlabel('pole width $w$ / mm')
-plt.ylabel('$B_\text{max}$ / T')
-plt.grid()
-plt.show()
 """
