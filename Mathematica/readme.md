@@ -17,4 +17,9 @@ Rev. 20221118
 Eample#3mpw_noc_pgn.nb can make the side chamfers on magnets based on the pgn instead of rtg.
 
 Rev. 20230815
-Eample#3mpw_noc_pgn_nos.nb can build the magnet arrays without side magnets, which enables us to set up the same width in pole and magnet. The misalignment of magnetization can also be set up.
+Eample#3mpw_noc_pgn_nos.nb can build the magnet arrays without side magnets, which enables us to set up the same width in pole and magnet. The uniform misalignment of magnetization can also be set up, but the symmetrical translation canceled the misalignment.
+
+Rev. 20230821
+Eample#3mpw_noc_rtg_nos.nb is based on the rtg instead of png without side magnets. The randomized misalignment of magnetization is implemented without symmetrical translation. std = 0 makes ideal magnetization, and std <> 0 results in the misorientation of magnetization in the standard deviation of sdr (fractional percentage) and sdt (degrees) in magnetization amplitude (y direction) and angle (theta), respectively. Phi angle is uniformly randomized around the magnetization direction.
+
+
