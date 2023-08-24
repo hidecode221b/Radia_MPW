@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[    219102,       4222]
-NotebookOptionsPosition[    210867,       4048]
-NotebookOutlinePosition[    212049,       4092]
-CellTagsIndexPosition[    212006,       4089]
+NotebookDataLength[    176408,       3231]
+NotebookOptionsPosition[    168176,       3057]
+NotebookOutlinePosition[    169362,       3101]
+CellTagsIndexPosition[    169319,       3098]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -21,14 +21,14 @@ Notebook[{
 Cell[TextData[{
  " ",
  StyleBox["Example # 3 : Generic Hybrid Undulator/Wiggler (no side magnet, M \
-misalignment, rtg)",
+misalignment, rtg, for)",
   FontSize->24]
 }], "Title",
  Evaluatable->False,
  CellChangeTimes->{{3.8522690276706476`*^9, 3.852269055214794*^9}, {
    3.901068508732941*^9, 3.9010685179091578`*^9}, {3.901068707550649*^9, 
    3.9010687164057674`*^9}, 3.9010691793251657`*^9, {3.9015781296685805`*^9, 
-   3.9015781315625725`*^9}},
+   3.9015781315625725`*^9}, {3.9018531324445996`*^9, 3.9018531332592044`*^9}},
  AspectRatioFixed->
   True,ExpressionUUID->"80f95f21-688f-466a-be74-1c788a5280bc"],
 
@@ -185,7 +185,8 @@ AxesLabel->{\"H [Tesla]\",\"Mag [Tesla]\"}]\n\nmp=",
  CellChangeTimes->{{3.6700863622205486`*^9, 3.6700863679301586`*^9}, {
    3.6700864088334303`*^9, 3.670086412078236*^9}, {3.8495772906656523`*^9, 
    3.8495773035543327`*^9}, 3.849577391661707*^9},
- CellLabel->"In[4]:=",ExpressionUUID->"dc1242ef-4d98-4bd0-ab04-28bea0ccd1bc"]
+ CellLabel->
+  "In[261]:=",ExpressionUUID->"dc1242ef-4d98-4bd0-ab04-28bea0ccd1bc"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -227,20 +228,18 @@ optimizing the design of terminations).",
   True,ExpressionUUID->"e745422a-8ea8-4e90-9e99-c52555fec598"],
 
 Cell[TextData[{
- "wig[]:=Module[{},\n\n(* A model for odd numbers in main poles *)\n\n",
- StyleBox["(* up side arrays in positive y axis \"p\" *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\n\n",
+ "wig[]:=Module[{},\n\n(* A model for odd numbers in main poles *)\n(* array \
+for up and down in z *)\nFor[array=1,array>=-1,array-=2,(\n\n",
  StyleBox["(* First Principal Pole p *)",
   FontColor->RGBColor[0, 0, 1]],
- "\ny=0;\n\
-p1={{0,y-chp[[2]]/2,sp[[3]]+gapoffset},{lp[[1]]-2*chp[[1]],lp[[2]]-2*chp[[2]]}\
-};\np2={{0,y,chp[[3]]+sp[[3]]+gapoffset},{lp[[1]],lp[[2]]}};\n\
-p3={{0,y,lp[[3]]+sp[[3]]+gapoffset},{lp[[1]],lp[[2]]}};\npole0=",
+ "\np1={{0,0,array*(sp[[3]]+gapoffset)},{lp[[1]]-2*chp[[1]],lp[[2]]-2*chp[[2]]\
+}};\np2={{0,0,array*(chp[[3]]+sp[[3]]+gapoffset)},{lp[[1]],lp[[2]]}};\n\
+p3={{0,0,array*(lp[[3]]+sp[[3]]+gapoffset)},{lp[[1]],lp[[2]]}};\npole0=",
  StyleBox["radObjMltExtRtg",
   FontColor->RGBColor[1, 0, 0]],
  "[{p1,p2,p3},zer];\nnpd={np[[2]],np[[2]],np[[1]]};\n\
-fullMag[pole0,npd,cp,mp];\ny+=lp[[2]]/2;\n\nFor[i=1,i<=NumPer,i++,(\n",
+fullMag[pole0,npd,cp,mp];\n\n(* side for positive and negative in y *)\n\
+For[side=1,side>=-1,side-=2,(\ny=lp[[2]]/2;\n\nFor[i=1,i<=NumPer,i++,(\n",
  StyleBox["(* Random generator 1p *)",
   FontColor->RGBColor[0, 0, 1]],
  StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
@@ -260,10 +259,12 @@ Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
   FontColor->GrayLevel[0]],
  StyleBox["(* Periodic Magnet 1p *)",
   FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[i,2]-Mod[i+1,2]),ms[[3]]};\ny+=sp[[2]];\n\
-z1={{0,y+lm[[2]]/4,sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y+lm[[2]]/4,chmk+sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y+lm[[2]]/4,lm[[3]]+sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnetP1=",
+ "\ninitm={ms[[1]],side*array*ms[[2]]*(Mod[i,2]-Mod[i+1,2]),ms[[3]]};\n\
+y+=sp[[2]];\n\
+z1={{0,side*(y+lm[[2]]/4),array*(sp[[3]])},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
+z2={{0,side*(y+lm[[2]]/4),array*(chmk+sp[[3]])},{lm[[1]],lm[[2]]/2}};\n\
+z3={{0,side*(y+lm[[2]]/4),array*(lm[[3]]+sp[[3]])},{lm[[1]],lm[[2]]/2}};\n\
+magnetP1=",
  StyleBox["radObjMltExtRtg",
   FontColor->RGBColor[1, 0, 0]],
  "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
@@ -288,12 +289,13 @@ Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
  "\n",
  StyleBox["(* Periodic Magnet 2p *)\n",
   FontColor->RGBColor[0, 0, 1]],
- StyleBox["initm={ms[[1]],ms[[2]]*(Mod[i,2]-Mod[i+1,2]),ms[[3]]};",
+ StyleBox["initm={ms[[1]],side*array*ms[[2]]*(Mod[i,2]-Mod[i+1,2]),ms[[3]]};",
   FontColor->GrayLevel[0]],
  "\ny+=lm[[2]]/4+sp[[2]];\n\
-z1={{0,y+lm[[2]]/4,sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y+lm[[2]]/4,chmk+sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y+lm[[2]]/4,lm[[3]]+sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnetP2=",
+z1={{0,side*(y+lm[[2]]/4),array*(sp[[3]])},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
+z2={{0,side*(y+lm[[2]]/4),array*(chmk+sp[[3]])},{lm[[1]],lm[[2]]/2}};\n\
+z3={{0,side*(y+lm[[2]]/4),array*(lm[[3]]+sp[[3]])},{lm[[1]],lm[[2]]/2}};\n\
+magnetP2=",
  StyleBox["radObjMltExtRtg",
   FontColor->RGBColor[1, 0, 0]],
  "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
@@ -301,25 +303,26 @@ fullMag[magnetP2,nmd,cm,mm];\ny+=lm[[2]]/4;\n\n",
  StyleBox["(* Periodic Pole p *)",
   FontColor->RGBColor[0, 0, 1]],
  "\ny+=(lm[[2]]/2+lp[[2]])/2+sp[[2]];\n\
-p1={{0,y,sp[[3]]+gapoffset},{lp[[1]]-2*chp[[1]],lp[[2]]-2*chp[[2]]}};\n\
-p2={{0,y,chp[[3]]+sp[[3]]+gapoffset},{lp[[1]],lp[[2]]}};\n\
-p3={{0,y,lp[[3]]+sp[[3]]+gapoffset},{lp[[1]],lp[[2]]}};\npoleP=",
+p1={{0,side*(y),array*(sp[[3]]+gapoffset)},{lp[[1]]-2*chp[[1]],lp[[2]]-2*chp[[\
+2]]}};\np2={{0,side*(y),array*(chp[[3]]+sp[[3]]+gapoffset)},{lp[[1]],lp[[2]]}}\
+;\np3={{0,side*(y),array*(lp[[3]]+sp[[3]]+gapoffset)},{lp[[1]],lp[[2]]}};\n\
+poleP=",
  StyleBox["radObjMltExtRtg",
   FontColor->RGBColor[1, 0, 0]],
  "[{p1,p2,p3},zer];\nnpd={np[[2]],np[[2]],np[[1]]};\n\
-fullMag[poleP,npd,cp,mp];\ny+=lp[[2]]/2;\n\nIf[i==1,magnet1p=",
+fullMag[poleP,npd,cp,mp];\ny+=lp[[2]]/2;\n\nIf[i==1,magnet1=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
  "[{magnetP1,magnetP2}],",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[magnet1p,{magnetP1,magnetP2}]];\nIf[i==1,pole1p=",
+ "[magnet1,{magnetP1,magnetP2}]];\nIf[i==1,pole1=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
  "[{poleP}],",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[pole1p,{poleP}]];\n(*",
+ "[pole1,{poleP}]];\n(*",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
  "[und,{poleP,mangetP1,magnetP2}];*)\n)];\n\n",
@@ -343,10 +346,14 @@ Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
  "\n",
  StyleBox["(* Magnet before End pole p *)",
   FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[NumPer+1,2]-Mod[NumPer,2]),ms[[3]]};\n\
-y+=sp[[2]];\nz1={{0,y+lm[[2]]/4,sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y+lm[[2]]/4,chmk+sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y+lm[[2]]/4,lm[[3]]+sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnet2a=",
+ "\ninitm={ms[[1]],",
+ StyleBox["side*array*",
+  FontColor->GrayLevel[0]],
+ "ms[[2]]*(Mod[NumPer+1,2]-Mod[NumPer,2]),ms[[3]]};\ny+=sp[[2]];\n\
+z1={{0,side*(y+lm[[2]]/4),array*(sp[[3]])},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
+z2={{0,side*(y+lm[[2]]/4),array*(chmk+sp[[3]])},{lm[[1]],lm[[2]]/2}};\n\
+z3={{0,side*(y+lm[[2]]/4),array*(lm[[3]]+sp[[3]])},{lm[[1]],lm[[2]]/2}};\n\
+magnet2a=",
  StyleBox["radObjMltExtRtg",
   FontColor->RGBColor[1, 0, 0]],
  "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
@@ -371,28 +378,33 @@ Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
  "\n",
  StyleBox["(* Magnet before End pole p *)",
   FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[NumPer+1,2]-Mod[NumPer,2]),ms[[3]]};\n\
-y+=lm[[2]]/2+sp[[2]];\n\
-z1={{0,y+lm[[2]]/4,sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y+lm[[2]]/4,chmk+sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y+lm[[2]]/4,lm[[3]]+sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnet2b=",
+ "\ninitm={ms[[1]],",
+ StyleBox["side*array*",
+  FontColor->GrayLevel[0]],
+ "ms[[2]]*(Mod[NumPer+1,2]-Mod[NumPer,2]),ms[[3]]};\ny+=lm[[2]]/2+sp[[2]];\n\
+z1={{0,side*(y+lm[[2]]/4),array*(sp[[3]])},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
+z2={{0,side*(y+lm[[2]]/4),array*(chmk+sp[[3]])},{lm[[1]],lm[[2]]/2}};\n\
+z3={{0,side*(y+lm[[2]]/4),array*(lm[[3]]+sp[[3]])},{lm[[1]],lm[[2]]/2}};\n\
+magnet2b=",
  StyleBox["radObjMltExtRtg",
   FontColor->RGBColor[1, 0, 0]],
  "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnet2b,nmd,cm,mm];\nmagnet2p=",
+fullMag[magnet2b,nmd,cm,mm];\nmagnet2=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
  "[{magnet2a,magnet2b}];\n\n",
  StyleBox["(* End pole p *)",
   FontColor->RGBColor[0, 0, 1]],
  "\ny+=(lm[[2]]+lep[[2]])/2+sp[[2]]+dpm[[1]];\n\
-p1={{0,y,sp[[3]]+gapoffset},{lep[[1]]-2*chp[[1]],lep[[2]]-2*chp[[2]]}};\n\
-p2={{0,y,chp[[3]]+sp[[3]]+gapoffset},{lep[[1]],lep[[2]]}};\n\
-p3={{0,y,lep[[3]]+sp[[3]]+gapoffset},{lep[[1]],lep[[2]]}};\npole2p=",
+p1={{0,side*(y),array*(sp[[3]]+gapoffset)},{lep[[1]]-2*chp[[1]],lep[[2]]-2*\
+chp[[2]]}};\n\
+p2={{0,side*(y),array*(chp[[3]]+sp[[3]]+gapoffset)},{lep[[1]],lep[[2]]}};\n\
+p3={{0,side*(y),array*(lep[[3]]+sp[[3]]+gapoffset)},{lep[[1]],lep[[2]]}};\n\
+pole2=",
  StyleBox["radObjMltExtRtg",
   FontColor->RGBColor[1, 0, 0]],
  "[{p1,p2,p3},zer];\nnpd={np[[2]],np[[2]],np[[1]]};\n\
-fullMag[pole2p,npd,cp,mp];\n\n",
+fullMag[pole2,npd,cp,mp];\n\n",
  StyleBox["(* Random generator 5p *)",
   FontColor->RGBColor[0, 0, 1]],
  StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
@@ -413,663 +425,89 @@ Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
  "\n",
  StyleBox["(* End magnet for half size and unit model p *)",
   FontColor->RGBColor[0, 0, 1]],
- "\nIf[(NumPer!=0)&&(ending==0),initm={ms[[1]],ms[[2]]*(-Mod[NumPer,2]+Mod[\
-NumPer+1,2]),ms[[3]]},initm={ms[[1]],ms[[2]]*(Mod[NumPer,2]-Mod[NumPer+1,2]),\
-ms[[3]]}];\n\
+ "\nIf[(NumPer!=0)&&(ending==0),initm={ms[[1]],",
+ StyleBox["side*array*",
+  FontColor->GrayLevel[0]],
+ "ms[[2]]*(-Mod[NumPer,2]+Mod[NumPer+1,2]),ms[[3]]},initm={ms[[1]],",
+ StyleBox["side*array*",
+  FontColor->GrayLevel[0]],
+ "ms[[2]]*(Mod[NumPer,2]-Mod[NumPer+1,2]),ms[[3]]}];\n\
 If[(NumPer==0)||(ending==0),y+=lep[[2]]/2-lm[[2]]-lep[[2]]-sp[[2]]-dpm[[1]],y+\
 =lep[[2]]/2+sp[[2]]+dpm[[2]]];\nIf[(NumPer==0),y-=sp[[2]],y];\n\
-z1={{0,y+lm[[2]]/4,sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y+lm[[2]]/4,chmk+sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y+lm[[2]]/4,lm[[3]]+sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagEndp=",
+z1={{0,side*(y+lm[[2]]/4),array*(sp[[3]])},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
+z2={{0,side*(y+lm[[2]]/4),array*(chmk+sp[[3]])},{lm[[1]],lm[[2]]/2}};\n\
+z3={{0,side*(y+lm[[2]]/4),array*(lm[[3]]+sp[[3]])},{lm[[1]],lm[[2]]/2}};\n\
+magEnd=",
  StyleBox["radObjMltExtRtg",
   FontColor->RGBColor[1, 0, 0]],
  "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magEndp,nmd,cm,mm];\n\n",
- StyleBox["(* up side arrays in negative y axis \"n\" *)\n",
-  FontColor->RGBColor[0, 0, 1]],
- "\ny=-lp[[2]]/2;\nFor[i=1,i<=NumPer,i++,(\n",
- StyleBox["(* Random generator 1n *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians a\",i,\" (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)\n",
-  FontColor->GrayLevel[0]],
- StyleBox["(* Periodic Magnet 1n *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[i+1,2]-Mod[i,2]),ms[[3]]};\ny-=sp[[2]];\n\
-z1={{0,y-lm[[2]]/4,sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y-lm[[2]]/4,chmk+sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y-lm[[2]]/4,lm[[3]]+sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnetP1=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnetP1,nmd,cm,mm];\ny-=lm[[2]]/4;\n\n",
- StyleBox["(* Random generator 2n *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians b\",i,\" (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* Periodic Magnet 2n *)\n",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["initm={ms[[1]],ms[[2]]*(Mod[i+1,2]-Mod[i,2]),ms[[3]]};",
-  FontColor->GrayLevel[0]],
- "\ny-=lm[[2]]/4+sp[[2]];\n\
-z1={{0,y-lm[[2]]/4,sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y-lm[[2]]/4,chmk+sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y-lm[[2]]/4,lm[[3]]+sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnetP2=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnetP2,nmd,cm,mm];\ny-=lm[[2]]/4;\n\n",
- StyleBox["(* Periodic Pole n *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ny-=(lm[[2]]/2+lp[[2]])/2+sp[[2]];\n\
-p1={{0,y,sp[[3]]+gapoffset},{lp[[1]]-2*chp[[1]],lp[[2]]-2*chp[[2]]}};\n\
-p2={{0,y,chp[[3]]+sp[[3]]+gapoffset},{lp[[1]],lp[[2]]}};\n\
-p3={{0,y,lp[[3]]+sp[[3]]+gapoffset},{lp[[1]],lp[[2]]}};\npoleP=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{p1,p2,p3},zer];\nnpd={np[[2]],np[[2]],np[[1]]};\n\
-fullMag[poleP,npd,cp,mp];\ny-=lp[[2]]/2;\n\nIf[i==1,magnet1n=",
+fullMag[magEnd,nmd,cm,mm];\n\nIf[(NumPer==0),If[(side==1 && array==1),magnet=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[{magnetP1,magnetP2}],",
+ "[{magEnd}],",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[magnet1n,{magnetP1,magnetP2}]];\nIf[i==1,pole1n=",
+ "[magnet,{magEnd}]],If[(side==1 && array==1),magnet=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[{poleP}],",
+ "[{magnet1,magnet2,magEnd}],",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[pole1n,{poleP}]];\n(*",
- StyleBox["radObjAddToCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[und,{poleP,mangetP1,magnetP2}];*)\n)];\n\n",
- StyleBox["(* Random generator 3n *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians before end1 (\",r,\", \",theta,\
-\", \",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* Magnet before End pole n *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[NumPer,2]-Mod[NumPer+1,2]),ms[[3]]};\n\
-y-=sp[[2]];\nz1={{0,y-lm[[2]]/4,sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y-lm[[2]]/4,chmk+sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y-lm[[2]]/4,lm[[3]]+sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnet2a=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnet2a,nmd,cm,mm];\n\n",
- StyleBox["(* Random generator 4n *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians before end2 (\",r,\", \",theta,\
-\", \",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* Magnet before End pole n *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[NumPer,2]-Mod[NumPer+1,2]),ms[[3]]};\n\
-y-=lm[[2]]/2+sp[[2]];\n\
-z1={{0,y-lm[[2]]/4,sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y-lm[[2]]/4,chmk+sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y-lm[[2]]/4,lm[[3]]+sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnet2b=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnet2b,nmd,cm,mm];\nmagnet2n=",
+ "[magnet,{magnet1,magnet2,magEnd}]]];\nIf[(NumPer==0),If[(side==1 && \
+array==1),pole=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[{magnet2a,magnet2b}];\n\n",
- StyleBox["(* End pole n *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ny-=(lm[[2]]+lep[[2]])/2+sp[[2]]+dpm[[1]];\n\
-p1={{0,y,sp[[3]]+gapoffset},{lep[[1]]-2*chp[[1]],lep[[2]]-2*chp[[2]]}};\n\
-p2={{0,y,chp[[3]]+sp[[3]]+gapoffset},{lep[[1]],lep[[2]]}};\n\
-p3={{0,y,lep[[3]]+sp[[3]]+gapoffset},{lep[[1]],lep[[2]]}};\npole2n=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{p1,p2,p3},zer];\nnpd={np[[2]],np[[2]],np[[1]]};\n\
-fullMag[pole2n,npd,cp,mp];\n\n",
- StyleBox["(* Random generator 5n *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians end (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* End magnet for half size and unit model n *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\nIf[(NumPer!=0)&&(ending==0),initm={ms[[1]],ms[[2]]*(Mod[NumPer,2]-Mod[\
-NumPer+1,2]),ms[[3]]},initm={ms[[1]],ms[[2]]*(Mod[NumPer+1,2]-Mod[NumPer,2]),\
-ms[[3]]}];\n\
-If[(NumPer==0)||(ending==0),y-=lep[[2]]/2-lm[[2]]-lep[[2]]-sp[[2]]-dpm[[1]],y-\
-=lep[[2]]/2+sp[[2]]+dpm[[2]]];\nIf[(NumPer==0),y+=sp[[2]],y];\n\
-z1={{0,y-lm[[2]]/4,sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y-lm[[2]]/4,chmk+sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y-lm[[2]]/4,lm[[3]]+sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagEndn=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magEndn,nmd,cm,mm];\n\n",
- StyleBox["(* bottom side arrays \"d\" in positive y axis \"p\" *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\n\n",
- StyleBox["(* First Principal Pole *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ny=0;\n\
-p1={{0,y-chp[[2]]/2,-sp[[3]]-gapoffset},{lp[[1]]-2*chp[[1]],lp[[2]]-2*chp[[2]]\
-}};\np2={{0,y,-chp[[3]]-sp[[3]]-gapoffset},{lp[[1]],lp[[2]]}};\n\
-p3={{0,y,-lp[[3]]-sp[[3]]-gapoffset},{lp[[1]],lp[[2]]}};\npole0d=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{p1,p2,p3},zer];\nnpd={np[[2]],np[[2]],np[[1]]};\n\
-fullMag[pole0d,npd,cp,mp];\ny+=lp[[2]]/2;\n\nFor[i=1,i<=NumPer,i++,(\n",
- StyleBox["(* Random generator 1p *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians a\",i,\" (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)\n",
-  FontColor->GrayLevel[0]],
- StyleBox["(* Periodic Magnet 1p *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[i+1,2]-Mod[i,2]),ms[[3]]};\ny+=sp[[2]];\n\
-z1={{0,y+lm[[2]]/4,-sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y+lm[[2]]/4,-chmk-sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y+lm[[2]]/4,-lm[[3]]-sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnetP1=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnetP1,nmd,cm,mm];\ny+=lm[[2]]/4;\n\n",
- StyleBox["(* Random generator 2p *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians b\",i,\" (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* Periodic Magnet 2p *)\n",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["initm={ms[[1]],ms[[2]]*(Mod[i+1,2]-Mod[i,2]),ms[[3]]};",
-  FontColor->GrayLevel[0]],
- "\ny+=lm[[2]]/4+sp[[2]];\n\
-z1={{0,y+lm[[2]]/4,-sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y+lm[[2]]/4,-chmk-sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y+lm[[2]]/4,-lm[[3]]-sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnetP2=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnetP2,nmd,cm,mm];\ny+=lm[[2]]/4;\n\n",
- StyleBox["(* Periodic Pole p *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ny+=(lm[[2]]/2+lp[[2]])/2+sp[[2]];\n\
-p1={{0,y,-sp[[3]]-gapoffset},{lp[[1]]-2*chp[[1]],lp[[2]]-2*chp[[2]]}};\n\
-p2={{0,y,-chp[[3]]-sp[[3]]-gapoffset},{lp[[1]],lp[[2]]}};\n\
-p3={{0,y,-lp[[3]]-sp[[3]]-gapoffset},{lp[[1]],lp[[2]]}};\npoleP=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{p1,p2,p3},zer];\nnpd={np[[2]],np[[2]],np[[1]]};\n\
-fullMag[poleP,npd,cp,mp];\ny+=lp[[2]]/2;\n\nIf[i==1,magnet1pd=",
- StyleBox["radObjCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[{magnetP1,magnetP2}],",
+ "[{pole0}],",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[magnet1pd,{magnetP1,magnetP2}]];\nIf[i==1,pole1pd=",
+ "[pole,{pole0}]],If[(array==1),If[side==1,pole=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[{poleP}],",
+ "[{pole0,pole1,pole2}],",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[pole1pd,{poleP}]];\n(*",
+ "[pole,{pole1,pole2}]],If[side==1,",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[und,{poleP,mangetP1,magnetP2}];*)\n)];\n\n",
- StyleBox["(* Random generator 3p *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
+ "[pole,{pole0,pole1,pole2}],",
+ StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians before end1 (\",r,\", \",theta,\
-\", \",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* Magnet before End pole p *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[NumPer,2]-Mod[NumPer+1,2]),ms[[3]]};\n\
-y+=sp[[2]];\nz1={{0,y+lm[[2]]/4,-sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y+lm[[2]]/4,-chmk-sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y+lm[[2]]/4,-lm[[3]]-sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnet2a=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnet2a,nmd,cm,mm];\n\n",
- StyleBox["(* Random generator 4p *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians before end2 (\",r,\", \",theta,\
-\", \",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* Magnet before End pole p *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[NumPer,2]-Mod[NumPer+1,2]),ms[[3]]};\n\
-y+=lm[[2]]/2+sp[[2]];\n\
-z1={{0,y+lm[[2]]/4,-sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y+lm[[2]]/4,-chmk-sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y+lm[[2]]/4,-lm[[3]]-sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnet2b=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnet2bpd,nmd,cm,mm];\nmagnet2pd=",
+ "[pole,{pole1,pole2}]]]];\nIf[(NumPer==0),poleF=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[{magnet2a,magnet2b}];\n\n",
- StyleBox["(* End pole p *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ny+=(lm[[2]]+lep[[2]])/2+sp[[2]]+dpm[[1]];\n\
-p1={{0,y,-sp[[3]]-gapoffset},{lep[[1]]-2*chp[[1]],lep[[2]]-2*chp[[2]]}};\n\
-p2={{0,y,-chp[[3]]-sp[[3]]-gapoffset},{lep[[1]],lep[[2]]}};\n\
-p3={{0,y,-lep[[3]]-sp[[3]]-gapoffset},{lep[[1]],lep[[2]]}};\npole2pd=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{p1,p2,p3},zer];\nnpd={np[[2]],np[[2]],np[[1]]};\n\
-fullMag[pole2pd,npd,cp,mp];\n\n",
- StyleBox["(* Random generator 5p *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians end (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* End magnet for half size and unit model p *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\nIf[(NumPer!=0)&&(ending==0),initm={ms[[1]],ms[[2]]*(Mod[NumPer,2]-Mod[\
-NumPer+1,2]),ms[[3]]},initm={ms[[1]],ms[[2]]*(Mod[NumPer+1,2]-Mod[NumPer,2]),\
-ms[[3]]}];\n\
-If[(NumPer==0)||(ending==0),y+=lep[[2]]/2-lm[[2]]-lep[[2]]-sp[[2]]-dpm[[1]],y+\
-=lep[[2]]/2+sp[[2]]+dpm[[2]]];\nIf[(NumPer==0),y-=sp[[2]],y];\n\
-z1={{0,y+lm[[2]]/4,-sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y+lm[[2]]/4,-chmk-sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y+lm[[2]]/4,-lm[[3]]-sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagEndpd=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magEndpd,nmd,cm,mm];\n\n",
- StyleBox["(* bottom side arrays \"d\" in negative y axis \"n\" *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\n\ny=-lp[[2]]/2;\nFor[i=1,i<=NumPer,i++,(\n",
- StyleBox["(* Random generator 1n *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians a\",i,\" (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)\n",
-  FontColor->GrayLevel[0]],
- StyleBox["(* Periodic Magnet 1n *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[i,2]-Mod[i+1,2]),ms[[3]]};\ny-=sp[[2]];\n\
-z1={{0,y-lm[[2]]/4,-sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y-lm[[2]]/4,-chmk-sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y-lm[[2]]/4,-lm[[3]]-sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnetP1=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnetP1,nmd,cm,mm];\ny-=lm[[2]]/4;\n\n",
- StyleBox["(* Random generator 2n *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians b\",i,\" (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* Periodic Magnet 2n *)\n",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["initm={ms[[1]],ms[[2]]*(Mod[i,2]-Mod[i+1,2]),ms[[3]]};",
-  FontColor->GrayLevel[0]],
- "\ny-=lm[[2]]/4+sp[[2]];\n\
-z1={{0,y-lm[[2]]/4,-sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y-lm[[2]]/4,-chmk-sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y-lm[[2]]/4,-lm[[3]]-sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnetP2=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnetP2,nmd,cm,mm];\ny-=lm[[2]]/4;\n\n",
- StyleBox["(* Periodic Pole n *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ny-=(lm[[2]]/2+lp[[2]])/2+sp[[2]];\n\
-p1={{0,y,-sp[[3]]-gapoffset},{lp[[1]]-2*chp[[1]],lp[[2]]-2*chp[[2]]}};\n\
-p2={{0,y,-chp[[3]]-sp[[3]]-gapoffset},{lp[[1]],lp[[2]]}};\n\
-p3={{0,y,-lp[[3]]-sp[[3]]-gapoffset},{lp[[1]],lp[[2]]}};\npoleP=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{p1,p2,p3},zer];\nnpd={np[[2]],np[[2]],np[[1]]};\n\
-fullMag[poleP,npd,cp,mp];\ny-=lp[[2]]/2;\n\nIf[i==1,magnet1nd=",
+ "[{pole0}],If[(array==1),If[side==1,poleF=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[{magnetP1,magnetP2}],",
+ "[{pole0,pole1,pole2}],",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[magnet1nd,{magnetP1,magnetP2}]];\nIf[i==1,pole1nd=",
+ "[poleF,{pole1,pole2}]]]];\nIf[(NumPer==0),If[(side==1 && array==1),und=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[{poleP}],",
+ "[{pole0}],",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[pole1nd,{poleP}]];\n(*",
- StyleBox["radObjAddToCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[und,{poleP,mangetP1,magnetP2}];*)\n)];\n\n",
- StyleBox["(* Random generator 3n *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians before end1 (\",r,\", \",theta,\
-\", \",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* Magnet before End pole n *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[NumPer+1,2]-Mod[NumPer,2]),ms[[3]]};\n\
-y-=sp[[2]];\nz1={{0,y-lm[[2]]/4,-sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y-lm[[2]]/4,-chmk-sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y-lm[[2]]/4,-lm[[3]]-sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnet2a=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnet2a,nmd,cm,mm];\n\n",
- StyleBox["(* Random generator 4n *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians before end2 (\",r,\", \",theta,\
-\", \",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* Magnet before End pole n *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[NumPer+1,2]-Mod[NumPer,2]),ms[[3]]};\n\
-y-=lm[[2]]/2+sp[[2]];\n\
-z1={{0,y-lm[[2]]/4,-sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y-lm[[2]]/4,-chmk-sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y-lm[[2]]/4,-lm[[3]]-sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnet2b=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnet2b,nmd,cm,mm];\nmagnet2nd=",
+ "[und,{pole0}]],If[(array==1),If[side==1,und=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[{magnet2a,magnet2b}];\n\n",
- StyleBox["(* End pole n *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ny-=(lm[[2]]+lep[[2]])/2+sp[[2]]+dpm[[1]];\n\
-p1={{0,y,-sp[[3]]-gapoffset},{lep[[1]]-2*chp[[1]],lep[[2]]-2*chp[[2]]}};\n\
-p2={{0,y,-chp[[3]]-sp[[3]]-gapoffset},{lep[[1]],lep[[2]]}};\n\
-p3={{0,y,-lep[[3]]-sp[[3]]-gapoffset},{lep[[1]],lep[[2]]}};\npole2nd=",
- StyleBox["radObjMltExtRtg",
+ "[{pole0,pole1,magnet1}],",
+ StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[{p1,p2,p3},zer];\nnpd={np[[2]],np[[2]],np[[1]]};\n\
-fullMag[pole2nd,npd,cp,mp];\n\n",
- StyleBox["(* Random generator 5n *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
+ "[und,{pole1,magnet1}]],If[side==1,",
+ StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
+ "[und,{pole0,pole1,magnet1}],",
+ StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians end (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* End magnet for half size and unit model n *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\nIf[(NumPer!=0)&&(ending==0),initm={ms[[1]],ms[[2]]*(Mod[NumPer+1,2]-Mod[\
-NumPer,2]),ms[[3]]},initm={ms[[1]],ms[[2]]*(Mod[NumPer,2]-Mod[NumPer+1,2]),ms[\
-[3]]}];\nIf[(NumPer==0)||(ending==0),y-=lep[[2]]/2-lm[[2]]-lep[[2]]-sp[[2]]-\
-dpm[[1]],y-=lep[[2]]/2+sp[[2]]+dpm[[2]]];\nIf[(NumPer==0),y+=sp[[2]],y];\n\
-z1={{0,y-lm[[2]]/4,-sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y-lm[[2]]/4,-chmk-sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y-lm[[2]]/4,-lm[[3]]-sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnetEndnd=",
- StyleBox["radObjMltExtRtg",
+ "[und,{pole1,magnet1}]]]];\nIf[(NumPer==0)||(ending==0),",
+ StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magEndnd,nmd,cm,mm];\n\ny=-1*y;\n\n\
+ "[und,{magEnd}],",
+ StyleBox["radObjAddToCnt",
+  FontColor->RGBColor[1, 0, 0]],
+ "[und,{magnet2,pole2,magEnd}]];\n\n)];\n)];\n\ny=Abs[y];\n\n\
 If[(NumPer==0)||(ending==0),y+=lm[[2]]/4,y+=lm[[2]]/4];\n\
-If[(NumPer==0),y+=sp[[2]],y];\n\nIf[NumPer==0,magnet=",
- StyleBox["radObjCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[{magEndp,magEndn,magEndpd,magEndnd}],magnet=",
- StyleBox["radObjCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[{magnet1p,magnet2p,magEndp,magnet1n,magnet2n,magEndn,magnet1pd,magnet2pd,\
-magEndpd,magnet1nd,magnet2nd,magEndnd}]];\nIf[NumPer==0,pole=",
- StyleBox["radObjCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[{pole0,pole0d}],pole=",
- StyleBox["radObjCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[{pole0,pole1p,pole2p,pole1n,pole2n,pole0d,pole1pd,pole2pd,pole1nd,pole2nd}]\
-];\n\nIf[NumPer==0,und=",
- StyleBox["radObjCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[{pole0,pole0d}],und=",
- StyleBox["radObjCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[{pole0,pole1p,magnet1p,pole1n,magnet1n,pole0d,pole1pd,magnet1pd,pole1nd,\
-magnet1nd}]];\nIf[(NumPer==0)||(ending==0),",
- StyleBox["radObjAddToCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[und,{magEndp,magEndn,magEndpd,magEndnd}],",
- StyleBox["radObjAddToCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[und,{magnet2p,pole2p,magEndp,magnet2n,pole2n,magEndn,magnet2pd,pole2pd,\
-magEndpd,magnet2nd,pole2nd,magEndnd}]];\n\n(*tr=",
- StyleBox["radTrfTrsl",
-  FontColor->RGBColor[1, 0, 0]],
- "[{0,0,gap/2}];\n",
- StyleBox["radTrfOrnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[magnet,tr];\n",
- StyleBox["radTrfOrnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[pole,tr];\n",
- StyleBox["radTrfOrnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[und,tr];*)\n\n(* Mirrors *)\n(*",
- StyleBox["RadTrfZerPerp",
-  FontColor->RGBColor[1, 0, 0]],
- "[und,{0,0,0},{1,0,0}];*)\n(*If[(NumPer==0)&&(ending==0),\"\",",
- StyleBox["RadTrfZerPara",
-  FontColor->RGBColor[1, 0, 0]],
- "[und,{0,0,0},{0,0,1}]];*)\n(*",
- StyleBox["RadTrfZerPerp",
-  FontColor->RGBColor[1, 0, 0]],
- "[und,{0,0,0},{0,1,0}];*)\n\n(*",
- StyleBox["RadTrfZerPerp",
-  FontColor->RGBColor[1, 0, 0]],
- "[magnet,{0,0,0},{1,0,0}];*)\n(*If[(NumPer==0),\"\",",
- StyleBox["RadTrfZerPara",
-  FontColor->RGBColor[1, 0, 0]],
- "[magnet,{0,0,0},{0,0,1}]];*)\n(*",
- StyleBox["RadTrfZerPerp",
-  FontColor->RGBColor[1, 0, 0]],
- "[magnet,{0,0,0},{0,1,0}];*)\n\n(*",
- StyleBox["RadTrfZerPerp",
-  FontColor->RGBColor[1, 0, 0]],
- "[pole,{0,0,0},{1,0,0}];*)\n(*If[(NumPer==0),\"\",",
- StyleBox["RadTrfZerPara",
-  FontColor->RGBColor[1, 0, 0]],
- "[pole,{0,0,0},{0,0,1}]];*)\n(*",
- StyleBox["RadTrfZerPerp",
-  FontColor->RGBColor[1, 0, 0]],
- "[pole,{0,0,0},{0,1,0}];*)\n\npoleF=",
- StyleBox["radObjCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[{pole0,pole1p,pole2p,pole1n,pole2n}];\n(*",
- StyleBox["RadTrfZerPara",
-  FontColor->RGBColor[1, 0, 0]],
- "[poleF,{0,0,0},{0,0,1}];*)\n\nundfrc=",
+If[(NumPer==0),y+=sp[[2]],y];\n\nundfrc=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
  "[{pole,magnet}];\n\n(*undc=",
@@ -1424,10 +862,35 @@ totallength=N[(y+lm[[2]]/4)*2,5];\nnumPoles=NumPer*2+1;\nund\n]"
    3.901576083997887*^9}, {3.901576257195857*^9, 3.90157626873186*^9}, {
    3.9015763156738725`*^9, 3.901576387355918*^9}, {3.9015764510538597`*^9, 
    3.901576604996561*^9}, {3.901576757480311*^9, 3.901576827113823*^9}, {
-   3.901576998257947*^9, 3.9015770839556766`*^9}},
+   3.901576998257947*^9, 3.9015770839556766`*^9}, {3.901658900664406*^9, 
+   3.901658900856405*^9}, {3.901659100473049*^9, 3.9016591020294886`*^9}, {
+   3.9016595246818385`*^9, 3.901659567929783*^9}, 3.9016596481358285`*^9, {
+   3.901848008275222*^9, 3.9018480535606318`*^9}, {3.9018480862376842`*^9, 
+   3.901848201016748*^9}, {3.901848245268097*^9, 3.9018483223796606`*^9}, {
+   3.901848389462254*^9, 3.901848392732212*^9}, {3.9018484284892893`*^9, 
+   3.901848428965291*^9}, {3.901848460337302*^9, 3.9018485671534104`*^9}, 
+   3.9018486043117094`*^9, {3.9018486855773487`*^9, 3.9018487333920403`*^9}, {
+   3.901848768433881*^9, 3.9018488086337037`*^9}, {3.9018488543303246`*^9, 
+   3.9018489113513837`*^9}, {3.9018490487538185`*^9, 
+   3.9018490677365055`*^9}, {3.9018491596151123`*^9, 3.901849294679244*^9}, {
+   3.9018494305768127`*^9, 3.9018494543008137`*^9}, {3.9018494962973557`*^9, 
+   3.901849597855548*^9}, {3.9018496280002184`*^9, 3.901849732201849*^9}, {
+   3.90184978789972*^9, 3.901849814052734*^9}, 3.9018498475888214`*^9, {
+   3.9018500293166184`*^9, 3.9018500654103165`*^9}, {3.9018501316511283`*^9, 
+   3.9018501919138527`*^9}, {3.901850235929164*^9, 3.9018503077522335`*^9}, {
+   3.901850340768094*^9, 3.9018504153671436`*^9}, {3.9018504601370306`*^9, 
+   3.9018504730570974`*^9}, {3.9018505120113277`*^9, 
+   3.9018505412199636`*^9}, {3.9018505999132605`*^9, 3.901850641219648*^9}, {
+   3.9018506753948455`*^9, 3.901850702034938*^9}, {3.9018507543180842`*^9, 
+   3.901850778990087*^9}, {3.901850823917925*^9, 3.901850827745939*^9}, 
+   3.9018508732010202`*^9, 3.9018509206603947`*^9, {3.9018509862690763`*^9, 
+   3.9018510575728617`*^9}, {3.901851101951876*^9, 3.9018511048788457`*^9}, {
+   3.9018511644024816`*^9, 3.901851170026497*^9}, {3.901851441799884*^9, 
+   3.901851446407877*^9}, {3.9018528412538*^9, 3.9018529272512193`*^9}},
  AspectRatioFixed->True,
- Background->RGBColor[
-  0.88, 1, 0.88],ExpressionUUID->"55d175db-2e2d-4acd-b57c-348bc9f05e56"]
+ Background->RGBColor[0.88, 1, 0.88],
+ CellLabel->
+  "In[1148]:=",ExpressionUUID->"55d175db-2e2d-4acd-b57c-348bc9f05e56"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -1468,10 +931,13 @@ optimizing the design of terminations).",
 
 Cell[TextData[{
  "wig[]:=Module[{},\n\n",
- StyleBox["(* up side arrays in positive y axis \"p\" *)",
+ StyleBox["(* A model for even numbers in main poles *)\n(* array for up and \
+down in z *)",
   FontColor->RGBColor[0, 0, 1]],
- "\n\n(* A model for even numbers in main poles *)\ny=0;\n\
-For[i=1,i<=NumPer,i++,(\n",
+ "\nFor[array=1,array>=-1,array-=2,(\n",
+ StyleBox["(* side for positive and negative in y *)",
+  FontColor->RGBColor[0, 0, 1]],
+ "\nFor[side=1,side>=-1,side-=2,(\ny=0;\nFor[i=1,i<=NumPer,i++,(\n",
  StyleBox["(* Random generator 1 *)",
   FontColor->RGBColor[0, 0, 1]],
  StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
@@ -1492,12 +958,13 @@ Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
  "\n",
  StyleBox["(* Periodic Magnet 1 *)\n",
   FontColor->RGBColor[0, 0, 1]],
- StyleBox["initm={ms[[1]],ms[[2]]*(Mod[i,2]-Mod[i+1,2]),ms[[3]]};",
+ StyleBox["initm={ms[[1]],array*ms[[2]]*(Mod[i,2]-Mod[i+1,2]),ms[[3]]};",
   FontColor->GrayLevel[0]],
  "\nIf[i==1,y+=sp[[2]]/2,y+=sp[[2]]];\n\
-z1={{0,y+lm[[2]]/4,sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y+lm[[2]]/4,chmk+sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y+lm[[2]]/4,lm[[3]]+sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnetP1=",
+z1={{0,side*(y+lm[[2]]/4),array*(sp[[3]])},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
+z2={{0,side*(y+lm[[2]]/4),array*(chmk+sp[[3]])},{lm[[1]],lm[[2]]/2}};\n\
+z3={{0,side*(y+lm[[2]]/4),array*(lm[[3]]+sp[[3]])},{lm[[1]],lm[[2]]/2}};\n\
+magnetP1=",
  StyleBox["radObjMltExtRtg",
   FontColor->RGBColor[1, 0, 0]],
  "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
@@ -1505,9 +972,10 @@ fullMag[magnetP1,nmd,cm,mm];\nIf[i==1,y+=lm[[2]]/4,y+=lm[[2]]/4];\n\n",
  StyleBox["(* Periodic Pole p *)",
   FontColor->RGBColor[0, 0, 1]],
  "\ny+=(lm[[2]]/2+lp[[2]])/2+sp[[2]];\n\
-p1={{0,y,sp[[3]]+gapoffset},{lp[[1]]-2*chp[[1]],lp[[2]]-2*chp[[2]]}};\n\
-p2={{0,y,chp[[3]]+sp[[3]]+gapoffset},{lp[[1]],lp[[2]]}};\n\
-p3={{0,y,lp[[3]]+sp[[3]]+gapoffset},{lp[[1]],lp[[2]]}};\npoleP=",
+p1={{0,side*(y),array*(sp[[3]]+gapoffset)},{lp[[1]]-2*chp[[1]],lp[[2]]-2*chp[[\
+2]]}};\np2={{0,side*(y),array*(chp[[3]]+sp[[3]]+gapoffset)},{lp[[1]],lp[[2]]}}\
+;\np3={{0,side*(y),array*(lp[[3]]+sp[[3]]+gapoffset)},{lp[[1]],lp[[2]]}};\n\
+poleP=",
  StyleBox["radObjMltExtRtg",
   FontColor->RGBColor[1, 0, 0]],
  "[{p1,p2,p3},zer];\nnpd={np[[2]],np[[2]],np[[1]]};\n\
@@ -1532,27 +1000,30 @@ Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
  "\n",
  StyleBox["(* Periodic Magnet 2 *)",
   FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[i+1,2]-Mod[i,2]),ms[[3]]};\n\
-y+=lp[[2]]/2+sp[[2]];\n\
-z1={{0,y+lm[[2]]/4,sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y+lm[[2]]/4,chmk+sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y+lm[[2]]/4,lm[[3]]+sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnetP2=",
+ "\ninitm={ms[[1]],",
+ StyleBox["array*",
+  FontColor->GrayLevel[0]],
+ "ms[[2]]*(Mod[i+1,2]-Mod[i,2]),ms[[3]]};\ny+=lp[[2]]/2+sp[[2]];\n\
+z1={{0,side*(y+lm[[2]]/4),array*(sp[[3]])},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
+z2={{0,side*(y+lm[[2]]/4),array*(chmk+sp[[3]])},{lm[[1]],lm[[2]]/2}};\n\
+z3={{0,side*(y+lm[[2]]/4),array*(lm[[3]]+sp[[3]])},{lm[[1]],lm[[2]]/2}};\n\
+magnetP2=",
  StyleBox["radObjMltExtRtg",
   FontColor->RGBColor[1, 0, 0]],
  "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnetP2,nmd,cm,mm];\ny+=lm[[2]]/2;\n\nIf[i==1,magnet1p=",
+fullMag[magnetP2,nmd,cm,mm];\ny+=lm[[2]]/2;\n\nIf[i==1,magnet1=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
  "[{magnetP1,magnetP2}],",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[magnet1p,{magnetP1,magnetP2}]];\nIf[i==1,pole1p=",
+ "[magnet1,{magnetP1,magnetP2}]];\nIf[i==1,pole1=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
  "[{poleP}],",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[pole1p,{poleP}]];\n(*",
+ "[pole1,{poleP}]];\n(*",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
  "[und,{poleP,mangetP1,magnetP2}];*)\n)];\n\n",
@@ -1576,25 +1047,30 @@ Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
  "\n",
  StyleBox["(* Magnet before End pole p *)",
   FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[NumPer+1,2]-Mod[NumPer,2]),ms[[3]]};\n\
+ "\ninitm={ms[[1]],",
+ StyleBox["array*",
+  FontColor->GrayLevel[0]],
+ "ms[[2]]*(Mod[NumPer+1,2]-Mod[NumPer,2]),ms[[3]]};\n\
 If[NumPer==0,y+=sp[[2]]/2;,y+=sp[[2]];];\n\
-z1={{0,y+lm[[2]]/4,sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y+lm[[2]]/4,chmk+sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y+lm[[2]]/4,lm[[3]]+sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnet2p=",
+z1={{0,side*(y+lm[[2]]/4),array*(sp[[3]])},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
+z2={{0,side*(y+lm[[2]]/4),array*(chmk+sp[[3]])},{lm[[1]],lm[[2]]/2}};\n\
+z3={{0,side*(y+lm[[2]]/4),array*(lm[[3]]+sp[[3]])},{lm[[1]],lm[[2]]/2}};\n\
+magnet2=",
  StyleBox["radObjMltExtRtg",
   FontColor->RGBColor[1, 0, 0]],
  "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnet2p,nmd,cm,mm];\ny+=lm[[2]]/4;\n\n",
+fullMag[magnet2,nmd,cm,mm];\ny+=lm[[2]]/4;\n\n",
  StyleBox["(* End pole p *)",
   FontColor->RGBColor[0, 0, 1]],
  "\ny+=(lm[[2]]/2+lep[[2]])/2+sp[[2]]+dpm[[1]];\n\
-p1={{0,y,sp[[3]]+gapoffset},{lep[[1]]-2*chp[[1]],lep[[2]]-2*chp[[2]]}};\n\
-p2={{0,y,chp[[3]]+sp[[3]]+gapoffset},{lep[[1]],lep[[2]]}};\n\
-p3={{0,y,lep[[3]]+sp[[3]]+gapoffset},{lep[[1]],lep[[2]]}};\npole2p=",
+p1={{0,side*y,array*(sp[[3]]+gapoffset)},{lep[[1]]-2*chp[[1]],lep[[2]]-2*chp[[\
+2]]}};\np2={{0,side*y,array*(chp[[3]]+sp[[3]]+gapoffset)},{lep[[1]],lep[[2]]}}\
+;\np3={{0,side*y,array*(lep[[3]]+sp[[3]]+gapoffset)},{lep[[1]],lep[[2]]}};\n\
+pole2=",
  StyleBox["radObjMltExtRtg",
   FontColor->RGBColor[1, 0, 0]],
  "[{p1,p2,p3},zer];\nnpd={np[[2]],np[[2]],np[[1]]};\n\
-fullMag[pole2p,npd,cp,mp];\n\n",
+fullMag[pole2,npd,cp,mp];\n\n",
  StyleBox["(* Random generator 4p *)",
   FontColor->RGBColor[0, 0, 1]],
  StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
@@ -1615,558 +1091,72 @@ Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
  "\n",
  StyleBox["(* End magnet for half size and unit model p *)",
   FontColor->RGBColor[0, 0, 1]],
- "\nIf[(NumPer!=0)&&(ending==0),initm={ms[[1]],ms[[2]]*(-Mod[NumPer,2]+Mod[\
-NumPer+1,2]),ms[[3]]},initm={ms[[1]],ms[[2]]*(Mod[NumPer,2]-Mod[NumPer+1,2]),\
-ms[[3]]}];\ny+=lep[[2]]/2+sp[[2]]+dpm[[2]];\n\
-z1={{0,y+lm[[2]]/4,sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y+lm[[2]]/4,chmk+sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y+lm[[2]]/4,lm[[3]]+sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagEndp=",
+ "\nIf[(NumPer!=0)&&(ending==0),initm={ms[[1]],",
+ StyleBox["array*",
+  FontColor->GrayLevel[0]],
+ "ms[[2]]*(-Mod[NumPer,2]+Mod[NumPer+1,2]),ms[[3]]},initm={ms[[1]],",
+ StyleBox["array*",
+  FontColor->GrayLevel[0]],
+ "ms[[2]]*(Mod[NumPer,2]-Mod[NumPer+1,2]),ms[[3]]}];\n\
+y+=lep[[2]]/2+sp[[2]]+dpm[[2]];\n\
+z1={{0,side*(y+lm[[2]]/4),array*(sp[[3]])},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
+z2={{0,side*(y+lm[[2]]/4),array*(chmk+sp[[3]])},{lm[[1]],lm[[2]]/2}};\n\
+z3={{0,side*(y+lm[[2]]/4),array*(lm[[3]]+sp[[3]])},{lm[[1]],lm[[2]]/2}};\n\
+magEnd=",
  StyleBox["radObjMltExtRtg",
   FontColor->RGBColor[1, 0, 0]],
  "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magEndp,nmd,cm,mm];\n\n",
- StyleBox["(* up side arrays in negative y axis \"n\" *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\n\n(* A model for even numbers in main poles *)\ny=0;\n\
-For[i=1,i<=NumPer,i++,(\n",
- StyleBox["(* Random generator 1 *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians end (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* Periodic Magnet 1 *)\n",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["initm={ms[[1]],ms[[2]]*(Mod[i,2]-Mod[i+1,2]),ms[[3]]};",
-  FontColor->GrayLevel[0]],
- "\nIf[i==1,y-=sp[[2]]/2,y-=sp[[2]]];\n\
-z1={{0,y-lm[[2]]/4,sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y-lm[[2]]/4,chmk+sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y-lm[[2]]/4,lm[[3]]+sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnetP1=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnetP1,nmd,cm,mm];\nIf[i==1,y-=lm[[2]]/4,y-=lm[[2]]/4];\n\n",
- StyleBox["(* Periodic Pole n *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ny-=(lm[[2]]/2+lp[[2]])/2+sp[[2]];\n\
-p1={{0,y,sp[[3]]+gapoffset},{lp[[1]]-2*chp[[1]],lp[[2]]-2*chp[[2]]}};\n\
-p2={{0,y,chp[[3]]+sp[[3]]+gapoffset},{lp[[1]],lp[[2]]}};\n\
-p3={{0,y,lp[[3]]+sp[[3]]+gapoffset},{lp[[1]],lp[[2]]}};\npoleP=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{p1,p2,p3},zer];\nnpd={np[[2]],np[[2]],np[[1]]};\n\
-fullMag[poleP,npd,cp,mp];\n\n",
- StyleBox["(* Random generator 2 *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians end (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* Periodic Magnet 2 *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[i+1,2]-Mod[i,2]),ms[[3]]};\n\
-y-=lp[[2]]/2+sp[[2]];\n\
-z1={{0,y-lm[[2]]/4,sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y-lm[[2]]/4,chmk+sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y-lm[[2]]/4,lm[[3]]+sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnetP2=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnetP2,nmd,cm,mm];\ny-=lm[[2]]/2;\n\nIf[i==1,magnet1n=",
+fullMag[magEnd,nmd,cm,mm];\n\nIf[NumPer==0,If[(side==1 && array==1),magnet=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[{magnetP1,magnetP2}],",
+ "[{magnet2,magEnd}],",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[magnet1n,{magnetP1,magnetP2}]];\nIf[i==1,pole1n=",
+ "[magnet,{magnet2,magEnd}]],If[(side==1 && array==1),magnet=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[{poleP}],",
+ "[{magnet1,magnet2,magEnd}],",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[pole1n,{poleP}]];\n(*",
+ "[magnet,{magnet1,magnet2,magEnd}]]];\nIf[NumPer==0,If[(side==1 && \
+array==1),pole=",
+ StyleBox["radObjCnt",
+  FontColor->RGBColor[1, 0, 0]],
+ "[{pole2,pole2}],",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[und,{poleP,mangetP1,magnetP2}];*)\n)];\n\n",
- StyleBox["(* Random generator 3n *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians end (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* Magnet before End pole n *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[NumPer+1,2]-Mod[NumPer,2]),ms[[3]]};\n\
-If[NumPer==0,y-=sp[[2]]/2;,y-=sp[[2]];];\n\
-z1={{0,y-lm[[2]]/4,sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y-lm[[2]]/4,chmk+sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y-lm[[2]]/4,lm[[3]]+sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnet2n=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnet2n,nmd,cm,mm];\ny-=lm[[2]]/4;\n\n",
- StyleBox["(* End pole n *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ny-=(lm[[2]]/2+lep[[2]])/2+sp[[2]]+dpm[[1]];\n\
-p1={{0,y,sp[[3]]+gapoffset},{lep[[1]]-2*chp[[1]],lep[[2]]-2*chp[[2]]}};\n\
-p2={{0,y,chp[[3]]+sp[[3]]+gapoffset},{lep[[1]],lep[[2]]}};\n\
-p3={{0,y,lep[[3]]+sp[[3]]+gapoffset},{lep[[1]],lep[[2]]}};\npole2n=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{p1,p2,p3},zer];\nnpd={np[[2]],np[[2]],np[[1]]};\n\
-fullMag[pole2n,npd,cp,mp];\n\n",
- StyleBox["(* Random generator 4n *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians end (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* End magnet for half size and unit model p *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\nIf[(NumPer!=0)&&(ending==0),initm={ms[[1]],ms[[2]]*(-Mod[NumPer,2]+Mod[\
-NumPer+1,2]),ms[[3]]},initm={ms[[1]],ms[[2]]*(Mod[NumPer,2]-Mod[NumPer+1,2]),\
-ms[[3]]}];\ny-=lep[[2]]/2+sp[[2]]+dpm[[2]];\n\
-z1={{0,y-lm[[2]]/4,sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y-lm[[2]]/4,chmk+sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y-lm[[2]]/4,lm[[3]]+sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagEndn=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magEndn,nmd,cm,mm];\n\n\n",
- StyleBox["(* down side arrays \"d\" in positive y axis \"p\" *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\n\n(* A model for even numbers in main poles *)\ny=0;\n\
-For[i=1,i<=NumPer,i++,(\n",
- StyleBox["(* Random generator 1 *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians end (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* Periodic Magnet 1 *)\n",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["initm={ms[[1]],ms[[2]]*(Mod[i+1,2]-Mod[i,2]),ms[[3]]};",
-  FontColor->GrayLevel[0]],
- "\nIf[i==1,y+=sp[[2]]/2,y+=sp[[2]]];\n\
-z1={{0,y+lm[[2]]/4,-sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y+lm[[2]]/4,-chmk-sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y+lm[[2]]/4,-lm[[3]]-sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnetP1=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnetP1,nmd,cm,mm];\nIf[i==1,y+=lm[[2]]/4,y+=lm[[2]]/4];\n\n",
- StyleBox["(* Periodic Pole p *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ny+=(lm[[2]]/2+lp[[2]])/2+sp[[2]];\n\
-p1={{0,y,-sp[[3]]-gapoffset},{lp[[1]]-2*chp[[1]],lp[[2]]-2*chp[[2]]}};\n\
-p2={{0,y,-chp[[3]]-sp[[3]]-gapoffset},{lp[[1]],lp[[2]]}};\n\
-p3={{0,y,-lp[[3]]-sp[[3]]-gapoffset},{lp[[1]],lp[[2]]}};\npoleP=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{p1,p2,p3},zer];\nnpd={np[[2]],np[[2]],np[[1]]};\n\
-fullMag[poleP,npd,cp,mp];\n\n",
- StyleBox["(* Random generator 2 *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians end (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* Periodic Magnet 2 *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[i,2]-Mod[i+1,2]),ms[[3]]};\n\
-y+=lp[[2]]/2+sp[[2]];\n\
-z1={{0,y+lm[[2]]/4,-sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y+lm[[2]]/4,-chmk-sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y+lm[[2]]/4,-lm[[3]]-sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnetP2=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnetP2,nmd,cm,mm];\ny+=lm[[2]]/2;\n\nIf[i==1,magnet1pd=",
+ "[pole,{pole2,pole2}]],If[(side==1 && array==1),pole=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[{magnetP1,magnetP2}],",
+ "[{pole1,pole2}],",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[magnet1pd,{magnetP1,magnetP2}]];\nIf[i==1,pole1pd=",
+ "[pole,{pole1,pole2}]]];\nIf[NumPer==0,poleF=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[{poleP}],",
+ "[{pole2,pole2}],If[(array==1),If[side==1,poleF=",
+ StyleBox["radObjCnt",
+  FontColor->RGBColor[1, 0, 0]],
+ "[{pole1,pole2}],",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[pole1pd,{poleP}]];\n(*",
+ "[poleF,{pole1,pole2}]]]];\nIf[NumPer==0,If[(side==1 && array==1),und=",
+ StyleBox["radObjCnt",
+  FontColor->RGBColor[1, 0, 0]],
+ "[{pole2,magnet2,magEnd}],",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[und,{poleP,mangetP1,magnetP2}];*)\n)];\n\n",
- StyleBox["(* Random generator 3p *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians end (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* Magnet before End pole p *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[NumPer,2]-Mod[NumPer+1,2]),ms[[3]]};\n\
-If[NumPer==0,y+=sp[[2]]/2;,y+=sp[[2]];];\n\
-z1={{0,y+lm[[2]]/4,-sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y+lm[[2]]/4,-chmk-sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y+lm[[2]]/4,-lm[[3]]-sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnet2pd=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnet2pd,nmd,cm,mm];\ny+=lm[[2]]/4;\n\n",
- StyleBox["(* End pole p *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ny+=(lm[[2]]/2+lep[[2]])/2+sp[[2]]+dpm[[1]];\n\
-p1={{0,y,-sp[[3]]-gapoffset},{lep[[1]]-2*chp[[1]],lep[[2]]-2*chp[[2]]}};\n\
-p2={{0,y,-chp[[3]]-sp[[3]]-gapoffset},{lep[[1]],lep[[2]]}};\n\
-p3={{0,y,-lep[[3]]-sp[[3]]-gapoffset},{lep[[1]],lep[[2]]}};\npole2pd=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{p1,p2,p3},zer];\nnpd={np[[2]],np[[2]],np[[1]]};\n\
-fullMag[pole2pd,npd,cp,mp];\n\n",
- StyleBox["(* Random generator 4p *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians end (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* End magnet for half size and unit model p *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\nIf[(NumPer!=0)&&(ending==0),initm={ms[[1]],ms[[2]]*(Mod[NumPer,2]-Mod[\
-NumPer+1,2]),ms[[3]]},initm={ms[[1]],ms[[2]]*(Mod[NumPer+1,2]-Mod[NumPer,2]),\
-ms[[3]]}];\ny+=lep[[2]]/2+sp[[2]]+dpm[[2]];\n\
-z1={{0,y+lm[[2]]/4,-sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y+lm[[2]]/4,-chmk-sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y+lm[[2]]/4,-lm[[3]]-sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagEndpd=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magEndpd,nmd,cm,mm];\n\n",
- StyleBox["(* down side arrays \"d\" in negative y axis \"n\" *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\n\n(* A model for even numbers in main poles *)\ny=0;\n\
-For[i=1,i<=NumPer,i++,(\n",
- StyleBox["(* Random generator 1 *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians end (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* Periodic Magnet 1 *)\n",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["initm={ms[[1]],ms[[2]]*(Mod[i+1,2]-Mod[i,2]),ms[[3]]};",
-  FontColor->GrayLevel[0]],
- "\nIf[i==1,y-=sp[[2]]/2,y-=sp[[2]]];\n\
-z1={{0,y-lm[[2]]/4,-sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y-lm[[2]]/4,-chmk-sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y-lm[[2]]/4,-lm[[3]]-sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnetP1=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnetP1,nmd,cm,mm];\nIf[i==1,y-=lm[[2]]/4,y-=lm[[2]]/4];\n\n",
- StyleBox["(* Periodic Pole n *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ny-=(lm[[2]]/2+lp[[2]])/2+sp[[2]];\n\
-p1={{0,y,-sp[[3]]-gapoffset},{lp[[1]]-2*chp[[1]],lp[[2]]-2*chp[[2]]}};\n\
-p2={{0,y,-chp[[3]]-sp[[3]]-gapoffset},{lp[[1]],lp[[2]]}};\n\
-p3={{0,y,-lp[[3]]-sp[[3]]-gapoffset},{lp[[1]],lp[[2]]}};\npoleP=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{p1,p2,p3},zer];\nnpd={np[[2]],np[[2]],np[[1]]};\n\
-fullMag[poleP,npd,cp,mp];\n\n",
- StyleBox["(* Random generator 2 *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians end (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* Periodic Magnet 2 *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[i,2]-Mod[i+1,2]),ms[[3]]};\n\
-y-=lp[[2]]/2+sp[[2]];\n\
-z1={{0,y-lm[[2]]/4,-sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y-lm[[2]]/4,-chmk-sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y-lm[[2]]/4,-lm[[3]]-sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnetP2=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnetP2,nmd,cm,mm];\ny-=lm[[2]]/2;\n\nIf[i==1,magnet1nd=",
+ "[und,{pole2,magnet2,magEnd}]],,If[(side==1 && array==1),und=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[{magnetP1,magnetP2}],",
+ "[{pole1,magnet1}],",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[magnet1nd,{magnetP1,magnetP2}]];\nIf[i==1,pole1nd=",
- StyleBox["radObjCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[{poleP}],",
+ "[und,{pole1,magnet1}]]];\nIf[(NumPer>0) && (ending==0),\"\",",
  StyleBox["radObjAddToCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[pole1nd,{poleP}]];\n(*",
- StyleBox["radObjAddToCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[und,{poleP,mangetP1,magnetP2}];*)\n)];\n\n",
- StyleBox["(* Random generator 3n *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians end (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* Magnet before End pole n *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ninitm={ms[[1]],ms[[2]]*(Mod[NumPer,2]-Mod[NumPer+1,2]),ms[[3]]};\n\
-If[NumPer==0,y-=sp[[2]]/2;,y-=sp[[2]];];\n\
-z1={{0,y-lm[[2]]/4,-sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y-lm[[2]]/4,-chmk-sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y-lm[[2]]/4,-lm[[3]]-sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagnet2nd=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magnet2nd,nmd,cm,mm];\ny-=lm[[2]]/4;\n\n",
- StyleBox["(* End pole n *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\ny-=(lm[[2]]/2+lep[[2]])/2+sp[[2]]+dpm[[1]];\n\
-p1={{0,y,-sp[[3]]-gapoffset},{lep[[1]]-2*chp[[1]],lep[[2]]-2*chp[[2]]}};\n\
-p2={{0,y,-chp[[3]]-sp[[3]]-gapoffset},{lep[[1]],lep[[2]]}};\n\
-p3={{0,y,-lep[[3]]-sp[[3]]-gapoffset},{lep[[1]],lep[[2]]}};\npole2nd=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{p1,p2,p3},zer];\nnpd={np[[2]],np[[2]],np[[1]]};\n\
-fullMag[pole2nd,npd,cp,mp];\n\n",
- StyleBox["(* Random generator 4n *)",
-  FontColor->RGBColor[0, 0, 1]],
- StyleBox["\nr=RandomVariate[NormalDistribution[1,sdr]];\n\
-theta=RandomVariate[NormalDistribution[0,sdt]]*Pi/180;\n\
-phi=RandomReal[]*2*Pi;\nIf[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi], \
-Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt], mm=",
-  FontColor->GrayLevel[0]],
- StyleBox["RadMatNdFeB",
-  FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n(*Print[\"Random radians end (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
-  FontColor->GrayLevel[0]],
- "\n",
- StyleBox["(* End magnet for half size and unit model p *)",
-  FontColor->RGBColor[0, 0, 1]],
- "\nIf[(NumPer!=0)&&(ending==0),initm={ms[[1]],ms[[2]]*(Mod[NumPer+1,2]-Mod[\
-NumPer,2]),ms[[3]]},initm={ms[[1]],ms[[2]]*(Mod[NumPer+1,2]-Mod[NumPer,2]),ms[\
-[3]]}];\ny-=lep[[2]]/2+sp[[2]]+dpm[[2]];\n\
-z1={{0,y-lm[[2]]/4,-sp[[3]]},{lm[[1]]-2*chmk,lm[[2]]/2}};\n\
-z2={{0,y-lm[[2]]/4,-chmk-sp[[3]]},{lm[[1]],lm[[2]]/2}};\n\
-z3={{0,y-lm[[2]]/4,-lm[[3]]-sp[[3]]},{lm[[1]],lm[[2]]/2}};\nmagEndnd=",
- StyleBox["radObjMltExtRtg",
-  FontColor->RGBColor[1, 0, 0]],
- "[{z1,z2,z3},initm];\nnmd={nm[[2]],nm[[1]],nm[[2]]};\n\
-fullMag[magEndnd,nmd,cm,mm];\n\ny=-1*y;\ny+=lm[[2]]/4;\n\n\
-If[NumPer==0,magnet=",
- StyleBox["radObjCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[{magnet2p,magEndp,magnet2n,magEndn,magnet2pd,magEndpd,magnet2nd,magEndnd}],\
-magnet=",
- StyleBox["radObjCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[{magnet1p,magnet2p,magEndp,magnet1n,magnet2n,magEndn,magnet1pd,magnet2pd,\
-magEndpd,magnet1nd,magnet2nd,magEndnd}]];\nIf[NumPer==0,pole=",
- StyleBox["radObjCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[{pole2p,pole2n,pole2pd,pole2nd}],pole=",
- StyleBox["radObjCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[{pole1p,pole2p,pole1n,pole2n,pole1pd,pole2pd,pole1nd,pole2nd}]];\n\
-If[NumPer==0,und=",
- StyleBox["radObjCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[{pole2p,magnet2p,magEndp,pole2n,magnet2n,magEndn,pole2pd,magnet2pd,\
-magEndpd,pole2nd,magnet2nd,magEndnd}],und=",
- StyleBox["radObjCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[{pole1p,magnet1p,pole1p,magnet1p,pole1n,magnet1n,pole1n,magnet1n,pole1pd,\
-magnet1pd,pole1pd,magnet1pd,pole1nd,magnet1nd,pole1nd,magnet1nd}]];\n\
-If[(NumPer>0) && (ending==0),\"\",",
- StyleBox["radObjAddToCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[und,{magnet2p,pole2p,magEndp,magnet2n,pole2n,magEndn,magnet2pd,pole2pd,\
-magEndpd,magnet2nd,pole2nd,magEndnd}]];\n\n(*tr=",
- StyleBox["radTrfTrsl",
-  FontColor->RGBColor[1, 0, 0]],
- "[{0,0,gap/2}];\n",
- StyleBox["radTrfOrnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[magnet,tr];\n",
- StyleBox["radTrfOrnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[pole,tr];\n",
- StyleBox["radTrfOrnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[und,tr];*)\n\n(* Mirrors *)\n(*",
- StyleBox["RadTrfZerPerp",
-  FontColor->RGBColor[1, 0, 0]],
- "[und,{0,0,0},{1,0,0}];*)\n(*If[(NumPer==0)&&(ending==0),\"\",",
- StyleBox["RadTrfZerPara",
-  FontColor->RGBColor[1, 0, 0]],
- "[und,{0,0,0},{0,0,1}]];*)\n(*",
- StyleBox["RadTrfZerPara",
-  FontColor->RGBColor[1, 0, 0]],
- "[und,{0,0,0},{0,1,0}];*)\n\n(*",
- StyleBox["RadTrfZerPerp",
-  FontColor->RGBColor[1, 0, 0]],
- "[magnet,{0,0,0},{1,0,0}];*)\n(*If[(NumPer==0),\"\",",
- StyleBox["RadTrfZerPara",
-  FontColor->RGBColor[1, 0, 0]],
- "[magnet,{0,0,0},{0,0,1}]];*)\n(*",
- StyleBox["RadTrfZerPara",
-  FontColor->RGBColor[1, 0, 0]],
- "[magnet,{0,0,0},{0,1,0}];*)\n\n(*",
- StyleBox["RadTrfZerPerp",
-  FontColor->RGBColor[1, 0, 0]],
- "[pole,{0,0,0},{1,0,0}];*)\n(*If[(NumPer==0),\"\",",
- StyleBox["RadTrfZerPara",
-  FontColor->RGBColor[1, 0, 0]],
- "[pole,{0,0,0},{0,0,1}]];*)\n(*",
- StyleBox["RadTrfZerPara",
-  FontColor->RGBColor[1, 0, 0]],
- "[pole,{0,0,0},{0,1,0}];*)\n\npoleF=",
- StyleBox["radObjCnt",
-  FontColor->RGBColor[1, 0, 0]],
- "[{pole1p,pole2p,pole1n,pole2n}];\nundfrc=",
+ "[und,{magnet2,pole2,magEnd}]];\n\n)];\n)];\n\ny=Abs[y];\ny+=lm[[2]]/4;\n\n\
+undfrc=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
  "[{pole,magnet}];\n\n(*undc=",
@@ -2414,11 +1404,18 @@ totallength=N[(y+lm[[2]]/4)*2,5];\nnumPoles=NumPer*2;\nund\n]"
    3.9013225833551617`*^9}, {3.9013228520939016`*^9, 3.901322883891926*^9}, {
    3.901322991218295*^9, 3.901322991697433*^9}, {3.901323027113106*^9, 
    3.9013230281676865`*^9}, {3.9013438808856564`*^9, 3.901343941942596*^9}, {
-   3.901577132853902*^9, 3.9015775973938217`*^9}},
+   3.901577132853902*^9, 3.9015775973938217`*^9}, {3.9018513345866666`*^9, 
+   3.901851437227172*^9}, {3.9018514699319754`*^9, 3.9018515106376815`*^9}, {
+   3.901851561791366*^9, 3.901851813428033*^9}, {3.901851846267559*^9, 
+   3.9018519351895723`*^9}, {3.9018519655698605`*^9, 3.90185210344059*^9}, 
+   3.90185213377277*^9, {3.9018521682588797`*^9, 3.9018521782890477`*^9}, {
+   3.9018523211919374`*^9, 3.901852341245458*^9}, 3.901852412838372*^9, {
+   3.901852672118957*^9, 3.901852777352396*^9}},
+ EmphasizeSyntaxErrors->True,
  AspectRatioFixed->True,
  Background->RGBColor[1, 0.85, 0.85],
  CellLabel->
-  "In[412]:=",ExpressionUUID->"c55f66be-e2ff-4d35-b2a5-2eb6f91ef814"]
+  "In[1069]:=",ExpressionUUID->"c55f66be-e2ff-4d35-b2a5-2eb6f91ef814"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -2467,7 +1464,7 @@ Cell[TextData[{
   FontColor->RGBColor[1, 0, 0]],
  "[];\nheaders={\"ME/eV\", \"\"};\n\n(* General Parameters: gap, # of \
 periods, unit length, offset (not used), and ending suppresion on:0/off:1 *)\n\
-gap=15;NumPer=2;per=230;gapoffset=0;ending=1;zer={0,0,0};subDiv=2;\n\n(* \
+gap=15;NumPer=1;per=230;gapoffset=0;ending=1;zer={0,0,0};subDiv=2;\n\n(* \
 Spacing Parameters for exploded view *)\nsp={0,0,gap/2};\n\n(* Pole \
 Parameters, lengths in x,y,z, # of subdivision, color, and chamfer *)\n\
 lp={79,(per-lm[[2]]*2)/2,61};np={subDiv,subDiv};cp={1,0,1};chp={10, 0, chmk};\
@@ -2484,7 +1481,7 @@ end mag *)\ndpm={0,0};\n\n(* Define Pole Material *)\nmp=",
  "[ma];*)\n\n(* Define NdFeB with 1.2 Tesla Remanent Magnetization *)\n(*mm=",
  StyleBox["RadMatNdFeB",
   FontColor->RGBColor[1, 0, 0]],
- "[1.29];*)\nmt=1.29;\n\n(* Define Magnetization errors, if sd=0, sdr: SD in \
+ "[1.29];*)\nmt=1.2;\n\n(* Define Magnetization errors, if sd=0, sdr: SD in \
 mt (frac. %), sdt: SD in theta (degrees) *)\nsd=0;\nsdr=0.01;\nsdt=0.01;\n\n\
 (* Define function to assign segmentation, color, material *)\n\
 fullMag[u_,x_,y_,z_]:=(",
@@ -2827,10 +1824,13 @@ Period: \",strPer,\" mm, Subdivision: \",strSub,\"\"]"
    3.90134297507027*^9, 3.901342976180269*^9}, {3.9013436316248655`*^9, 
    3.901343695026663*^9}, {3.901343747521364*^9, 3.9013437962995863`*^9}, {
    3.9013438588292503`*^9, 3.9013438600598574`*^9}, {3.9015754782921877`*^9, 
-   3.901575478839645*^9}},
+   3.901575478839645*^9}, 3.9016585280532503`*^9, {3.9016586110491347`*^9, 
+   3.901658619154166*^9}, {3.901658753780938*^9, 3.901658782826967*^9}, 
+   3.901834812090955*^9, 3.901847941074207*^9, {3.9018524864639106`*^9, 
+   3.9018525160257673`*^9}, 3.9018530460557437`*^9},
  AspectRatioFixed->True,
  CellLabel->
-  "In[413]:=",ExpressionUUID->"f9610f9d-2237-404b-bdbc-ee8eeedef1ac"]
+  "In[1227]:=",ExpressionUUID->"f9610f9d-2237-404b-bdbc-ee8eeedef1ac"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -2906,10 +1906,16 @@ Export[FileNameJoin[{NotebookDirectory[],\"Mag_p\"<>strPoles<>\"_n\"<>strSub<>\
    3.901226681491583*^9, 3.9012266970049515`*^9}, {3.90122942240475*^9, 
    3.9012294226927614`*^9}, {3.901238377525395*^9, 3.9012383869240727`*^9}, {
    3.901322915955327*^9, 3.9013229463610344`*^9}, {3.9013230863296485`*^9, 
-   3.9013230866327477`*^9}},
+   3.9013230866327477`*^9}, {3.9016595798977757`*^9, 
+   3.9016595821297846`*^9}, {3.9016596298517127`*^9, 
+   3.9016596883156605`*^9}, {3.901659973856286*^9, 3.901659974334118*^9}, {
+   3.9018348332221804`*^9, 3.9018348335119143`*^9}, {3.9018510757763476`*^9, 
+   3.901851082658117*^9}, {3.9018511290217915`*^9, 3.9018511297898026`*^9}, {
+   3.901851261373671*^9, 3.9018512616614656`*^9}, {3.901852215728075*^9, 
+   3.9018522338235273`*^9}},
  AspectRatioFixed->True,
  CellLabel->
-  "In[461]:=",ExpressionUUID->"c7896b99-1018-444a-acab-41eef79736aa"]
+  "In[1275]:=",ExpressionUUID->"c7896b99-1018-444a-acab-41eef79736aa"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -2959,7 +1965,7 @@ Bz(0,\",-per/4,\",0) : \",N[",
   3.9010684077983055`*^9}},
  AspectRatioFixed->True,
  CellLabel->
-  "In[467]:=",ExpressionUUID->"177175c9-89ec-406b-9603-c0cf26effe5b"]
+  "In[1281]:=",ExpressionUUID->"177175c9-89ec-406b-9603-c0cf26effe5b"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -3007,7 +2013,8 @@ strSub<>\"_g\"<>strGap<>\".dat\"}],t]"
    3.8752363735636945`*^9, 3.875319045416836*^9, {3.8798931370166674`*^9, 
    3.879893214905362*^9}, {3.879893458336376*^9, 3.8798934588085127`*^9}},
  AspectRatioFixed->True,
- CellLabel->"In[85]:=",ExpressionUUID->"c23c1001-0828-48db-935f-f2cd6a792019"],
+ CellLabel->
+  "In[1293]:=",ExpressionUUID->"c23c1001-0828-48db-935f-f2cd6a792019"],
 
 Cell[TextData[{
  StyleBox["RadPlotOptions",
@@ -3040,7 +2047,7 @@ strSub<>\"_g\"<>strGap<>\".dat\"}],t]"
    3.879893454849868*^9}},
  AspectRatioFixed->True,
  CellLabel->
-  "In[1872]:=",ExpressionUUID->"e9f58193-654c-4f92-8a2c-0c0bd8095936"]
+  "In[621]:=",ExpressionUUID->"e9f58193-654c-4f92-8a2c-0c0bd8095936"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -3091,10 +2098,12 @@ Cell[TextData[{
    3.8731584255192814`*^9, 3.87315845407543*^9}, {3.8731687140379896`*^9, 
    3.873168728313053*^9}, {3.873168761114502*^9, 3.8731688529092445`*^9}, {
    3.8731688898395004`*^9, 3.873168891549518*^9}, {3.8731689713219075`*^9, 
-   3.873168980048828*^9}, {3.873769704252731*^9, 3.87376974901378*^9}},
+   3.873168980048828*^9}, {3.873769704252731*^9, 3.87376974901378*^9}, {
+   3.901659594436122*^9, 3.901659597827736*^9}, {3.901659932277869*^9, 
+   3.901659948667948*^9}, {3.9016603461155977`*^9, 3.901660347591601*^9}},
  AspectRatioFixed->True,
  CellLabel->
-  "In[3406]:=",ExpressionUUID->"9113889a-20af-485c-be53-acb2e2734784"]
+  "In[723]:=",ExpressionUUID->"9113889a-20af-485c-be53-acb2e2734784"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -3310,14 +2319,14 @@ Cell[BoxData[{
      RowBox[{"[", 
       RowBox[{"1", ",", 
        RowBox[{"2", ";;", " ", ";;", " ", "5"}], ",", "1", ",", "1"}], "]"}], 
-     "]"}], "]"}], "*)"}], "\[IndentingNewLine]", 
+     "]"}], "]"}], "*)"}], "\n", 
   RowBox[{"(*", 
    RowBox[{"Print", "[", 
     RowBox[{"fldvec", "[", 
      RowBox[{"[", 
       RowBox[{"1", ",", 
        RowBox[{"1", ";;", " ", ";;", "5"}]}], "]"}], "]"}], "]"}], 
-   "*)"}]}], "\n", 
+   "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"t", "=", 
    RowBox[{"Table", "[", 
@@ -3421,7 +2430,7 @@ Cell[BoxData[{
    3.8752364331479197`*^9}, {3.87531912590224*^9, 3.875319134141346*^9}, {
    3.9012243330753336`*^9, 3.901224349817649*^9}},
  CellLabel->
-  "In[479]:=",ExpressionUUID->"38b94814-3bb7-4c90-8e7f-ddbabc2517b2"]
+  "In[1300]:=",ExpressionUUID->"38b94814-3bb7-4c90-8e7f-ddbabc2517b2"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -3981,7 +2990,8 @@ in the Radia.exe  file.",
 Cell["?rad*", "Input",
  AspectRatioFixed->True,
  CellLabel->
-  "In[112]:=",ExpressionUUID->"4d7b3697-ab5f-45d8-84ba-8880dfcc4657"],
+  "In[701]:=",ExpressionUUID->"4d7b3697-ab5f-45d8-84ba-8880dfcc4657"]
+}, Closed]],
 
 Cell[TextData[StyleBox["The following command gives the template and the \
 description of the function  \"radObjArcCur\".",
@@ -3999,7 +3009,7 @@ Cell[TextData[{
  CellChangeTimes->{3.8495756290006084`*^9, 3.849575828548298*^9},
  AspectRatioFixed->True,
  CellLabel->
-  "In[127]:=",ExpressionUUID->"1459a613-b464-440b-86d3-1b2f0448148b"],
+  "In[702]:=",ExpressionUUID->"1459a613-b464-440b-86d3-1b2f0448148b"],
 
 Cell[TextData[{
  StyleBox["The following command lists all the functions defined in the \
@@ -4021,7 +3031,7 @@ Init.m file. These functions are fully written in ",
 Cell["?Rad*", "Input",
  AspectRatioFixed->True,
  CellLabel->
-  "In[125]:=",ExpressionUUID->"05136f8d-7cda-4537-9b50-de11ac86b179"],
+  "In[703]:=",ExpressionUUID->"05136f8d-7cda-4537-9b50-de11ac86b179"],
 
 Cell[TextData[{
  "The following command gives the full mathematica definition of the function \
@@ -4043,14 +3053,13 @@ Cell[BoxData[
   3.8495758510074816`*^9, 3.8495759120888677`*^9, {3.8495760884780216`*^9, 
    3.849576104682849*^9}},
  CellLabel->
-  "In[126]:=",ExpressionUUID->"f8fc8852-812b-4696-aca0-0afef93de670"]
-}, Closed]]
+  "In[704]:=",ExpressionUUID->"f8fc8852-812b-4696-aca0-0afef93de670"]
 },
 PrintingStyleEnvironment->"Working",
 WindowToolbars->"EditBar",
 CellGrouping->Manual,
 WindowSize->{1218.75, 851.25},
-WindowMargins->{{Automatic, 162}, {Automatic, 7.5}},
+WindowMargins->{{Automatic, 272.25}, {Automatic, 8.25}},
 PrintingCopies->1,
 PrintingPageRange->{Automatic, Automatic},
 PageHeaders->{{
@@ -4078,7 +3087,7 @@ ShowCellLabel->False,
 ShowCellTags->False,
 FrontEndVersion->"13.0 for Microsoft Windows (64-bit) (December 2, 2021)",
 StyleDefinitions->"Classroom.nb",
-ExpressionUUID->"edb5ed90-4cce-44a5-a4cf-c2a0081fada1"
+ExpressionUUID->"8a4ac08d-4502-4eb6-9c80-1c0d4f098d6c"
 ]
 (* End of Notebook Content *)
 
@@ -4091,139 +3100,139 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[545, 20, 504, 12, 55, "Title",ExpressionUUID->"80f95f21-688f-466a-be74-1c788a5280bc",
+Cell[545, 20, 559, 12, 55, "Title",ExpressionUUID->"80f95f21-688f-466a-be74-1c788a5280bc",
  Evaluatable->False],
-Cell[1052, 34, 201, 4, 24, "Text",ExpressionUUID->"2cf92360-50b0-457e-9c90-a3c2cc5e2c8a",
+Cell[1107, 34, 201, 4, 24, "Text",ExpressionUUID->"2cf92360-50b0-457e-9c90-a3c2cc5e2c8a",
  Evaluatable->False],
 Cell[CellGroupData[{
-Cell[1278, 42, 135, 3, 54, "Section",ExpressionUUID->"61178415-e883-4c84-ac7e-e8b13f3d9ce8",
+Cell[1333, 42, 135, 3, 54, "Section",ExpressionUUID->"61178415-e883-4c84-ac7e-e8b13f3d9ce8",
  Evaluatable->False],
-Cell[1416, 47, 2927, 55, 230, "Text",ExpressionUUID->"717b5375-299b-4a73-b1c4-5b4c657d9166",
+Cell[1471, 47, 2927, 55, 230, "Text",ExpressionUUID->"717b5375-299b-4a73-b1c4-5b4c657d9166",
  Evaluatable->False]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[4380, 107, 148, 3, 34, "Section",ExpressionUUID->"dcd0e42c-1b7c-44b2-ace2-3d9a57a69efb",
+Cell[4435, 107, 148, 3, 34, "Section",ExpressionUUID->"dcd0e42c-1b7c-44b2-ace2-3d9a57a69efb",
  Evaluatable->False],
-Cell[4531, 112, 275, 6, 24, "Text",ExpressionUUID->"55364a9b-41af-4208-be09-cf8c70609193",
+Cell[4586, 112, 275, 6, 24, "Text",ExpressionUUID->"55364a9b-41af-4208-be09-cf8c70609193",
  Evaluatable->False],
-Cell[4809, 120, 429, 12, 82, "Input",ExpressionUUID->"0a81d872-9815-47a6-a8ca-b399b670058c"]
+Cell[4864, 120, 429, 12, 82, "Input",ExpressionUUID->"0a81d872-9815-47a6-a8ca-b399b670058c"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[5275, 137, 218, 4, 34, "Section",ExpressionUUID->"252e519d-81eb-497c-88b0-81b5bad93f75",
+Cell[5330, 137, 218, 4, 34, "Section",ExpressionUUID->"252e519d-81eb-497c-88b0-81b5bad93f75",
  Evaluatable->False],
-Cell[5496, 143, 852, 21, 41, "Text",ExpressionUUID->"e6a5c227-0ba1-40b6-9f43-47dbab68bcd6",
+Cell[5551, 143, 852, 21, 41, "Text",ExpressionUUID->"e6a5c227-0ba1-40b6-9f43-47dbab68bcd6",
  Evaluatable->False],
-Cell[6351, 166, 1222, 21, 320, "Input",ExpressionUUID->"dc1242ef-4d98-4bd0-ab04-28bea0ccd1bc"]
+Cell[6406, 166, 1227, 22, 320, "Input",ExpressionUUID->"dc1242ef-4d98-4bd0-ab04-28bea0ccd1bc"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[7610, 192, 757, 22, 34, "Section",ExpressionUUID->"6448deeb-d2ba-43c7-8b1b-7a7791494f61",
+Cell[7670, 193, 757, 22, 34, "Section",ExpressionUUID->"6448deeb-d2ba-43c7-8b1b-7a7791494f61",
  Evaluatable->False],
-Cell[8370, 216, 574, 10, 41, "Text",ExpressionUUID->"e745422a-8ea8-4e90-9e99-c52555fec598",
+Cell[8430, 217, 574, 10, 41, "Text",ExpressionUUID->"e745422a-8ea8-4e90-9e99-c52555fec598",
  Evaluatable->False],
-Cell[8947, 228, 62749, 1201, 9041, "Input",ExpressionUUID->"55d175db-2e2d-4acd-b57c-348bc9f05e56"]
+Cell[9007, 229, 39556, 663, 2649, "Input",ExpressionUUID->"55d175db-2e2d-4acd-b57c-348bc9f05e56"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[71733, 1434, 607, 20, 34, "Section",ExpressionUUID->"299921ee-134d-47aa-b8be-840f476c3a44",
+Cell[48600, 897, 607, 20, 34, "Section",ExpressionUUID->"299921ee-134d-47aa-b8be-840f476c3a44",
  Evaluatable->False],
-Cell[72343, 1456, 574, 10, 41, "Text",ExpressionUUID->"4e552465-4ec0-4637-a637-47ed123e34e8",
+Cell[49210, 919, 574, 10, 41, "Text",ExpressionUUID->"4e552465-4ec0-4637-a637-47ed123e34e8",
  Evaluatable->False],
-Cell[72920, 1468, 48235, 952, 7409, "Input",ExpressionUUID->"c55f66be-e2ff-4d35-b2a5-2eb6f91ef814"]
+Cell[49787, 931, 27861, 486, 2122, "Input",ExpressionUUID->"c55f66be-e2ff-4d35-b2a5-2eb6f91ef814"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[121192, 2425, 236, 5, 34, "Section",ExpressionUUID->"41b9a76f-0607-4676-9b4f-a188723677db",
+Cell[77685, 1422, 236, 5, 34, "Section",ExpressionUUID->"41b9a76f-0607-4676-9b4f-a188723677db",
  Evaluatable->False],
-Cell[121431, 2432, 990, 30, 41, "Text",ExpressionUUID->"5e0d4460-f976-471c-bfde-5c529251cdb7",
+Cell[77924, 1429, 990, 30, 41, "Text",ExpressionUUID->"5e0d4460-f976-471c-bfde-5c529251cdb7",
  Evaluatable->False],
-Cell[122424, 2464, 26322, 368, 847, "Input",ExpressionUUID->"f9610f9d-2237-404b-bdbc-ee8eeedef1ac"]
+Cell[78917, 1461, 26570, 371, 847, "Input",ExpressionUUID->"f9610f9d-2237-404b-bdbc-ee8eeedef1ac"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[148783, 2837, 206, 4, 34, "Section",ExpressionUUID->"6a40f96f-68cb-45d3-903a-0cca6a81d7d5",
+Cell[105524, 1837, 206, 4, 34, "Section",ExpressionUUID->"6a40f96f-68cb-45d3-903a-0cca6a81d7d5",
  Evaluatable->False],
-Cell[148992, 2843, 246, 6, 24, "Text",ExpressionUUID->"5e3354bb-12e3-478d-8e39-b51d423c832d",
+Cell[105733, 1843, 246, 6, 24, "Text",ExpressionUUID->"5e3354bb-12e3-478d-8e39-b51d423c832d",
  Evaluatable->False],
-Cell[149241, 2851, 3657, 60, 167, "Input",ExpressionUUID->"c7896b99-1018-444a-acab-41eef79736aa"]
+Cell[105982, 1851, 4072, 66, 167, "Input",ExpressionUUID->"c7896b99-1018-444a-acab-41eef79736aa"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[152935, 2916, 128, 3, 34, "Section",ExpressionUUID->"f2047b13-2bc0-4c07-9f29-d3a1640badca",
+Cell[110091, 1922, 128, 3, 34, "Section",ExpressionUUID->"f2047b13-2bc0-4c07-9f29-d3a1640badca",
  Evaluatable->False],
-Cell[153066, 2921, 303, 7, 24, "Text",ExpressionUUID->"74e90033-9ad3-4443-87b6-7ba9132b1854",
+Cell[110222, 1927, 303, 7, 24, "Text",ExpressionUUID->"74e90033-9ad3-4443-87b6-7ba9132b1854",
  Evaluatable->False],
-Cell[153372, 2930, 1505, 31, 235, "Input",ExpressionUUID->"177175c9-89ec-406b-9603-c0cf26effe5b"]
+Cell[110528, 1936, 1506, 31, 235, "Input",ExpressionUUID->"177175c9-89ec-406b-9603-c0cf26effe5b"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[154914, 2966, 190, 4, 34, "Section",ExpressionUUID->"13a563cc-9ccb-4a8d-94c4-8905ca7468b5",
+Cell[112071, 1972, 190, 4, 34, "Section",ExpressionUUID->"13a563cc-9ccb-4a8d-94c4-8905ca7468b5",
  Evaluatable->False],
-Cell[155107, 2972, 2238, 37, 201, "Input",ExpressionUUID->"c23c1001-0828-48db-935f-f2cd6a792019"],
-Cell[157348, 3011, 1634, 31, 184, "Input",ExpressionUUID->"e9f58193-654c-4f92-8a2c-0c0bd8095936"]
+Cell[112264, 1978, 2243, 38, 201, "Input",ExpressionUUID->"c23c1001-0828-48db-935f-f2cd6a792019"],
+Cell[114510, 2018, 1633, 31, 184, "Input",ExpressionUUID->"e9f58193-654c-4f92-8a2c-0c0bd8095936"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[159019, 3047, 153, 3, 34, "Section",ExpressionUUID->"e828e54d-83b4-4eec-9b65-9a304282b9bf",
+Cell[116180, 2054, 153, 3, 34, "Section",ExpressionUUID->"e828e54d-83b4-4eec-9b65-9a304282b9bf",
  Evaluatable->False],
-Cell[159175, 3052, 358, 7, 24, "Text",ExpressionUUID->"f141ba92-ffae-45d5-8d00-15d26515a7ef",
+Cell[116336, 2059, 358, 7, 24, "Text",ExpressionUUID->"f141ba92-ffae-45d5-8d00-15d26515a7ef",
  Evaluatable->False],
-Cell[159536, 3061, 1744, 35, 252, "Input",ExpressionUUID->"9113889a-20af-485c-be53-acb2e2734784"]
+Cell[116697, 2068, 1891, 37, 252, "Input",ExpressionUUID->"9113889a-20af-485c-be53-acb2e2734784"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[161317, 3101, 243, 5, 34, "Section",ExpressionUUID->"e04a0304-5016-4e5e-8082-9f5a6046bd21",
+Cell[118625, 2110, 243, 5, 34, "Section",ExpressionUUID->"e04a0304-5016-4e5e-8082-9f5a6046bd21",
  Evaluatable->False],
-Cell[161563, 3108, 5910, 86, 337, "Input",ExpressionUUID->"87010605-74fc-48a9-915f-936cc44eff69"]
+Cell[118871, 2117, 5910, 86, 337, "Input",ExpressionUUID->"87010605-74fc-48a9-915f-936cc44eff69"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[167510, 3199, 213, 4, 34, "Section",ExpressionUUID->"a2a1ed25-3eb1-4bb4-a51c-16e39b7cdbb1",
+Cell[124818, 2208, 213, 4, 34, "Section",ExpressionUUID->"a2a1ed25-3eb1-4bb4-a51c-16e39b7cdbb1",
  Evaluatable->False],
-Cell[167726, 3205, 3761, 57, 167, "Input",ExpressionUUID->"2148320c-9341-4d90-84da-6b03cbbe43c4"]
+Cell[125034, 2214, 3761, 57, 167, "Input",ExpressionUUID->"2148320c-9341-4d90-84da-6b03cbbe43c4"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[171524, 3267, 273, 5, 34, "Section",ExpressionUUID->"9f4fbd33-34e8-4c18-a846-4d6c516cc774",
+Cell[128832, 2276, 273, 5, 34, "Section",ExpressionUUID->"9f4fbd33-34e8-4c18-a846-4d6c516cc774",
  Evaluatable->False],
-Cell[171800, 3274, 312, 7, 24, "Text",ExpressionUUID->"547c101f-275c-4514-9faf-65051eb7d800",
+Cell[129108, 2283, 312, 7, 24, "Text",ExpressionUUID->"547c101f-275c-4514-9faf-65051eb7d800",
  Evaluatable->False],
-Cell[172115, 3283, 6330, 140, 257, "Input",ExpressionUUID->"38b94814-3bb7-4c90-8e7f-ddbabc2517b2"]
+Cell[129423, 2292, 6331, 140, 257, "Input",ExpressionUUID->"38b94814-3bb7-4c90-8e7f-ddbabc2517b2"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[178482, 3428, 138, 3, 34, "Section",ExpressionUUID->"d15fabc2-96b4-4a55-b25d-8819783997ee",
+Cell[135791, 2437, 138, 3, 34, "Section",ExpressionUUID->"d15fabc2-96b4-4a55-b25d-8819783997ee",
  Evaluatable->False],
-Cell[178623, 3433, 891, 20, 41, "Text",ExpressionUUID->"b91a60b9-8c56-4759-a8a7-0709b316b6a3",
+Cell[135932, 2442, 891, 20, 41, "Text",ExpressionUUID->"b91a60b9-8c56-4759-a8a7-0709b316b6a3",
  Evaluatable->False],
-Cell[179517, 3455, 1723, 42, 134, "Input",ExpressionUUID->"49ef75ca-1487-4a29-b498-91c185383a97"]
+Cell[136826, 2464, 1723, 42, 134, "Input",ExpressionUUID->"49ef75ca-1487-4a29-b498-91c185383a97"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[181277, 3502, 240, 4, 34, "Section",ExpressionUUID->"da6efea5-2765-4b3e-99fc-4997ed78ea2f",
+Cell[138586, 2511, 240, 4, 34, "Section",ExpressionUUID->"da6efea5-2765-4b3e-99fc-4997ed78ea2f",
  Evaluatable->False],
-Cell[181520, 3508, 583, 12, 41, "Text",ExpressionUUID->"a3592047-feec-4b42-88ad-40a01e8a5b1a",
+Cell[138829, 2517, 583, 12, 41, "Text",ExpressionUUID->"a3592047-feec-4b42-88ad-40a01e8a5b1a",
  Evaluatable->False],
-Cell[182106, 3522, 11143, 166, 745, "Input",ExpressionUUID->"9279ef9f-baea-4903-b5a1-eb035aebc7f2"]
+Cell[139415, 2531, 11143, 166, 745, "Input",ExpressionUUID->"9279ef9f-baea-4903-b5a1-eb035aebc7f2"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[193286, 3693, 430, 8, 34, "Section",ExpressionUUID->"86fab811-3e67-43b6-889c-dabd0fb90927",
+Cell[150595, 2702, 430, 8, 34, "Section",ExpressionUUID->"86fab811-3e67-43b6-889c-dabd0fb90927",
  Evaluatable->False],
-Cell[193719, 3703, 583, 12, 41, "Text",ExpressionUUID->"31fe8877-035f-437e-95c3-29f142885a28",
+Cell[151028, 2712, 583, 12, 41, "Text",ExpressionUUID->"31fe8877-035f-437e-95c3-29f142885a28",
  Evaluatable->False],
-Cell[194305, 3717, 5192, 84, 405, "Input",ExpressionUUID->"7c577dcf-29f6-4104-b3de-12c260e1ee51"],
-Cell[199500, 3803, 4653, 75, 388, "Input",ExpressionUUID->"b55ebfdd-804e-4c31-9d32-d62728080c52"]
+Cell[151614, 2726, 5192, 84, 405, "Input",ExpressionUUID->"7c577dcf-29f6-4104-b3de-12c260e1ee51"],
+Cell[156809, 2812, 4653, 75, 388, "Input",ExpressionUUID->"b55ebfdd-804e-4c31-9d32-d62728080c52"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[204190, 3883, 214, 4, 34, "Section",ExpressionUUID->"f6c6205a-4abc-4639-8baf-7f06c1cc5fe9",
+Cell[161499, 2892, 214, 4, 34, "Section",ExpressionUUID->"f6c6205a-4abc-4639-8baf-7f06c1cc5fe9",
  Evaluatable->False],
-Cell[204407, 3889, 583, 12, 41, "Text",ExpressionUUID->"fe642e10-e03e-4330-b4e7-e37838182556",
+Cell[161716, 2898, 583, 12, 41, "Text",ExpressionUUID->"fe642e10-e03e-4330-b4e7-e37838182556",
  Evaluatable->False],
-Cell[204993, 3903, 3361, 58, 456, "Input",ExpressionUUID->"6fdeb01d-bf8b-43e4-ab50-17585b125c3a"]
+Cell[162302, 2912, 3361, 58, 456, "Input",ExpressionUUID->"6fdeb01d-bf8b-43e4-ab50-17585b125c3a"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[208391, 3966, 182, 4, 34, "Section",ExpressionUUID->"7fe160c3-17a9-4432-abc7-23d9121950e5",
+Cell[165700, 2975, 182, 4, 34, "Section",ExpressionUUID->"7fe160c3-17a9-4432-abc7-23d9121950e5",
  Evaluatable->False],
-Cell[208576, 3972, 265, 6, 24, "Text",ExpressionUUID->"742ac2b3-d67f-4920-b35d-4703457ac75c",
+Cell[165885, 2981, 265, 6, 24, "Text",ExpressionUUID->"742ac2b3-d67f-4920-b35d-4703457ac75c",
  Evaluatable->False],
-Cell[208844, 3980, 130, 3, 48, "Input",ExpressionUUID->"4d7b3697-ab5f-45d8-84ba-8880dfcc4657"],
-Cell[208977, 3985, 283, 6, 24, "Text",ExpressionUUID->"f05d35ce-682b-401a-9b5e-b5bc7ed6b5c4",
+Cell[166153, 2989, 130, 3, 48, "Input",ExpressionUUID->"4d7b3697-ab5f-45d8-84ba-8880dfcc4657"]
+}, Closed]],
+Cell[166298, 2995, 283, 6, 23, "Text",ExpressionUUID->"f05d35ce-682b-401a-9b5e-b5bc7ed6b5c4",
  Evaluatable->False],
-Cell[209263, 3993, 270, 8, 48, "Input",ExpressionUUID->"1459a613-b464-440b-86d3-1b2f0448148b"],
-Cell[209536, 4003, 472, 15, 24, "Text",ExpressionUUID->"284281e6-6e4f-4ae1-9e97-69b9d9742e53",
+Cell[166584, 3003, 270, 8, 48, "Input",ExpressionUUID->"1459a613-b464-440b-86d3-1b2f0448148b"],
+Cell[166857, 3013, 472, 15, 24, "Text",ExpressionUUID->"284281e6-6e4f-4ae1-9e97-69b9d9742e53",
  Evaluatable->False],
-Cell[210011, 4020, 130, 3, 48, "Input",ExpressionUUID->"05136f8d-7cda-4537-9b50-de11ac86b179"],
-Cell[210144, 4025, 251, 6, 23, "Text",ExpressionUUID->"24c81614-623f-4844-81ed-bc4048b37110"],
-Cell[210398, 4033, 453, 12, 50, "Input",ExpressionUUID->"f8fc8852-812b-4696-aca0-0afef93de670"]
-}, Closed]]
+Cell[167332, 3030, 130, 3, 48, "Input",ExpressionUUID->"05136f8d-7cda-4537-9b50-de11ac86b179"],
+Cell[167465, 3035, 251, 6, 24, "Text",ExpressionUUID->"24c81614-623f-4844-81ed-bc4048b37110"],
+Cell[167719, 3043, 453, 12, 50, "Input",ExpressionUUID->"f8fc8852-812b-4696-aca0-0afef93de670"]
 }
 ]
 *)
