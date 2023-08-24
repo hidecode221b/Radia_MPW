@@ -10,5 +10,5 @@ radia_id_mpw_hyb_kyma.py: the supplementary file for MPW.py without side magnets
 
 radia_id_mpw_hyb_wsv50.py: the supplementary file for MPW.py without side magnets based on the Soleil synchrotron.
 
-radia_id_mpw_hyb_vac79sd.py: the supplementary file for MPW.py without side magnets. Misalignment of magnetization will be evaluated.
+radia_id_mpw_hyb_vac79rd.py: the supplementary file for MPW.py without side magnets. Misalignment of magnetization will be evaluated.
 
