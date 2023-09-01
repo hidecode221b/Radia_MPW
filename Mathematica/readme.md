@@ -5,7 +5,7 @@ Optimizing parameters are required to initialize the parameters prior to rerunni
 Environment: Wolfram Mathematica 13.0.0.0 on Windows 10, Radia version 4.31
 
 Rev. 20220926
-Eample#3mpw_noc.nb represents the MPW mode without pole chamfers, and export data in text for field, field integral, and trajectories.
+Eample#3mpw_noc.nb represents the MPW mode without pole chamfers, and exports data in text for field, field integral, and trajectories.
 
 Rev. 20221012
 Eample#3mpw_noc.nb exports data files to plot in the software. Igor procedure is uploaded for a 3D magnetic vector in a gizmo plot.
@@ -22,4 +22,5 @@ Eample#3mpw_noc_pgn_nos.nb can build the magnet arrays without side magnets, whi
 Rev. 20230824
 Eample#3mpw_noc_rtg_nos.nb is based on the rtg instead of png without side magnets. The randomized misalignment of magnetization is implemented without symmetrical translation. std = 0 makes ideal magnetization, and std <> 0 results in the misorientation of magnetization in the standard deviation of sdr (%/100) and sdt (degrees) in magnetization amplitude (y direction) and angle (theta), respectively. Phi angle is uniformly randomized around the magnetization direction. 
 
-
+Rev. 20230901
+Eample#3mpw_noc_rtg_nos_for.nb is updated for for-loop in +/-y and +/-z axis with variables side=+/-1 and array=+/-1. The separation of each component in the y-axis can also be randomized to evaluate the phase errors.
