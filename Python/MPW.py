@@ -88,25 +88,33 @@ for gap in [800,400,200,150,110,90,70,50,40,30,25,20,15,10,5,3]:
     und = rid.HybridWiggler(params)
     und.force2(k=[1,1,2])
 """
-list_sdr =[]
+
+list_sd =[]
 list_field_all =[]
 for i in range(0, 11, 1):
     list_field =[]
-    for sdr in range(0, 11, 1):
-        sdr = sdr/100
+
+    #for sdr in range(0, 11, 1):
+    #    sdr = sdr/100
+    #    if i==0:
+    #        list_sd.append(sdr)
+
+    for sdt in range(0, 21, 1):
         if i==0:
-            list_sdr.append(sdr)
+            list_sd.append(sdt)
+
         params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, mag_mat='ndfeb', br=1.29, wig_build=build)
         und = rid.HybridWiggler(params)
         #und.peak_field2(fileName)
         list_field.append(und.peak_field2(fileName))
 
     if i ==0:
-        list_field_all.append(list_sdr)
+        list_field_all.append(list_sd)
     list_field_all.append(list_field)
     print(i)
 #print(list_field)
 #list_sdr.append(list_field)
 #print(list_sdr)
 #print(list_field_all)
-np.savetxt(fileName+"04.csv",np.transpose(list_field_all),header='ME/eV,test',delimiter =",")
+#np.savetxt(fileName+"_sdr001.csv",np.transpose(list_field_all),header='ME/eV,test',delimiter =",")
+np.savetxt(fileName+"_sdt03.csv",np.transpose(list_field_all),header='ME/eV,test',delimiter =",")
