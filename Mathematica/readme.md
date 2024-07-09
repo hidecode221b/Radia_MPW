@@ -28,4 +28,5 @@ Eample#3mpw_noc_rtg_nos_for.nb is updated for for-loop in +/-y and +/-z axis wit
 Rev. 20240628
 Eample#3mpw_noc_rtg_nos_for.nb is updated for kick map. Eample#3ivu_noc_rtg_nos_for.nb is also added for hybried pole optimization at the periodic length of 20 mm. Optimization module is revised to change the pole and magnetic lengths at the constant periodic length conditon.
 
-
+Rev. 20240709
+Eample#3mpw_noc_rtg_nos_for.nb is updated for the kick map in T2m2 for horizontal and vertical kicks separately exporting the data files with coordinates.
