@@ -1,6 +1,6 @@
-IVW230.jason is the [Spectra](https://spectrax.org/spectra/index.html) parameter file.
+IVW230.json is the [Spectra](https://spectrax.org/spectra/index.html) parameter file.
 
-| In-vacuum multipole wiggler	| IVW230 | |
+| In-vacuum multipole wiggler	| value | note |
 | --- | --- | --- |
 | Peak field on axis (magnetic gap 15 mm)	| 1.9	Tesla	| |
 | Operating vacuum gap	| 14.8	mm	| |
