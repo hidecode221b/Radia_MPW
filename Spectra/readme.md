@@ -1,6 +1,6 @@
-IVW230.json is the [Spectra](https://spectrax.org/spectra/index.html) parameter file for preliminary design.
+IVW230.json is the [Spectra](https://spectrax.org/spectra/index.html) parameter file for a preliminary design of IVW in SPS-I between BM6 and BM7.
 
-| In-vacuum multipole wiggler	| value | note |
+| Parameter| Value | Note |
 | --- | --- | --- |
 | Peak field on axis (magnetic gap 15 mm)	| 1.9	Tesla	| |
 | Operating vacuum gap	| 14.8	mm	| |
@@ -8,9 +8,9 @@ IVW230.json is the [Spectra](https://spectrax.org/spectra/index.html) parameter 
 | Operating magnetic gap	| 15	mm	| |
 | Minimum magnetic gap	| 5	mm	| |
 | Maximum magnetic gap	| 120	mm	| |
-| Magnetic period length of the ID	| 230	mm	| |
+| Magnetic length of the regular period	| 230	mm	| |
 | Number of full-strength poles	| 5		| |
-| Length the ID for the regular period	| 575	mm	| |
+| ID length for the regular period	| 575	mm	| |
 | Number of regular periods	| 2.5		| |
 | Total length of the ID	| 795	mm	| |
 | K value (magnetic gap 15 mm)	| 40.79832 | |
@@ -36,3 +36,4 @@ IVW230.json is the [Spectra](https://spectrax.org/spectra/index.html) parameter 
 | Total power	| 0.2837	kW	| |
 | Critical energy	| 1819	eV	| |
 | Vacuuum | Ion pumps | 500L x 2 + 300L x 1 |
+
