@@ -2,7 +2,7 @@ IVW230.json is the [Spectra](https://spectrax.org/spectra/index.html) parameter 
 
 | Parameter| Value | Note |
 | --- | --- | --- |
-| Peak field on axis (magnetic gap 15 mm)	| 1.9	Tesla	| |
+| Peak field on axis (magnetic gap 15 mm)	| 1.9	Tesla	| Radia simulation |
 | Operating vacuum gap	| 14.8	mm	| |
 | Wake field shield on magnet surface	| 0.1	mm	| Cu 0.05 mm/Ni 0.05 mm |
 | Operating magnetic gap	| 15	mm	| |
@@ -13,15 +13,15 @@ IVW230.json is the [Spectra](https://spectrax.org/spectra/index.html) parameter 
 | ID length for the regular period	| 575	mm	| |
 | Number of regular periods	| 2.5		| |
 | Total length of the ID	| 795	mm	| |
-| K value (magnetic gap 15 mm)	| 40.79832 | |
+| K value (magnetic gap 15 mm)	| 40.79832 | Spectra simulation |
 | Effective magnetic field	| 1.2	Tesla	| |
 | Effective K value	| 25.91258		| |
 | Pole (soft) magnet materials | V-Fe-Co	| [VACOFLUX 50](https://vacuumschmelze.com/products/soft-magnetic-materials-and-stamped-parts/49-cobalt-iron-vacoflux-and-vacodur)	|
-| Saturation polarization of soft magnet | 2.3 Tesla | |
+| Saturation polarization of soft magnet | 2.3 Tesla | [VACOFLUX 50](https://vacuumschmelze.com/products/soft-magnetic-materials-and-stamped-parts/49-cobalt-iron-vacoflux-and-vacodur)	|
 | Permanent (hard) magnet materials | Nd-Fe-B	| [VACODYM 807 TP](https://vacuumschmelze.com/products/permanent-magnets/ndfeb-magnets-vacodym)	|
-| Typical remanent field of hard magnet	| 1.3	Tesla	| |
-| Minimum remanent field of hard magnet	| 1.28	Tesla	| |
-| Minimum coercivity (H<sub>cj</sub>)	| 2230	kA/m	| |
+| Typical remanent field of hard magnet	| 1.3	Tesla	| [VACODYM 807 TP](https://vacuumschmelze.com/products/permanent-magnets/ndfeb-magnets-vacodym)	|
+| Minimum remanent field of hard magnet	| 1.28	Tesla	| [VACODYM 807 TP](https://vacuumschmelze.com/products/permanent-magnets/ndfeb-magnets-vacodym)	|
+| Minimum coercivity (H<sub>cj</sub>)	| 2230	kA/m	| [VACODYM 807 TP](https://vacuumschmelze.com/products/permanent-magnets/ndfeb-magnets-vacodym)	|
 | Pole dimensions (W x L x H)	| 79 x 15 x 61	mm<sup>3</sup>	| |
 | Pole chamfer width and height	| 10	mm	| |
 | Pole coating	| TiN 2-6	&mu;m	| |
@@ -34,7 +34,14 @@ IVW230.json is the [Spectra](https://spectrax.org/spectra/index.html) parameter 
 | Permanent magnet tolerance	| &pm;0.05	mm	| |
 | End pole dimensions	| 79 x 9.5 x 61	mm<sup>3</sup>	| |
 | End magnet dimensions	| 79 x 49.93 x 79	mm<sup>3</sup>	| |
-| Total power	| 0.2837	kW	| |
-| Critical energy	| 1819	eV	| |
+| Total power	| 0.2837	kW	| Spectra simulation |
+| Critical energy	| 1819	eV	| Spectra simulation |
+| Magnetic force at magnetic gap 5 mm	| 24	kN | Radia simulation |
+| Magnetic force at magnetic gap 15 mm	| 16	kN | Radia simulation |
+| RF transition tapers	| Cu-Be | |
+| I-beam (girder)	| SUS304	| |
+| Magnet holders	| SUS316	| |
+| Water cooling	| Copper | |
+| Field roll off 0.1% at gap of 15 mm	| +/-4	mm | Radia simulation |
 | Vacuuum | Ion pumps | 500L x 2 + 300L x 1 |
 
