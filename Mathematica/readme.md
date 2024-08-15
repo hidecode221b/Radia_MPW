@@ -30,3 +30,7 @@ Eample#3mpw_noc_rtg_nos_for.nb is updated for kick map. Eample#3ivu_noc_rtg_nos_
 
 Rev. 20240709
 Eample#3mpw_noc_rtg_nos_for.nb is updated for the kick map in T2m2 for horizontal and vertical kicks separately exporting the data files with coordinates.
+
+Rev. 20240815
+Eample#3mpw_noc_rtg_nos_for.nb is updated for the gap dependence based on sp[[3]] in the module.
+
