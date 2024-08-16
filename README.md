@@ -55,6 +55,10 @@ https://www.astec.stfc.ac.uk/
 
 ## Usage
 ### Python from RadiaID gitlab
+All the python files should be located under the radia-master/env/radia_python/.
+
+Radia.so should be created for your python version (See [link](https://github.com/hidecode221b/Radia)).
+
 Run the mpw.py after the main parameters are setup in mpw.py and radia_id_mpw_hyb.py 
 
 Examples object and VTK files are available in examples directory.
