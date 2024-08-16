@@ -27,13 +27,14 @@ mat = 'ndfeb' # Should be 'cryo', 'ndfeb' or 'smco'
 # Build a parameter object according to the material specification
 if mat == 'smco':
     # For Sm2Co17 magnets
-    params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, mag_mat='sm2co17', br=1.1, wig_build=build)
+    params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, ext_pole=[9.5, 0], mag_mat='sm2co17', br=1.1, wig_build=build)
 elif mat == 'ndfeb':
     # For room temperature NdFeB (Br may be a bit optimistic)
-    params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, mag_mat='ndfeb', br=1.29, wig_build=build)
+    params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, ext_pole=[9.5, 0], mag_mat='ndfeb', br=1.20, wig_build=build)
 elif mat == 'cryo':
     # For PrFeB magnets at 80 K and Vanadium Permadur poles
-    params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, mag_mat='ndfeb', br=1.6, pole_mat='fecov', wig_build=build)
+    params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, ext_pole=[9.5, 0], mag_mat='ndfeb', br=1.6, pole_mat='fecov', wig_build=build)
+
 
 # Build and solve
 und = rid.HybridWiggler(params)
@@ -44,13 +45,13 @@ fileName = 'mpw5cs_g20_full'
 und = rid.Undulator()
 und.load(fileName)
 """
-und.print_wavelength(e=1.2, n=1, theta=0)
+#und.print_wavelength(e=1.2, n=1, theta=0)
 
 # Export the parameters and model
-und.save(fileName) # save parameters and model
+#und.save(fileName) # save parameters and model
 # Save VTK
 und.exportGeometryToVTK(fileName)
-
+"""
 # Plot geometry
 if sys.platform == "win32":
     und.plot_geo('EdgeLines->True')
@@ -59,7 +60,7 @@ else:
     # Plot VTK by PyVISTA
     grid = pv.read(fileName+'.vtk')
     grid.plot(cmap='viridis',show_scalar_bar=False,show_axes=False,show_edges=True,window_size = [1000, 580],lighting=True,component=1)
-
+"""
 # Plot results (need to plot geometry above)
 #und.plot_field(xyz_end=[0, 1000, 0], xyz_start=[0, -1000, 0], n=1000, b='bz', x_axis='d', plot_show=True, plot_title='field_y')
 """
@@ -82,13 +83,27 @@ und.plot_vector_field(-100,101,5,-200,201,5,-15,16,5,3,plot_save=True, plot_titl
 #und.force(normal_plane=None, point=None)
 #und.test_obj_export_vtk()
 #und.force2(k=[1,1,4])
-"""
-for gap in [800,400,200,150,110,90,70,50,40,30,25,20,15,10,5,3]:
-    params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, mag_mat='ndfeb', br=1.29, wig_build=build)
-    und = rid.HybridWiggler(params)
-    und.force2(k=[1,1,2])
-"""
 
+list_save  = []
+#list_gap = [5,10,15,20,25,30,35,40,45,50]
+list_gap = [15]
+list_epole = [8,8.5,9,9.5,10,10.5,11]
+list_field = []
+#for gap in [800,400,200,150,110,90,70,50,40,30,25,20,15,10,5,3]:
+for gap in list_gap:
+    for epole in list_epole:
+        params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, ext_pole=[epole, 0], mag_mat='ndfeb', br=1.2, wig_build=build)
+        und = rid.HybridWiggler(params)
+        #list_field.append(und.peak_field_tesla(fileName))
+        list_field.append(und.field_int([0,1000,0], xyz_start=None, n=100, b='bz', method='fld_int')[4])
+
+print(list_field)
+#list_save.append(list_gap)
+list_save.append(list_epole)
+list_save.append(list_field)
+np.savetxt(fileName+"fld_int_epole.csv",np.transpose(list_save),header='ME/eV,test',delimiter =",")
+
+"""
 list_sd =[]
 list_field_all =[]
 for i in range(0, 11, 1):
@@ -105,8 +120,8 @@ for i in range(0, 11, 1):
 
         params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, mag_mat='ndfeb', br=1.29, wig_build=build)
         und = rid.HybridWiggler(params)
-        #und.peak_field2(fileName)
-        list_field.append(und.peak_field2(fileName))
+        #und.peak_field_tesla(fileName)
+        list_field.append(und.peak_field_tesla(fileName))
 
     if i ==0:
         list_field_all.append(list_sd)
@@ -118,3 +133,4 @@ for i in range(0, 11, 1):
 #print(list_field_all)
 #np.savetxt(fileName+"_sdr001.csv",np.transpose(list_field_all),header='ME/eV,test',delimiter =",")
 np.savetxt(fileName+"_sdt03.csv",np.transpose(list_field_all),header='ME/eV,test',delimiter =",")
+"""

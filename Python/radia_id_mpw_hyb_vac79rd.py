@@ -44,7 +44,7 @@ class HybridWigParam(UndParam):
     """
     Radia parameters for hybrid wigglers
     """
-    def __init__(self, period, n_poles, sdr, sdt, gap=15, mag_width=79, mag_height=[79, 79, 79], mag_chamfer=[10, 0, 10], pole_length=15, pole_width=79, pole_height=61, pole_chamfer=[10, 0, 10], ext_pole=[9, 0], ext_mag=[50, 0, 10], mag_mat='ndfeb', br=1.29, sep_exp=[0, 0, 0], pole_mat='fecov', mag_area_max=200, pole_area_max=100, mag_long_sub=[2, 2], pole_long_sub=[2, 2], mag_color=[[0, 1, 1],[0, 0.5, 1]], msm=[0, 1, 0], mss=[1, 0, 0], pole_color=[1, 0, 1], wig_build='full'):
+    def __init__(self, period, n_poles, sdr, sdt, gap=15, mag_width=79, mag_height=[79, 79, 79], mag_chamfer=[10, 0, 10], pole_length=15, pole_width=79, pole_height=61, pole_chamfer=[10, 0, 10], ext_pole=[9.5, 0], ext_mag=[50, 0, 10], mag_mat='ndfeb', br=1.20, sep_exp=[0, 0, 0], pole_mat='fecov', mag_area_max=200, pole_area_max=100, mag_long_sub=[2, 2], pole_long_sub=[2, 2], mag_color=[[0, 1, 1],[0, 0.5, 1]], msm=[0, 1, 0], mss=[1, 0, 0], pole_color=[1, 0, 1], wig_build='full'):
         """
         Parameters for hybrid wiggler -- SLRI BL1 type
         :param period: period (mm)
@@ -161,7 +161,7 @@ class Undulator():
         # --- Deflection parameter
         self.k = 0.09337 * self.radia_und_param.period * self.peak_field
 
-    def peak_field2(self, filename, path=''):
+    def peak_field_tesla(self, filename, path=''):
         """
         , filename, path=''
         """
@@ -393,7 +393,7 @@ class Undulator():
             ib = dxyz * np.cumsum(b)
         # --- return
         return x, y, z, d, ib, b
-
+    
     def plot_field_int(self, xyz_end, xyz_start=[0, 0, 0], dir_int=[0, 1, 0], n=100, b='bz', x_axis='d', plot_show=True, plot_title=''):
         """"
         Compute and plot the field along a straight line
@@ -569,7 +569,7 @@ class Undulator():
         #obj_0, obj_1 = rad.ObjCutMag(obj_dpl, point, normal_plane)
         # --- Compute the forces
         # FORCES COMPUTATIONS NOT YET AVAILABLE WITH RADIA PYTHON !!!!
-        fx, fy, fz = rad.FldEnrFrc(dis[0], src[0],'fx|fy|fz',[1, 1, 2])
+        fx, fy, fz = rad.FldEnrFrc(dis[0], src[0],'fx|fy|fz',[1, 1, 4])
         print('Magnetic forces (fx): ', fx, ' N')
         print('Magnetic forces (fy): ', fy, ' N')
         print('Magnetic forces (fz): ', fz, ' N')
