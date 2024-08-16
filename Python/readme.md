@@ -1,3 +1,5 @@
+All the files should be located in the same folder as radia.so under env/radia_python folder.
+
 MPW.py: The main file to run the Python code, and the supplementary file are required as described below.
 
 Radia_Ex03r.ipynb: Jupyter notebook on Sirepo server
