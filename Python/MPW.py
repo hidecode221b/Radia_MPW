@@ -16,7 +16,7 @@ build = 'full'
 period = 230 # Undulator period (mm)
 gap = 15 # Udulator gap (mm)
 #n_periods = 4 # Number of periods
-n_poles = 1 # Number of poles
+n_poles = 5 # Number of poles
 
 # Magnetization errors
 sdr = 0 # standard deviation of amplitude errors (%/100)
@@ -67,7 +67,7 @@ else:
 #und.plot_field([50, 0, 0], [-50, 0, 0], n=1000, b='bz', x_axis='d', plot_show=True, plot_title='field_x')
 
 # Plot 3D vector field by pyvista
-#und.plot_vector_field(-100,101,5,-200,201,5,-15,16,5,3,plot_save=True, plot_title=fileName)
+und.plot_vector_field(-100,100,5,-400,400,5,-5,5,5,3,plot_save=True, plot_title=fileName)
 
 # Plot field integral
 #und.plot_field_int(xyz_end=[0, 2000, 0], xyz_start=[0, -2000, 0], dir_int=[1, 0, 0], n=1000, b='bz', x_axis='d', plot_show=True, plot_title='field_int')
@@ -81,7 +81,7 @@ else:
 #und.test_obj_export_vtk()
 #und.force2(k=[1,1,4])
 
-
+"""
 # Dependence of field and field integral upon gap and ext pole
 list_save  = [] # to be saved
 #list_gap = [5,10,15,20,25,30,35,40,45,50]
@@ -101,7 +101,7 @@ print(list_field)
 list_save.append(list_epole)
 list_save.append(list_field)
 np.savetxt(fileName+"fld_int_epole.csv",np.transpose(list_save),header='ME/eV,test',delimiter =",")
-
+"""
 """
 # Studies on standard errors
 list_sd =[]

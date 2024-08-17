@@ -251,21 +251,24 @@ class Undulator():
         :return pyvista plot
         """
 
-        nx = int((x1-x0-1)/dx) + 1
-        ny = int((y1-y0-1)/dy) + 1
-        nz = int((z1-z0-1)/dz) + 1
+        nx = int((x1-x0)/dx) + 1
+        ny = int((y1-y0)/dy) + 1
+        nz = int((z1-z0)/dz) + 1
         ptsx = complex(0,nx)
         ptsy = complex(0,ny)
         ptsz = complex(0,nz)
         bx,by,bz = [],[],[]
 
-        for j in range(z0,z1,dz):
-            for k in range(y0,y1,dy):
-                x, y, z, d, ba = self.field(xyz_end=[x0, k, j], xyz_start=[x1, k, j], n=nx, b='bx')
+        for j in range(nz):
+            pz = z0+dz*j
+            for k in range(ny):
+                py = y0+dy*k
+                
+                x, y, z, d, ba = self.field(xyz_end=[x0, py, pz], xyz_start=[x1, py, pz], n=nx, b='bx')
                 bx = np.append(bx, ba)
-                x, y, z, d, ba = self.field(xyz_end=[x0, k, j], xyz_start=[x1, k, j], n=nx, b='by')
+                x, y, z, d, ba = self.field(xyz_end=[x0, py, pz], xyz_start=[x1, py, pz], n=nx, b='by')
                 by = np.append(by, ba)
-                x, y, z, d, ba = self.field(xyz_end=[x0, k, j], xyz_start=[x1, k, j], n=nx, b='bz')
+                x, y, z, d, ba = self.field(xyz_end=[x0, py, pz], xyz_start=[x1, py, pz], n=nx, b='bz')
                 bz = np.append(bz, ba)
 
         x, y, z = np.mgrid[x0:x1:ptsx, y0:y1:ptsy, z0:z1:ptsz]
