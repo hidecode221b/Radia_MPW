@@ -45,7 +45,7 @@ fileName = 'mpw5cs_g20_full'
 und = rid.Undulator()
 und.load(fileName)
 """
-#und.print_wavelength(e=1.2, n=1, theta=0)
+und.print_wavelength(e=1.2, n=1, theta=0)
 
 # Export the geometric parameters
 #und.save(fileName) 
@@ -67,7 +67,10 @@ else:
 #und.plot_field([50, 0, 0], [-50, 0, 0], n=1000, b='bz', x_axis='d', plot_show=True, plot_title='field_x')
 
 # Plot 3D vector field by pyvista
-und.plot_vector_field(-100,100,5,-400,400,5,-5,5,5,3,plot_save=True, plot_title=fileName)
+#und.plot_vector_field(-100,100,5,-400,400,5,-5,5,5,3,plot_save=True, plot_title=fileName)
+
+# Plot kick maps (second field integral)
+#und.plot_vector_field_int(-100,100,1,-600,600,1,-5,5,1,method='fld_int',plot_save=True,plot_title='Kickmap')
 
 # Plot field integral
 #und.plot_field_int(xyz_end=[0, 2000, 0], xyz_start=[0, -2000, 0], dir_int=[1, 0, 0], n=1000, b='bz', x_axis='d', plot_show=True, plot_title='field_int')

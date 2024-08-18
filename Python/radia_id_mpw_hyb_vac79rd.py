@@ -16,7 +16,7 @@
 import radia as rad
 import radia_util as rad_uti
 import radia_mat_util as rad_mat
-from matplotlib.pyplot import plot, show, xlabel, ylabel, figure, title
+from matplotlib.pyplot import plot, show, xlabel, ylabel, figure, title, imshow
 from itertools import accumulate
 import pickle
 import numpy as np
@@ -287,6 +287,57 @@ class Undulator():
         p.show_grid(color='black')
         p.add_mesh(arrows_grid, cmap="viridis")
         p.show()
+
+    def plot_vector_field_int(self,x0,x1,dx,y0,y1,dy,z0,z1,dz,method='fld',plot_save=True,plot_title='Kickmap'):
+        """"
+        Compute and plot the 3D field integral specfied in (x0,y0,z0:x1,y1,z1)
+        :param x0,x1,dx: start, end, step for x axis, and so on
+        :param fac: factor of arrow head size
+        :return pyvista plot
+        """
+
+        nx = int((x1-x0)/dx) + 1
+        ny = int((y1-y0)/dy) + 1
+        nz = int((z1-z0)/dz) + 1
+        i1bx,i1bz,i2bx,i2bz = [],[],[],[]
+        pos_x,pos_z = [],[]
+
+        for j in range(nz):
+            pz = z0+dz*j
+            for k in range(nx):
+                px = x0+dx*k
+                i1bx,i1bz = [],[]
+                for l in range(ny-1):
+                    py = y0+dy*(l+1)
+                    
+                    x, y, z, d, ib, b = self.field_int(xyz_end=[px, py, pz], xyz_start=[px, y0, pz], n=l+2, b='bz', method=method)
+                    i1bx = np.append(i1bx, ib)
+                    
+                    x, y, z, d, ib, b = self.field_int(xyz_end=[px, py, pz], xyz_start=[px, y0, pz], n=l+2, b='bx', method=method)
+                    i1bz = np.append(i1bz, ib)
+                    
+                i2bx = np.append(i2bx, np.cumsum(i1bx)[ny-2])
+                i2bz = np.append(i2bz, np.cumsum(i1bz)[ny-2])
+                pos_x = np.append(pos_x, px)
+                pos_z = np.append(pos_z, pz)
+        
+        i2bxi = i2bx
+        i2bzi = i2bz
+
+        i2bx = i2bx.reshape(nz,nx)
+        i2bz = i2bz.reshape(nz,nx)
+        
+        if plot_save:
+            title('Second field integral (horizontal kick)')
+            imshow(i2bx, extent=(x0,x1,z0,z1), interpolation='none')
+            show()
+            title('Second field integral (vertical kick)')
+            imshow(i2bz, extent=(x0,x1,z0,z1), interpolation='none')
+            show()
+        
+        np.savetxt(plot_title + "_i2bx.csv", i2bx, header='ME/eV', comments='', delimiter=",")
+        np.savetxt(plot_title + "_i2bz.csv", i2bz, header='ME/eV', comments='', delimiter=",")
+        
 
     def traj(self, e, init_cond=[0, 0, 0, 0], y_range=None, n_points=100):
         """
