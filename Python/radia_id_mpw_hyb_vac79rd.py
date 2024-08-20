@@ -288,42 +288,64 @@ class Undulator():
         p.add_mesh(arrows_grid, cmap="viridis")
         p.show()
 
-    def plot_vector_field_int(self,x0,x1,dx,y0,y1,dy,z0,z1,dz,method='fld',plot_save=True,plot_title='Kickmap'):
+    def plot_vector_field_int(self,e,x0,x1,dx,y0,y1,dy,z0,z1,dz,method='fld',plot_save=True,plot_title='Kickmap'):
         """"
         Compute and plot the 3D field integral specfied in (x0,y0,z0:x1,y1,z1)
+        :param e: electron beam energy in GeV
         :param x0,x1,dx: start, end, step for x axis, and so on
         :param fac: factor of arrow head size
         :return pyvista plot
         """
 
+        coeff = -1*((93.36*2*3.14/(e/0.000511))**2)/2
+        # - alpha/2 = -0.005
         nx = int((x1-x0)/dx) + 1
         ny = int((y1-y0)/dy) + 1
         nz = int((z1-z0)/dz) + 1
-        i1bx,i1bz,i2bx,i2bz = [],[],[],[]
+        i2bx,i2bz = [],[]
         pos_x,pos_z = [],[]
 
         for j in range(nz):
             pz = z0+dz*j
             for k in range(nx):
                 px = x0+dx*k
-                i1bx,i1bz = [],[]
+
+                i1bx,i1bz,idbx,idbz = [],[],[],[]
+                x, y, z, d, ib, bz = self.field_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bz', method=method)
+                    
+                x, y, z, d, ib, bx = self.field_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bx', method=method)
+                
+                for l in range(ny):
+                    bz_int = np.cumsum(bz)[l]
+                    bx_int = np.cumsum(bx)[l]
+                    
+                    i1bz = np.append(i1bz, bz_int*bz_int)
+                    i1bx = np.append(i1bx, bx_int*bx_int)
+
+                """
                 for l in range(ny-1):
                     py = y0+dy*(l+1)
                     
                     x, y, z, d, ib, b = self.field_int(xyz_end=[px, py, pz], xyz_start=[px, y0, pz], n=l+2, b='bz', method=method)
-                    i1bx = np.append(i1bx, ib)
+                    i1bx = np.append(i1bx, b*b)
                     
                     x, y, z, d, ib, b = self.field_int(xyz_end=[px, py, pz], xyz_start=[px, y0, pz], n=l+2, b='bx', method=method)
-                    i1bz = np.append(i1bz, ib)
-                    
-                i2bx = np.append(i2bx, np.cumsum(i1bx)[ny-2])
-                i2bz = np.append(i2bz, np.cumsum(i1bz)[ny-2])
+                    i1bz = np.append(i1bz, b*b)
+                """
+
+                for l in range(ny-1):
+                    idbz = np.append(idbz, i1bz[l+1] - i1bz[l])
+                    idbx = np.append(idbx, i1bx[l+1] - i1bx[l])
+
+                i2bz = np.append(i2bz, coeff*np.cumsum(idbz)[ny-2])
+                i2bx = np.append(i2bx, coeff*np.cumsum(idbx)[ny-2])
+                """
                 pos_x = np.append(pos_x, px)
                 pos_z = np.append(pos_z, pz)
         
         i2bxi = i2bx
         i2bzi = i2bz
-
+        """
         i2bx = i2bx.reshape(nz,nx)
         i2bz = i2bz.reshape(nz,nx)
         
