@@ -346,19 +346,19 @@ class Undulator():
         i2bxi = i2bx
         i2bzi = i2bz
         """
-        i2bx = i2bx.reshape(nz,nx)
         i2bz = i2bz.reshape(nz,nx)
+        i2bx = i2bx.reshape(nz,nx)
         
         if plot_save:
-            title('Second field integral (horizontal kick)')
-            imshow(i2bx, extent=(x0,x1,z0,z1), interpolation='none')
-            show()
-            title('Second field integral (vertical kick)')
+            title('horizontal kick')
             imshow(i2bz, extent=(x0,x1,z0,z1), interpolation='none')
             show()
+            title('vertical kick')
+            imshow(i2bx, extent=(x0,x1,z0,z1), interpolation='none')
+            show()
         
-        np.savetxt(plot_title + "_i2bx.csv", i2bx, header='ME/eV', comments='', delimiter=",")
         np.savetxt(plot_title + "_i2bz.csv", i2bz, header='ME/eV', comments='', delimiter=",")
+        np.savetxt(plot_title + "_i2bx.csv", i2bx, header='ME/eV', comments='', delimiter=",")
         
 
     def traj(self, e, init_cond=[0, 0, 0, 0], y_range=None, n_points=100):
