@@ -216,7 +216,7 @@ class Undulator():
         :param xyz_start: starting point [x, y, z] (default = [0, 0, 0])
         :param n: number of points (default = 100)
         :param b: field component (default = 'bz')
-        :param xaxis: defines the x axis of the plot, x_axis = 'x', 'y', 'z' or 'd' (default = 'd', i.e. distance)
+        :param x_axis: defines the x axis of the plot, x_axis = 'x', 'y', 'z' or 'd' (default = 'd', i.e. distance)
         :param show: show the plot if True
         :param plot_title: plot title
         :return: a matplotlib figure
@@ -311,9 +311,18 @@ class Undulator():
                 px = x0+dx*k
 
                 i1bx,i1bz,idbx,idbz = [],[],[],[]
-                x, y, z, d, ib, bz = self.field_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bz', method=method)
+                
+                x, y, z, d, ib, b = self.field_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bz', method=method)
+                i2bz = np.append(i2bz, ib)
                     
-                x, y, z, d, ib, bx = self.field_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bx', method=method)
+                x, y, z, d, ib, b = self.field_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bx', method=method)
+                i2bx = np.append(i2bx, ib)
+            
+
+                """
+                x, y, z, d, bz = self.field(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bz')
+                    
+                x, y, z, d, bx = self.field(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bx')
                 
                 for l in range(ny):
                     bz_int = np.cumsum(bz)[l]
@@ -322,30 +331,20 @@ class Undulator():
                     i1bz = np.append(i1bz, bz_int*bz_int)
                     i1bx = np.append(i1bx, bx_int*bx_int)
 
-                """
                 for l in range(ny-1):
-                    py = y0+dy*(l+1)
-                    
-                    x, y, z, d, ib, b = self.field_int(xyz_end=[px, py, pz], xyz_start=[px, y0, pz], n=l+2, b='bz', method=method)
-                    i1bx = np.append(i1bx, b*b)
-                    
-                    x, y, z, d, ib, b = self.field_int(xyz_end=[px, py, pz], xyz_start=[px, y0, pz], n=l+2, b='bx', method=method)
-                    i1bz = np.append(i1bz, b*b)
-                """
-
-                for l in range(ny-1):
-                    idbz = np.append(idbz, i1bz[l+1] - i1bz[l])
-                    idbx = np.append(idbx, i1bx[l+1] - i1bx[l])
+                    idbz = np.append(idbz, (i1bz[l+1] - i1bz[l])/dy)
+                    idbx = np.append(idbx, (i1bx[l+1] - i1bx[l])/dy)
 
                 i2bz = np.append(i2bz, coeff*np.cumsum(idbz)[ny-2])
                 i2bx = np.append(i2bx, coeff*np.cumsum(idbx)[ny-2])
                 """
+
                 pos_x = np.append(pos_x, px)
                 pos_z = np.append(pos_z, pz)
         
         i2bxi = i2bx
         i2bzi = i2bz
-        """
+        
         i2bz = i2bz.reshape(nz,nx)
         i2bx = i2bx.reshape(nz,nx)
         
