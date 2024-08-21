@@ -311,33 +311,31 @@ class Undulator():
                 px = x0+dx*k
 
                 i1bx,i1bz,idbx,idbz = [],[],[],[]
-                
-                x, y, z, d, ib, b = self.field_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bz', method=method)
-                i2bz = np.append(i2bz, ib)
-                    
-                x, y, z, d, ib, b = self.field_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bx', method=method)
-                i2bx = np.append(i2bx, ib)
-            
-
                 """
-                x, y, z, d, bz = self.field(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bz')
+                # First integral (method: fld_int for single, fld for series)
+                x, y, z, d, ibz, bz = self.field_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bz', method='fld_int')
+                i2bz = np.append(i2bz, ibz)
+                
+                x, y, z, d, ibx, bx = self.field_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bx', method='fld_int)
+                i2bx = np.append(i2bx, ibx)
+                """
+
+                
+                x, y, z, d, ibz, bz = self.field_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bz',method=method)
                     
-                x, y, z, d, bx = self.field(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bx')
+                x, y, z, d, ibx, bx = self.field_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bx',method=method)
                 
                 for l in range(ny):
-                    bz_int = np.cumsum(bz)[l]
-                    bx_int = np.cumsum(bx)[l]
-                    
-                    i1bz = np.append(i1bz, bz_int*bz_int)
-                    i1bx = np.append(i1bx, bx_int*bx_int)
-
+                    idbz = np.append(idbz, ibz[l]*ibz[l])
+                    idbx = np.append(idbx, ibx[l]*ibx[l])
+                
                 for l in range(ny-1):
-                    idbz = np.append(idbz, (i1bz[l+1] - i1bz[l])/dy)
-                    idbx = np.append(idbx, (i1bx[l+1] - i1bx[l])/dy)
+                    i1bz = np.append(i1bz, (idbz[l+1] - idbz[l])/dy)
+                    i1bx = np.append(i1bx, (idbx[l+1] - idbx[l])/dy)
+                
+                i2bz = np.append(i2bz, coeff*np.cumsum(i1bz)[ny-2])
+                i2bx = np.append(i2bx, coeff*np.cumsum(i1bx)[ny-2])
 
-                i2bz = np.append(i2bz, coeff*np.cumsum(idbz)[ny-2])
-                i2bx = np.append(i2bx, coeff*np.cumsum(idbx)[ny-2])
-                """
 
                 pos_x = np.append(pos_x, px)
                 pos_z = np.append(pos_z, pz)
