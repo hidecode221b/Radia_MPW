@@ -2,11 +2,12 @@
 Magnetic field simulation codes in Radia on Mathematica and Python for development of in-vacuum hybrid Undulator/Multipole Wiggler to generate higher flux and harder X-ray in the synchrotron storage ring.
 
 ## Highlight features
-- The number of poles can be varied either in even or odd. 
-- Magnetic field can be plotted in the vector field based on PyVISTA.
-- Magnet geometry can be displayed by PyVISTA from VTK file.
+- The number of poles can be varied either in even or odd (Mathematica). 
+- Magnetic field can be plotted in the vector field based on PyVISTA (Python).
+- Magnet geometry can be displayed by PyVISTA from VTK file (Python).
 - ParaView overlays magnetic field and magnet geometry based on VTK files.
-- Calculate the magnetic force on half pole array from the whole structure.
+- Calculate the magnetic force on half pole array from the whole structure (Mathematica).
+- Kickmaps (Mathematica)
 
 ## Abstract
 The insertion devices generate a high energy and flux of synchrotron radiation without major upgrade of 3rd generation storage ring. The undulator utilizes the interference of radiations from the periodic magnet array to produce the X-rays with high flux rather than high energy. The wiggler creates the higher magnetic field than the bending magnet does to produce the X-rays with high energy rather than high flux. The permanent magnets are limited in its magnetization, so the superconducting magnets can be an option for the creation of highest magnetic field. However, the cost of cryogenic facility and its maintenance is typically expensive.
@@ -73,7 +74,7 @@ Wiggler_HYB.ipynb
 Radia_Ex03r.ipynb
 
 ## Issues and testing in progress
-- 
+- Python Radia is now working for the magnetic force calculation.
 
 ## Demo in Youtube
 https://www.youtube.com/channel/UCeSigU1yYzv8_lmQxHp3fsg
