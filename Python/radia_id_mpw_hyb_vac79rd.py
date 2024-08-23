@@ -297,8 +297,8 @@ class Undulator():
         :return pyvista plot
         """
 
-        coeff = -1*((0.09336*2*3.14/(e/0.000511))**2)/2
-        # - alpha^2/2
+        coeff = -1*((93.36*2*3.14/(e/0.000511))**2)/2
+        # - alpha^2/2; -3.116677E-8 T2mm2 or -3.11667E-2 in T2m2
         nx = int((x1-x0)/dx) + 1
         ny = int((y1-y0)/dy) + 1
         nz = int((z1-z0)/dz) + 1
@@ -327,10 +327,13 @@ class Undulator():
 
                 x, y, z, d, ibx2 = self.phase_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bx')
 
-                idbz = np.append(idbz, np.cumsum(ibz2)[ny-1])
-                idbx = np.append(idbx, np.cumsum(ibx2)[ny-1])
-                idb = np.append(idb, np.cumsum(ibz2)[ny-1]+np.cumsum(ibx2)[ny-1])
+                idbz = np.append(idbz, ibz2[ny-1]/1E+6)    # T2m3
+                idbx = np.append(idbx, ibx2[ny-1]/1E+6)
+                #idbz = np.append(idbz, ibz*ibz) # fld_int
+                #idbx = np.append(idbx, ibx*ibx)
                 
+                idb = np.append(idb, (ibz2[ny-1]+ibx2[ny-1])/1E+6)  # T2m3
+                #idb = np.append(idb, (ibz*ibz+ibx*ibx)/1000)   # fld_int
         
         for j in range((nz+2)*(nx+2)):
             if (j+1)/(nx+2) > nz+1 or (j+1) < (nx+3) or (j+1) % (nx+2) == 1 or (j+1) % (nx+2) == 0:
@@ -338,20 +341,22 @@ class Undulator():
                 #i2bz = np.append(i2bz, 0)
                 #i2bx = np.append(i2bx, 0)
             else:
-                #i2bz = np.append(i2bz, (idbz[j+1] - idbz[j])/dx)
-                #i2bx = np.append(i2bx, (idbx[nx+j] - idbx[j])/dz)
                 i2bz = np.append(i2bz, (idb[j+1] - idb[j-1])/(2*dx))
                 i2bx = np.append(i2bx, (idb[nx+2+j] - idb[j-nx-2])/(2*dz))
         
                 #pos_x = np.append(pos_x, px)
                 #pos_z = np.append(pos_z, pz)
         
-        #idbz = idbz.reshape(nz,nx)
-        #idbx = idbx.reshape(nz,nx)
+        #idbz = idbz*coeff*-1
+        #idbx = idbx*coeff*-1
+        #idb = idb*coeff*-1
+        
+        idbz = idbz.reshape(nz+2,nx+2)
+        idbx = idbx.reshape(nz+2,nx+2)
         idb = idb.reshape(nz+2,nx+2)
 
-        i2bx = i2bx*coeff
-        i2bz = i2bz*coeff
+        i2bx = i2bx*coeff*1000
+        i2bz = i2bz*coeff*1000
 
         i2bz = i2bz.reshape(nz,nx)
         i2bx = i2bx.reshape(nz,nx)
@@ -560,8 +565,9 @@ class Undulator():
                     + (xyz_end[2] - xyz_start[2]) ** 2) ** 0.5 / (n - 1)
         else:
             dxyz = ((2 * xyz_end[0]) ** 2 + (2 * xyz_end[1]) ** 2 + (2 * xyz_end[2] ) ** 2) ** 0.5 / (n - 1)
+        
         ib2 = dxyz * np.cumsum(ib * ib)
-
+        
         # --- Return
         return x, y, z, d, ib2
 
