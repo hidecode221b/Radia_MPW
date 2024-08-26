@@ -245,7 +245,7 @@ class Undulator():
 
     def plot_vector_field(self,x0,x1,dx,y0,y1,dy,z0,z1,dz,fac=3,plot_save=True,plot_title='test'):
         """"
-        Compute and plot the 3D field specfied in (x0,y0,z0:x1,y1,z1)
+        Compute and plot the 3D field specified in (x0,y0,z0:x1,y1,z1)
         :param x0,x1,dx: start, end, step for x axis, and so on
         :param fac: factor of arrow head size
         :return pyvista plot
@@ -288,30 +288,28 @@ class Undulator():
         p.add_mesh(arrows_grid, cmap="viridis")
         p.show()
 
-    def plot_vector_field_int(self,e,x0,x1,dx,y0,y1,dy,z0,z1,dz,method='fld',plot_save=True,plot_title='Kickmap'):
+    def plot_vector_field_int(self,e,x0,x1,dx,y0,y1,dy,z0,z1,dz,plot_save=True,plot_title='Kickmap'):
         """"
-        Compute and plot the 3D field integral specfied in (x0,y0,z0:x1,y1,z1)
+        Compute and plot the 3D field integral or kick map specified in (x0,y0,z0:x1,y1,z1)
         :param e: electron beam energy in GeV
         :param x0,x1,dx: start, end, step for x axis, and so on
-        :param fac: factor of arrow head size
+        :param show: show the plot if True
+        :param plot_title: plot title
         :return pyvista plot
         """
-
+        # https://accelconf.web.cern.ch/e92/PDF/EPAC1992_0661.PDF
         coeff = -1*((93.36*2*3.14/(e/0.000511))**2)/2
         # - alpha^2/2; -3.116677E-8 T2mm2 or -3.11667E-2 in T2m2
         nx = int((x1-x0)/dx) + 1
         ny = int((y1-y0)/dy) + 1
         nz = int((z1-z0)/dz) + 1
-        i2bx,i2bz,idbx,idbz = [],[],[],[]
-        pos_x,pos_z = [],[]
-        idb, i2b = [], []
+        i2bx,i2bz,idbx,idbz,idb = [],[],[],[],[]
 
+        # integration over +/- dx and dz for the central differentiation
         for j in range(nz+2):
             pz = (z0-dz)+dz*j
             for k in range(nx+2):
                 px = (x0-dx)+dx*k
-
-                i1bx,i1bz = [],[]
                 """
                 # First integral (method: fld_int for float, fld for array)
                 x, y, z, d, ibz, bz = self.field_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bz', method='fld_int')
@@ -319,69 +317,54 @@ class Undulator():
                 
                 x, y, z, d, ibx, bx = self.field_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bx', method='fld_int)
                 i2bx = np.append(i2bx, ibx)
-
                 """
-                # https://accelconf.web.cern.ch/e92/PDF/EPAC1992_0661.PDF
-                # Kicks (phase_int (fld))
+                
+                # Kick map by phase_int with fld method
                 x, y, z, d, ibz2 = self.phase_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bz')
 
                 x, y, z, d, ibx2 = self.phase_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bx')
 
-                idbz = np.append(idbz, ibz2[ny-1]/1E+6)    # T2m3
-                idbx = np.append(idbx, ibx2[ny-1]/1E+6)
-                #idbz = np.append(idbz, ibz*ibz) # fld_int
-                #idbx = np.append(idbx, ibx*ibx)
+                #idbz = np.append(idbz, ibz2[ny-1]/1E+6)    # T2m3 dx, dz, ans dy (a period)
+                #idbx = np.append(idbx, ibx2[ny-1]/1E+6)    # T2m3 integration over a period, so T2m3
                 
-                idb = np.append(idb, (ibz2[ny-1]+ibx2[ny-1])/1E+6)  # T2m3
-                #idb = np.append(idb, (ibz*ibz+ibx*ibx)/1000)   # fld_int
+                idb = np.append(idb, (ibz2[ny-1]+ibx2[ny-1])/1E+6)  # T2m3 (integration in mm, so make it m)
         
         for j in range((nz+2)*(nx+2)):
             if (j+1)/(nx+2) > nz+1 or (j+1) < (nx+3) or (j+1) % (nx+2) == 1 or (j+1) % (nx+2) == 0:
-                pass
-                #i2bz = np.append(i2bz, 0)
-                #i2bx = np.append(i2bx, 0)
+                pass # integration over +/- dx and dz, so exclude these edges in a final data based on central differentiation
             else:
                 i2bz = np.append(i2bz, (idb[j+1] - idb[j-1])/(2*dx))
                 i2bx = np.append(i2bx, (idb[nx+2+j] - idb[j-nx-2])/(2*dz))
         
-                #pos_x = np.append(pos_x, px)
-                #pos_z = np.append(pos_z, pz)
-        
-        #idbz = idbz*coeff*-1
-        #idbx = idbx*coeff*-1
-        #idb = idb*coeff*-1
-        
-        idbz = idbz.reshape(nz+2,nx+2)
-        idbx = idbx.reshape(nz+2,nx+2)
+        #idbz = idbz.reshape(nz+2,nx+2)
+        #idbx = idbx.reshape(nz+2,nx+2)
         idb = idb.reshape(nz+2,nx+2)
 
+        i2bz = i2bz*coeff*1000  # T2m2 but the differentiation in mm (denominator) at hor, so make it m
         i2bx = i2bx*coeff*1000
-        i2bz = i2bz*coeff*1000
 
         i2bz = i2bz.reshape(nz,nx)
         i2bx = i2bx.reshape(nz,nx)
         
         if plot_save:
             """
-            title('U bz')
+            title('U bz T2m3')
             imshow(idbz, extent=(x0-dx,x1+dx,z0-dz,z1+dz), interpolation='none')
             show()
-            title('U bx')
+            title('U bx T2m3')
             imshow(idbx, extent=(x0-dx,x1+dx,z0-dz,z1+dz), interpolation='none')
             show()
             """
-            title('potential')
+            title('U potential T2m3')
             imshow(idb, extent=(x0-dx,x1+dx,z0-dz,z1+dz), interpolation='none')
             show()
-            title('horizontal kick')
+            title('horizontal kick T2m2')
             imshow(i2bz, extent=(x0,x1,z0,z1), interpolation='none')
             show()
-            title('vertical kick')
+            title('vertical kick T2m2')
             imshow(i2bx, extent=(x0,x1,z0,z1), interpolation='none')
             show()
         
-        np.savetxt(plot_title + "_idbz.csv", idbz, header='ME/eV', comments='', delimiter=",")
-        np.savetxt(plot_title + "_idbx.csv", idbx, header='ME/eV', comments='', delimiter=",")
         np.savetxt(plot_title + "_idb.csv", idb, header='ME/eV', comments='', delimiter=",")
         np.savetxt(plot_title + "_i2bz.csv", i2bz, header='ME/eV', comments='', delimiter=",")
         np.savetxt(plot_title + "_i2bx.csv", i2bx, header='ME/eV', comments='', delimiter=",")
