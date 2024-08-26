@@ -7,7 +7,7 @@ Magnetic field simulation codes in Radia on Mathematica and Python for developme
 - Magnet geometry can be displayed by PyVISTA from VTK file (Python).
 - ParaView overlays magnetic field and magnet geometry based on VTK files.
 - Calculate the magnetic force on half pole array from the whole structure (Mathematica).
-- Kickmaps (Mathematica)
+- Kickmap based on the potential differentiation in horizontal and vertical kicks.
 
 ## Abstract
 The insertion devices generate a high energy and flux of synchrotron radiation without major upgrade of 3rd generation storage ring. The undulator utilizes the interference of radiations from the periodic magnet array to produce the X-rays with high flux rather than high energy. The wiggler creates the higher magnetic field than the bending magnet does to produce the X-rays with high energy rather than high flux. The permanent magnets are limited in its magnetization, so the superconducting magnets can be an option for the creation of highest magnetic field. However, the cost of cryogenic facility and its maintenance is typically expensive.
@@ -27,7 +27,7 @@ Radia python for macOS is available from link below.
 
 https://github.com/hidecode221b/Radia
 
-Python code is based on the Radia ID developed by the ESRF, so the necessary files are required to run the code in addition to Radia python.
+Python class is based on the Radia ID developed by the ESRF, so the necessary files are required to run the code in addition to Radia python.
 
 https://gitlab.esrf.fr/IDM/radia
 
