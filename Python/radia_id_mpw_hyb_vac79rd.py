@@ -17,6 +17,7 @@ import radia as rad
 import radia_util as rad_uti
 import radia_mat_util as rad_mat
 from matplotlib.pyplot import plot, show, xlabel, ylabel, figure, title, imshow
+import matplotlib.pyplot as plt
 from itertools import accumulate
 import pickle
 import numpy as np
@@ -347,6 +348,24 @@ class Undulator():
         i2bx = i2bx.reshape(nz,nx)
         
         if plot_save:
+            # Surface plot of kick maps
+            x = np.arange(x0, x1+dx, dx)
+            z = np.arange(z0, z1+dz, dz)
+            X, Z = np.meshgrid(x, z)
+            Y = i2bz
+            fig = plt.figure()
+            ax = plt.axes(projection='3d')
+            surf = ax.plot_surface(X,Z,Y, cmap=plt.cm.cividis)
+            fig.colorbar(surf, shrink=0.5, aspect=5)
+            plt.show()
+            X, Z = np.meshgrid(x, z)
+            Y = i2bz
+            fig = plt.figure()
+            ax = plt.axes(projection='3d')
+            Y = i2bx
+            surf = ax.plot_surface(X,Z,Y, cmap=plt.cm.cividis)
+            fig.colorbar(surf, shrink=0.5, aspect=5)
+            plt.show()
             """
             title('U bz T2m3')
             imshow(idbz, extent=(x0-dx,x1+dx,z0-dz,z1+dz), interpolation='none')
