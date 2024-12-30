@@ -547,7 +547,7 @@ class Undulator():
         #obj_0, obj_1 = rad.ObjCutMag(obj_dpl, point, normal_plane)
         # --- Compute the forces
         # FORCES COMPUTATIONS NOT YET AVAILABLE WITH RADIA PYTHON !!!!
-        fx, fy, fz = rad.FldEnrFrc(dis[0], src[0],'fx|fy|fz',[1, 1, 2])
+        fx, fy, fz = rad.FldEnrFrc(src[0],self.obj, 'fx|fy|fz',[1, 1, 2])
         print('Magnetic forces (fx): ', fx, ' N')
         print('Magnetic forces (fy): ', fy, ' N')
         print('Magnetic forces (fz): ', fz, ' N')
@@ -1233,7 +1233,7 @@ class HybridWiggler(Undulator):
                 mag_ext = self.build_block_ext() # Extremity magnet
                 if self.radia_und_param.wig_build[:4] == 'full':
                     rad.ObjAddToCnt(und, [mag_main_ext_1, pole_ext_1, mag_ext]) # full
-                    rad.ObjAddToCnt(und_frc, [pole_ext_1]) # und_frc
+                    #rad.ObjAddToCnt(und_frc, [pole_ext_1]) # und_frc
                 elif self.radia_und_param.wig_build[:9] == 'side_pole':
                     rad.ObjAddToCnt(und, [pole_ext_1]) # side & pole
                 elif self.radia_und_param.wig_build[:9] == 'main_pole':
@@ -1258,7 +1258,7 @@ class HybridWiggler(Undulator):
                 # Add to the container
                 if self.radia_und_param.wig_build[:4] == 'full':
                     rad.ObjAddToCnt(und, [mag_0, mag_1, pole_0]) # full
-                    rad.ObjAddToCnt(und_frc, [pole_0]) # und_frc
+                    #rad.ObjAddToCnt(und_frc, [pole_0]) # und_frc
                 elif self.radia_und_param.wig_build[:9] == 'side_pole':
                     rad.ObjAddToCnt(und, [pole_0]) # side & pole
                 elif self.radia_und_param.wig_build[:9] == 'main_pole':
@@ -1282,7 +1282,7 @@ class HybridWiggler(Undulator):
             if self.radia_und_param.wig_build[:4] == 'full':
                 #pass
                 rad.ObjAddToCnt(und, [mag_main_ext_1, pole_ext_1, mag_ext]) # full
-                rad.ObjAddToCnt(und_frc, [pole_ext_1]) # und_frc
+                #rad.ObjAddToCnt(und_frc, [pole_ext_1]) # und_frc
             elif self.radia_und_param.wig_build[:9] == 'side_pole':
                 rad.ObjAddToCnt(und, [pole_ext_1]) # side & pole
             elif self.radia_und_param.wig_build[:9] == 'main_pole':
@@ -1309,7 +1309,7 @@ class HybridWiggler(Undulator):
                 # Add to the container
                 if self.radia_und_param.wig_build[:4] == 'full':
                     rad.ObjAddToCnt(und, [mag_0, mag_1, pole_0, pole_1]) # full
-                    rad.ObjAddToCnt(und_frc, [pole_0, pole_1]) # und_frc
+                    #rad.ObjAddToCnt(und_frc, [pole_0, pole_1]) # und_frc
                 elif self.radia_und_param.wig_build[:9] == 'side_pole':
                     rad.ObjAddToCnt(und, [pole_0, pole_1]) # side & pole
                 elif self.radia_und_param.wig_build[:9] == 'main_pole':
@@ -1335,7 +1335,7 @@ class HybridWiggler(Undulator):
 
             if self.radia_und_param.wig_build[:4] == 'full':
                 rad.ObjAddToCnt(und, [mag_main_ext_0, mag_main_ext_1, pole_ext_0, pole_ext_1, mag_ext]) # full
-                rad.ObjAddToCnt(und_frc, [pole_ext_0, pole_ext_1]) # und_frc
+                #rad.ObjAddToCnt(und_frc, [pole_ext_0, pole_ext_1]) # und_frc
             elif self.radia_und_param.wig_build[:9] == 'side_pole':
                 rad.ObjAddToCnt(und, [pole_ext_0, pole_ext_1]) # side & pole
             elif self.radia_und_param.wig_build[:9] == 'main_pole':
@@ -1353,12 +1353,12 @@ class HybridWiggler(Undulator):
         if n_poles >= 0:
             tr = rad.TrfTrsl([0, 0, self.radia_und_param.gap / 2])
             rad.TrfOrnt(und, tr)
-            rad.TrfOrnt(und_frc, tr)
+            #rad.TrfOrnt(und_frc, tr)
 
         # --- Symmetries
         if sym:
             rad.TrfZerPerp(und, [0, 0, 0], [1, 0, 0])
-            rad.TrfZerPerp(und_frc, [0, 0, 0], [1, 0, 0])
+            #rad.TrfZerPerp(und_frc, [0, 0, 0], [1, 0, 0])
             if n_poles > 0:
                 if self.radia_und_param.wig_build[len(self.radia_und_param.wig_build)-4:] == 'half':
                     pass
@@ -1366,13 +1366,13 @@ class HybridWiggler(Undulator):
                     rad.TrfZerPara(und, [0, 0, 0], [0, 0, 1])
             if n_poles % 2 == 0 and n_poles > 0:
                 rad.TrfZerPara(und, [0, 0, 0], [0, 1, 0])
-                rad.TrfZerPara(und_frc, [0, 0, 0], [0, 1, 0])
+                #rad.TrfZerPara(und_frc, [0, 0, 0], [0, 1, 0])
             else:
                 rad.TrfZerPerp(und, [0, 0, 0], [0, 1, 0])
-                rad.TrfZerPerp(und_frc, [0, 0, 0], [0, 1, 0])
+                #rad.TrfZerPerp(und_frc, [0, 0, 0], [0, 1, 0])
 
-        # --- Cut the half of the first magnet
-        #und = rad.ObjCutMag(und, [20,20,20], [0,0,1], 'Frame->Lab')[0]
+        # --- Cut the half for force2 calc
+        und_frc = rad.ObjCutMag(und, [0,0,0], [0,0,1], 'Frame->Lab')[0]
 
         # --- Return the undulator
         return und
