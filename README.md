@@ -6,7 +6,7 @@ Magnetic field simulation codes in Radia on Mathematica and Python for developme
 - Magnetic field can be plotted in the vector field based on PyVISTA (Python).
 - Magnet geometry can be displayed by PyVISTA from VTK file (Python).
 - ParaView overlays magnetic field and magnet geometry based on VTK files.
-- Calculate the magnetic force on half pole array from the whole structure (Mathematica).
+- Calculate the magnetic force on half array from the whole structure.
 - Kickmap based on the potential differentiation in horizontal and vertical kicks.
 
 ## Abstract
@@ -58,7 +58,7 @@ https://www.astec.stfc.ac.uk/
 ### Python from RadiaID gitlab
 All the python files should be located under the radia-master/env/radia_python/.
 
-Radia.so should be created for your python version (See [link](https://github.com/hidecode221b/Radia)).
+Radia.so should be created for your python environment (See [link](https://github.com/hidecode221b/Radia) for macos).
 
 Run the mpw.py after the main parameters are setup in mpw.py and radia_id_mpw_hyb.py 
 
@@ -69,6 +69,8 @@ Example#3mpw.nb
 
 ### Jupyter notebook with RadiaID
 Wiggler_HYB.ipynb
+
+radia_id.py
 
 ### Jupyter notebook based on RadiaSoft Jupyter server
 Radia_Ex03r.ipynb
