@@ -17,7 +17,6 @@ import radia as rad
 import radia_util as rad_uti
 import radia_mat_util as rad_mat
 from matplotlib.pyplot import plot, show, xlabel, ylabel, figure, title, imshow
-import matplotlib.pyplot as plt
 from itertools import accumulate
 import pickle
 import numpy as np
@@ -246,7 +245,7 @@ class Undulator():
 
     def plot_vector_field(self,x0,x1,dx,y0,y1,dy,z0,z1,dz,fac=3,plot_save=True,plot_title='test'):
         """"
-        Compute and plot the 3D field specified in (x0,y0,z0:x1,y1,z1)
+        Compute and plot the 3D field specfied in (x0,y0,z0:x1,y1,z1)
         :param x0,x1,dx: start, end, step for x axis, and so on
         :param fac: factor of arrow head size
         :return pyvista plot
@@ -289,28 +288,30 @@ class Undulator():
         p.add_mesh(arrows_grid, cmap="viridis")
         p.show()
 
-    def plot_vector_field_int(self,e,x0,x1,dx,y0,y1,dy,z0,z1,dz,plot_save=True,plot_title='Kickmap'):
+    def plot_vector_field_int(self,e,x0,x1,dx,y0,y1,dy,z0,z1,dz,method='fld',plot_save=True,plot_title='Kickmap'):
         """"
-        Compute and plot the 3D field integral or kick map specified in (x0,y0,z0:x1,y1,z1)
+        Compute and plot the 3D field integral specfied in (x0,y0,z0:x1,y1,z1)
         :param e: electron beam energy in GeV
         :param x0,x1,dx: start, end, step for x axis, and so on
-        :param show: show the plot if True
-        :param plot_title: plot title
+        :param fac: factor of arrow head size
         :return pyvista plot
         """
-        # https://accelconf.web.cern.ch/e92/PDF/EPAC1992_0661.PDF
-        coeff = -1*((93.36*2*3.14/(e/0.000511))**2)/2
-        # - alpha^2/2; -3.116677E-8 T2mm2 or -3.11667E-2 in T2m2
+
+        coeff = -1*((0.09336*2*3.14/(e/0.000511))**2)/2
+        # - alpha^2/2
         nx = int((x1-x0)/dx) + 1
         ny = int((y1-y0)/dy) + 1
         nz = int((z1-z0)/dz) + 1
-        i2bx,i2bz,idbx,idbz,idb = [],[],[],[],[]
+        i2bx,i2bz,idbx,idbz = [],[],[],[]
+        pos_x,pos_z = [],[]
+        idb, i2b = [], []
 
-        # integration over +/- dx and dz for the central differentiation
         for j in range(nz+2):
             pz = (z0-dz)+dz*j
             for k in range(nx+2):
                 px = (x0-dx)+dx*k
+
+                i1bx,i1bz = [],[]
                 """
                 # First integral (method: fld_int for float, fld for array)
                 x, y, z, d, ibz, bz = self.field_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bz', method='fld_int')
@@ -318,94 +319,64 @@ class Undulator():
                 
                 x, y, z, d, ibx, bx = self.field_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bx', method='fld_int)
                 i2bx = np.append(i2bx, ibx)
+
                 """
-                
-                # Kick map by phase_int with fld method
+                # https://accelconf.web.cern.ch/e92/PDF/EPAC1992_0661.PDF
+                # Kicks (phase_int (fld))
                 x, y, z, d, ibz2 = self.phase_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bz')
 
                 x, y, z, d, ibx2 = self.phase_int(xyz_end=[px, y1, pz], xyz_start=[px, y0, pz], n=ny, b='bx')
 
-                #idbz = np.append(idbz, ibz2[ny-1]/1E+6)    # T2m3 dx, dz, ans dy (a period)
-                #idbx = np.append(idbx, ibx2[ny-1]/1E+6)    # T2m3 integration over a period, so T2m3
+                idbz = np.append(idbz, np.cumsum(ibz2)[ny-1])
+                idbx = np.append(idbx, np.cumsum(ibx2)[ny-1])
+                idb = np.append(idb, np.cumsum(ibz2)[ny-1]+np.cumsum(ibx2)[ny-1])
                 
-                idb = np.append(idb, (ibz2[ny-1]+ibx2[ny-1])/1E+6)  # T2m3 (integration in mm, so make it m)
         
         for j in range((nz+2)*(nx+2)):
             if (j+1)/(nx+2) > nz+1 or (j+1) < (nx+3) or (j+1) % (nx+2) == 1 or (j+1) % (nx+2) == 0:
-                pass # integration over +/- dx and dz, so exclude these edges in a final data based on central differentiation
+                pass
+                #i2bz = np.append(i2bz, 0)
+                #i2bx = np.append(i2bx, 0)
             else:
+                #i2bz = np.append(i2bz, (idbz[j+1] - idbz[j])/dx)
+                #i2bx = np.append(i2bx, (idbx[nx+j] - idbx[j])/dz)
                 i2bz = np.append(i2bz, (idb[j+1] - idb[j-1])/(2*dx))
                 i2bx = np.append(i2bx, (idb[nx+2+j] - idb[j-nx-2])/(2*dz))
         
-        #idbz = idbz.reshape(nz+2,nx+2)
-        #idbx = idbx.reshape(nz+2,nx+2)
+                #pos_x = np.append(pos_x, px)
+                #pos_z = np.append(pos_z, pz)
+        
+        #idbz = idbz.reshape(nz,nx)
+        #idbx = idbx.reshape(nz,nx)
         idb = idb.reshape(nz+2,nx+2)
 
-        i2bz = i2bz*coeff*1000  # T2m2 but the differentiation in mm (denominator) at hor, so make it m
-        i2bx = i2bx*coeff*1000
+        i2bx = i2bx*coeff
+        i2bz = i2bz*coeff
 
         i2bz = i2bz.reshape(nz,nx)
         i2bx = i2bx.reshape(nz,nx)
         
         if plot_save:
-            # Surface plot of kick maps
-            x = np.arange(x0, x1+dx, dx)
-            z = np.arange(z0, z1+dz, dz)
-            X, Z = np.meshgrid(x, z)
-            
-            fig = plt.figure()
-            #fig, axes = plt.subplots(nrows=1, ncols=2)
-            ax1 = plt.axes(projection='3d')
-            surf1 = ax1.plot_surface(X,Z,i2bz, cmap=plt.cm.cividis)
-            fig.colorbar(surf1, shrink=0.4, aspect=10)
-            plt.title("horizontal kick T2m2")
-            plt.xlabel("X (mm)")
-            plt.ylabel("Z (mm)")
-            plt.show()
-            #X, Z = np.meshgrid(x, z)
-            fig = plt.figure()
-            ax2 = plt.axes(projection='3d')
-            surf2 = ax2.plot_surface(X,Z,i2bx, cmap=plt.cm.cividis)
-            fig.colorbar(surf2, shrink=0.4, aspect=10)
-            plt.title("vertical kick T2m2")
-            plt.xlabel("X (mm)")
-            plt.ylabel("Z (mm)")
-            plt.show()
             """
-            title('U bz T2m3')
+            title('U bz')
             imshow(idbz, extent=(x0-dx,x1+dx,z0-dz,z1+dz), interpolation='none')
             show()
-            title('U bx T2m3')
+            title('U bx')
             imshow(idbx, extent=(x0-dx,x1+dx,z0-dz,z1+dz), interpolation='none')
             show()
             """
-            title('U potential T2m3')
-            pot = imshow(idb, extent=(x0-dx,x1+dx,z0-dz,z1+dz), interpolation='none')
-            plt.colorbar(pot, shrink=0.2, aspect=10)
-            plt.xlabel("X (mm)")
-            plt.ylabel("Z (mm)")
+            title('potential')
+            imshow(idb, extent=(x0-dx,x1+dx,z0-dz,z1+dz), interpolation='none')
             show()
-
-            fig, (ax1, ax2) = plt.subplots(ncols=2)
-            dfz = ax1.imshow(i2bz, extent=(x0,x1,z0,z1), interpolation='none', aspect='auto')
-            ax1.set_title("horizontal kick T2m2")
-            ax1.set_xlabel("X (mm)")
-            ax1.set_ylabel("Z (mm)")
-            fig.colorbar(dfz, ax=ax1, shrink=0.3, aspect=15)
-            dfx = ax2.imshow(i2bx, extent=(x0,x1,z0,z1), interpolation='none', aspect='auto')
-            ax2.set_title("vertical kick T2m2")
-            ax2.set_xlabel("X (mm)")
-            ax2.set_ylabel("Z (mm)")
-            fig.colorbar(dfx, ax=ax2, shrink=0.3, aspect=15)
-            plt.show()
-            """
-            title('horizontal kick T2m2')
+            title('horizontal kick')
             imshow(i2bz, extent=(x0,x1,z0,z1), interpolation='none')
             show()
-            title('vertical kick T2m2')
+            title('vertical kick')
             imshow(i2bx, extent=(x0,x1,z0,z1), interpolation='none')
             show()
-            """
+        
+        np.savetxt(plot_title + "_idbz.csv", idbz, header='ME/eV', comments='', delimiter=",")
+        np.savetxt(plot_title + "_idbx.csv", idbx, header='ME/eV', comments='', delimiter=",")
         np.savetxt(plot_title + "_idb.csv", idb, header='ME/eV', comments='', delimiter=",")
         np.savetxt(plot_title + "_i2bz.csv", i2bz, header='ME/eV', comments='', delimiter=",")
         np.savetxt(plot_title + "_i2bx.csv", i2bx, header='ME/eV', comments='', delimiter=",")
@@ -589,9 +560,8 @@ class Undulator():
                     + (xyz_end[2] - xyz_start[2]) ** 2) ** 0.5 / (n - 1)
         else:
             dxyz = ((2 * xyz_end[0]) ** 2 + (2 * xyz_end[1]) ** 2 + (2 * xyz_end[2] ) ** 2) ** 0.5 / (n - 1)
-        
         ib2 = dxyz * np.cumsum(ib * ib)
-        
+
         # --- Return
         return x, y, z, d, ib2
 
@@ -712,7 +682,7 @@ class Undulator():
         #obj_0, obj_1 = rad.ObjCutMag(obj_dpl, point, normal_plane)
         # --- Compute the forces
         # FORCES COMPUTATIONS NOT YET AVAILABLE WITH RADIA PYTHON !!!!
-        fx, fy, fz = rad.FldEnrFrc(dis[0], src[0],'fx|fy|fz',[1, 1, 4])
+        fx, fy, fz = rad.FldEnrFrc(src[0], self.obj,'fx|fy|fz',[1, 1, 4])
         print('Magnetic forces (fx): ', fx, ' N')
         print('Magnetic forces (fy): ', fy, ' N')
         print('Magnetic forces (fz): ', fz, ' N')
@@ -730,9 +700,11 @@ class Undulator():
 
         # --- Compute the forces
         # FORCES COMPUTATIONS NOT YET AVAILABLE WITH RADIA PYTHON !!!!
-        ft= rad.FldEnrFrc(und_frc, self.obj,'f',k)
-        print('Magnetic forces (fx,fy,fz): ', ft, ' Newton')
+        #ft= rad.FldEnrFrc(und_frc, self.obj,'f',k)
+        fz= rad.FldEnrFrc(und_frc, self.obj,'fz',k)
+        print('Magnetic forces: ', fz, ' Newton')
         #return fx, fy, fz
+        return fz
 
     def test_obj_export_vtk(self):
         """
@@ -1605,7 +1577,8 @@ class HybridWiggler(Undulator):
 
             if self.radia_und_param.wig_build[:4] == 'full':
                 rad.ObjAddToCnt(und, [mag_main_ext_p0u, mag_main_ext_p1u, mag_main_ext_n0u, mag_main_ext_n1u, pole_ext_p1u, pole_ext_n1u, mag_ext_pu, mag_ext_nu, mag_main_ext_p0d, mag_main_ext_p1d, mag_main_ext_n0d, mag_main_ext_n1d, pole_ext_p1d, pole_ext_n1d, mag_ext_pd, mag_ext_nd]) # full
-                rad.ObjAddToCnt(und_frc, [pole_ext_p1u, pole_ext_n1u, pole_ext_p1d, pole_ext_n1d]) # und_frc
+                # und_frc
+                #rad.ObjAddToCnt(und_frc, [mag_main_ext_p0u, mag_main_ext_p1u, mag_main_ext_n0u, mag_main_ext_n1u, pole_ext_p1u, pole_ext_n1u, mag_ext_pu, mag_ext_nu]) 
             elif self.radia_und_param.wig_build[:9] == 'side_pole':
                 rad.ObjAddToCnt(und, [pole_ext_p1u, pole_ext_n1u, pole_ext_p1d, pole_ext_n1d]) # side & pole
             elif self.radia_und_param.wig_build[:9] == 'main_pole':
@@ -1641,9 +1614,9 @@ class HybridWiggler(Undulator):
                 rad.TrfZerPerp(und, [0, 0, 0], [0, 1, 0])
                 rad.TrfZerPerp(und_frc, [0, 0, 0], [0, 1, 0])
         """
-        # --- Cut the half of the first magnet
-        #und = rad.ObjCutMag(und, [20,20,20], [0,0,1], 'Frame->Lab')[0]
-
+        # --- Cut down the bottom half for force calc
+        und_frc = rad.ObjCutMag(und, [0,0,0], [0,0,1], 'Frame->Lab')[0]
+        
         # --- Return the undulator
         return und
 

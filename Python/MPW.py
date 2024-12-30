@@ -30,7 +30,7 @@ if mat == 'smco':
     params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, mag_mat='sm2co17', br=1.1, wig_build=build)
 elif mat == 'ndfeb':
     # For room temperature NdFeB (Br may be a bit optimistic)
-    params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, ext_pole=[9.5, 0], mag_mat='ndfeb', br=1.20, wig_build=build)
+    params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, ext_pole=[9.5, 0], mag_mat='ndfeb', br=1.2, wig_build=build)
 elif mat == 'cryo':
     # For PrFeB magnets at 80 K and Vanadium Permadur poles
     params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, mag_mat='ndfeb', br=1.6, pole_mat='fecov', wig_build=build)
@@ -70,7 +70,7 @@ else:
 #und.plot_vector_field(-100,100,5,-400,400,5,-5,5,5,3,plot_save=True, plot_title=fileName)
 
 # Plot kick maps (second field integral)
-und.plot_vector_field_int(1.2,-100,100,1,-230,0,1,-7,7,1,plot_save=True,plot_title='Kickmap')
+#und.plot_vector_field_int(1.2,-100,100,1,-230,0,1,-7,7,1,method='fld_int',plot_save=True,plot_title='Kickmap')
 
 # Plot field integral
 #und.plot_field_int(xyz_end=[0, 2000, 0], xyz_start=[0, -2000, 0], dir_int=[1, 0, 0], n=1000, b='bz', x_axis='d', plot_show=True, plot_title='field_int')
@@ -85,25 +85,39 @@ und.plot_vector_field_int(1.2,-100,100,1,-230,0,1,-7,7,1,plot_save=True,plot_tit
 #und.force2(k=[1,1,4])
 
 """
+list_save  = [] # to be saved
+list_gap = [5,10,15,20,25,30,35,40,45,50]
+list_force = [] # force
+
+for gap in list_gap:
+    #for epole in list_epole:
+        params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, ext_pole=[9.5, 0], mag_mat='ndfeb', br=1.2, wig_build=build)
+        und = rid.HybridWiggler(params)
+        list_force.append(und.force2(k=[1,1,4]))
+        
+list_save.append(list_force)
+np.savetxt(fileName+"Force.csv",np.transpose(list_save),header='ME/eV,test',delimiter =",")
+"""
+"""
 # Dependence of field and field integral upon gap and ext pole
 list_save  = [] # to be saved
-#list_gap = [5,10,15,20,25,30,35,40,45,50]
-list_gap = [15] # undulator gap
-list_epole = [8,8.5,9,9.5,10,10.5,11] # ending pole length
+list_gap = [5,10,15,20,25,30,35,40,45,50]
+#list_gap = [15] # undulator gap
+#list_epole = [8,8.5,9,9.5,10,10.5,11] # ending pole length
 list_field = [] # peak field
 
 for gap in list_gap:
-    for epole in list_epole:
-        params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, ext_pole=[epole, 0], mag_mat='ndfeb', br=1.2, wig_build=build)
+    #for epole in list_epole:
+        params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, ext_pole=[9.5, 0], mag_mat='ndfeb', br=1.28, wig_build=build)
         und = rid.HybridWiggler(params)
-        #list_field.append(und.peak_field_tesla(fileName))
-        list_field.append(und.field_int([0,1000,0], xyz_start=None, n=100, b='bz', method='fld_int')[4])
+        list_field.append(und.peak_field_tesla(fileName))
+        #list_field.append(und.field_int([0,1000,0], xyz_start=None, n=100, b='bz', method='fld_int')[4])
 
 print(list_field)
 #list_save.append(list_gap)
-list_save.append(list_epole)
+#list_save.append(list_epole)
 list_save.append(list_field)
-np.savetxt(fileName+"fld_int_epole.csv",np.transpose(list_save),header='ME/eV,test',delimiter =",")
+np.savetxt(fileName+"fld_int.csv",np.transpose(list_save),header='ME/eV,test',delimiter =",")
 """
 """
 # Studies on standard errors
