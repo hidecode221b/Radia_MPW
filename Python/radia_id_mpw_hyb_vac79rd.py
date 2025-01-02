@@ -44,7 +44,7 @@ class HybridWigParam(UndParam):
     """
     Radia parameters for hybrid wigglers
     """
-    def __init__(self, period, n_poles, sdr, sdt, gap=15, mag_width=79, mag_height=[79, 79, 79], mag_chamfer=[10, 0, 10], pole_length=15, pole_width=79, pole_height=61, pole_chamfer=[10, 0, 10], ext_pole=[9.5, 0], ext_mag=[50, 0, 10], mag_mat='ndfeb', br=1.20, sep_exp=[0, 0, 0], pole_mat='fecov', mag_area_max=200, pole_area_max=100, mag_long_sub=[2, 2], pole_long_sub=[2, 2], mag_color=[[0, 1, 1],[0, 0.5, 1]], msm=[0, 1, 0], mss=[1, 0, 0], pole_color=[1, 0, 1], wig_build='full'):
+    def __init__(self, period, n_poles, sdr, sdt, gap=15, mag_width=79, mag_height=[79, 79, 79], mag_chamfer=[10, 0, 10], pole_length=15, pole_width=79, pole_height=61, pole_chamfer=[10, 0, 10], ext_pole=[9.5, 0], ext_mag=[50, 0, 10], mag_mat='ndfeb', br=1.28, sep_exp=[0, 0, 0], pole_mat='fecov', mag_area_max=200, pole_area_max=100, mag_long_sub=[2, 2], pole_long_sub=[2, 2], mag_color=[[0, 1, 1],[0, 0.5, 1]], msm=[0, 1, 0], mss=[1, 0, 0], pole_color=[1, 0, 1], wig_build='full'):
         """
         Parameters for hybrid wiggler -- SLRI BL1 type
         :param period: period (mm)
@@ -683,10 +683,11 @@ class Undulator():
         # --- Compute the forces
         # FORCES COMPUTATIONS NOT YET AVAILABLE WITH RADIA PYTHON !!!!
         fx, fy, fz = rad.FldEnrFrc(src[0], self.obj,'fx|fy|fz',[1, 1, 4])
-        print('Magnetic forces (fx): ', fx, ' N')
-        print('Magnetic forces (fy): ', fy, ' N')
+        #print('Magnetic forces (fx): ', fx, ' N')
+        #print('Magnetic forces (fy): ', fy, ' N')
         print('Magnetic forces (fz): ', fz, ' N')
         #return fx, fy, fz
+        return fz
 
     def force2(self, k):
         """
@@ -1434,7 +1435,7 @@ class HybridWiggler(Undulator):
                 mag_ext_nd = self.build_block_ext(-1, -1) # Extremity magnet
                 if self.radia_und_param.wig_build[:4] == 'full':
                     rad.ObjAddToCnt(und, [mag_main_ext_p1u, mag_main_ext_n1u, pole_ext_p1u, pole_ext_n1u, mag_ext_pu, mag_ext_nu, mag_main_ext_p1d, mag_main_ext_n1d, pole_ext_p1d, pole_ext_n1d, mag_ext_pd, mag_ext_nd]) # full
-                    rad.ObjAddToCnt(und_frc, [pole_ext_p1u, pole_ext_n1u, pole_ext_p1d, pole_ext_n1d]) # und_frc
+                    rad.ObjAddToCnt(und_frc, [pole_ext_p1u, pole_ext_n1u]) # und_frc
                 elif self.radia_und_param.wig_build[:9] == 'side_pole':
                     rad.ObjAddToCnt(und, [pole_ext_p1u, pole_ext_n1u, pole_ext_p1d, pole_ext_n1d]) # side & pole
                 elif self.radia_und_param.wig_build[:9] == 'main_pole':
@@ -1468,7 +1469,7 @@ class HybridWiggler(Undulator):
                 # Add to the container
                 if self.radia_und_param.wig_build[:4] == 'full':
                     rad.ObjAddToCnt(und, [mag_p0u, mag_p1u, mag_n0u, mag_n1u, pole_p0u, pole_n0u, mag_p0d, mag_p1d, mag_n0d, mag_n1d, pole_p0d, pole_n0d]) # full
-                    rad.ObjAddToCnt(und_frc, [pole_p0, pole_n0]) # und_frc
+                    rad.ObjAddToCnt(und_frc, [pole_p0u, pole_n0u]) # und_frc
                 elif self.radia_und_param.wig_build[:9] == 'side_pole':
                     rad.ObjAddToCnt(und, [pole_p0u, pole_n0u, pole_p0d, pole_n0d]) # side & pole
                 elif self.radia_und_param.wig_build[:9] == 'main_pole':
@@ -1501,7 +1502,7 @@ class HybridWiggler(Undulator):
             if self.radia_und_param.wig_build[:4] == 'full':
                 #pass
                 rad.ObjAddToCnt(und, [mag_main_ext_p1u, mag_main_ext_n1u, pole_ext_p1u, pole_ext_n1u, mag_ext_pu, mag_ext_nu, mag_main_ext_p1d, mag_main_ext_n1d, pole_ext_p1d, pole_ext_n1d, mag_ext_pd, mag_ext_nd]) # full
-                rad.ObjAddToCnt(und_frc, [pole_ext_p1u, pole_ext_n1u, pole_ext_p1d, pole_ext_n1d]) # und_frc
+                rad.ObjAddToCnt(und_frc, [pole_ext_p1u, pole_ext_n1u]) # und_frc
             elif self.radia_und_param.wig_build[:9] == 'side_pole':
                 rad.ObjAddToCnt(und, [pole_ext_p1u, pole_ext_n1u, pole_ext_p1d, pole_ext_n1d]) # side & pole
             elif self.radia_und_param.wig_build[:9] == 'main_pole':
@@ -1540,7 +1541,7 @@ class HybridWiggler(Undulator):
                 # Add to the container
                 if self.radia_und_param.wig_build[:4] == 'full':
                     rad.ObjAddToCnt(und, [mag_p0u, mag_p1u, mag_n0u, mag_n1u, pole_p1u, pole_n1u, mag_p0d, mag_p1d, mag_n0d, mag_n1d, pole_p1d, pole_n1d]) # full
-                    rad.ObjAddToCnt(und_frc, [pole_p1u, pole_n1u, pole_p1d, pole_n1d]) # und_frc
+                    rad.ObjAddToCnt(und_frc, [pole_p1u, pole_n1u]) # und_frc
                 elif self.radia_und_param.wig_build[:9] == 'side_pole':
                     rad.ObjAddToCnt(und, [pole_p1u, pole_n1u, pole_p1d, pole_n1d]) # side & pole
                 elif self.radia_und_param.wig_build[:9] == 'main_pole':
@@ -1578,15 +1579,15 @@ class HybridWiggler(Undulator):
             if self.radia_und_param.wig_build[:4] == 'full':
                 rad.ObjAddToCnt(und, [mag_main_ext_p0u, mag_main_ext_p1u, mag_main_ext_n0u, mag_main_ext_n1u, pole_ext_p1u, pole_ext_n1u, mag_ext_pu, mag_ext_nu, mag_main_ext_p0d, mag_main_ext_p1d, mag_main_ext_n0d, mag_main_ext_n1d, pole_ext_p1d, pole_ext_n1d, mag_ext_pd, mag_ext_nd]) # full
                 # und_frc
-                #rad.ObjAddToCnt(und_frc, [mag_main_ext_p0u, mag_main_ext_p1u, mag_main_ext_n0u, mag_main_ext_n1u, pole_ext_p1u, pole_ext_n1u, mag_ext_pu, mag_ext_nu]) 
+                rad.ObjAddToCnt(und_frc, [pole_ext_p1u, pole_ext_n1u]) 
             elif self.radia_und_param.wig_build[:9] == 'side_pole':
                 rad.ObjAddToCnt(und, [pole_ext_p1u, pole_ext_n1u, pole_ext_p1d, pole_ext_n1d]) # side & pole
             elif self.radia_und_param.wig_build[:9] == 'main_pole':
                 rad.ObjAddToCnt(und, [mag_main_ext_p0u, mag_main_ext_p1u, mag_main_ext_n0u, mag_main_ext_n1u, mag_ext_pu, mag_ext_nu, pole_ext_p1u, pole_ext_n1u, mag_main_ext_p0d, mag_main_ext_p1d, mag_main_ext_n0d, mag_main_ext_n1d, mag_ext_pd, mag_ext_nd, pole_ext_p1d, pole_ext_n1d]) # main & pole
             elif self.radia_und_param.wig_build[:9] == 'main_side':
-                rad.ObjAddToCnt(und, [mag_main_ext_p0u, mag_main_ext_p1u, mag_main_ext_n0u, mag_main_ext_n1u, mag_ext_pu, mag_ext_nu, mag_main_ext_p0d, mag_main_ext_p1d, mag_main_ext_n0d, mag_main_ext_n1d, mag_ext_p, mag_ext_nd]) # main & side
+                rad.ObjAddToCnt(und, [mag_main_ext_p0u, mag_main_ext_p1u, mag_main_ext_n0u, mag_main_ext_n1u, mag_ext_pu, mag_ext_nu, mag_main_ext_p0d, mag_main_ext_p1d, mag_main_ext_n0d, mag_main_ext_n1d, mag_ext_pd, mag_ext_nd]) # main & side
             elif self.radia_und_param.wig_build[:4] == 'main':
-                rad.ObjAddToCnt(und, [mag_main_ext_p0u, mag_main_ext_p1u, mag_main_ext_n0u, mag_main_ext_n1u, mag_ext_pu, mag_ext_nu, mag_main_ext_p0d, mag_main_ext_p1d, mag_main_ext_n0d, mag_main_ext_n1d, mag_ext_p, mag_ext_nd]) # main
+                rad.ObjAddToCnt(und, [mag_main_ext_p0u, mag_main_ext_p1u, mag_main_ext_n0u, mag_main_ext_n1u, mag_ext_pu, mag_ext_nu, mag_main_ext_p0d, mag_main_ext_p1d, mag_main_ext_n0d, mag_main_ext_n1d, mag_ext_pd, mag_ext_nd]) # main
             elif self.radia_und_param.wig_build[:4] == 'side':
                 rad.ObjAddToCnt(und, []) # side
             elif self.radia_und_param.wig_build[:4] == 'pole':

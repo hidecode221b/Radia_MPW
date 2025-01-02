@@ -30,7 +30,7 @@ if mat == 'smco':
     params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, mag_mat='sm2co17', br=1.1, wig_build=build)
 elif mat == 'ndfeb':
     # For room temperature NdFeB (Br may be a bit optimistic)
-    params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, ext_pole=[9.5, 0], mag_mat='ndfeb', br=1.2, wig_build=build)
+    params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, ext_pole=[9.5, 0], mag_mat='ndfeb', br=1.28, wig_build=build)
 elif mat == 'cryo':
     # For PrFeB magnets at 80 K and Vanadium Permadur poles
     params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, mag_mat='ndfeb', br=1.6, pole_mat='fecov', wig_build=build)
@@ -86,17 +86,18 @@ else:
 
 """
 list_save  = [] # to be saved
-list_gap = [5,10,15,20,25,30,35,40,45,50]
+list_gap = [5,10,15,20,25,30,35,40,45,50,75,100,150,200]
 list_force = [] # force
 
 for gap in list_gap:
     #for epole in list_epole:
-        params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, ext_pole=[9.5, 0], mag_mat='ndfeb', br=1.2, wig_build=build)
+        params = rid.HybridWigParam(period, n_poles, sdr, sdt, gap, ext_pole=[9.5, 0], mag_mat='ndfeb', br=1.28, wig_build=build)
         und = rid.HybridWiggler(params)
-        list_force.append(und.force2(k=[1,1,4]))
+        #list_force.append(und.force2(k=[1,1,4]))
+        list_force.append(und.force(normal_plane=None, point=None))
         
 list_save.append(list_force)
-np.savetxt(fileName+"Force.csv",np.transpose(list_save),header='ME/eV,test',delimiter =",")
+np.savetxt(fileName+"_Force.csv",np.transpose(list_save),header='ME/eV,test',delimiter =",")
 """
 """
 # Dependence of field and field integral upon gap and ext pole
