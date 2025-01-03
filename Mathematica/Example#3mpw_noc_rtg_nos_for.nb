@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[    205927,       3791]
-NotebookOptionsPosition[    197326,       3610]
-NotebookOutlinePosition[    198510,       3654]
-CellTagsIndexPosition[    198467,       3651]
+NotebookDataLength[    208461,       3825]
+NotebookOptionsPosition[    199758,       3643]
+NotebookOutlinePosition[    200943,       3687]
+CellTagsIndexPosition[    200900,       3684]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -102,7 +102,7 @@ and develop experience.",
   3.933108085840271*^9}, {3.9331081323412*^9, 3.933108135017185*^9}},
  AspectRatioFixed->
   True,ExpressionUUID->"717b5375-299b-4a73-b1c4-5b4c657d9166"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -133,13 +133,14 @@ Cell[TextData[{
   3.928537507836915*^9}},
  AspectRatioFixed->True,
  CellLabel->"In[1]:=",ExpressionUUID->"0a81d872-9815-47a6-a8ca-b399b670058c"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
 Cell["Define Magnetic Material ", "Section",
  Evaluatable->False,
- CellChangeTimes->{{3.3999127515151253`*^9, 3.3999127519057503`*^9}},
+ CellChangeTimes->{{3.3999127515151253`*^9, 3.3999127519057503`*^9}, 
+   3.9345082770683613`*^9},
  AspectRatioFixed->
   True,ExpressionUUID->"252e519d-81eb-497c-88b0-81b5bad93f75"],
 
@@ -167,14 +168,24 @@ by multiplying H by \"",
 47dbab68bcd6"],
 
 Cell[TextData[{
- "H = {0.8, 1.5, 2.2, 3.6, 5, 6.8, 9.8, 18, 28, 37.5, 42, 55, 71.5, 80, 85, \
-88, 92, 100, 120, 150, 200, 300, 400, 600, 800, 1000, 2000, 4000, 6000, \
-10000, 25000, 40000};\n\nM = {0.000998995, 0.00199812, 0.00299724, \
+ "(*\nH = {0.8, 1.5, 2.2, 3.6, 5, 6.8, 9.8, 18, 28, 37.5, 42, 55, 71.5, 80, \
+85, 88, 92, 100, 120, 150, 200, 300, 400, 600, 800, 1000, 2000, 4000, 6000, \
+10000, 25000, 40000};\nM = {0.000998995, 0.00199812, 0.00299724, \
 0.00499548,0.00699372, 0.00999145, 0.0149877, 0.0299774, 0.0499648, \
 0.0799529, 0.0999472, 0.199931, 0.49991, 0.799899, 0.999893, 1.09989, \
 1.19988, 1.29987, 1.41985, 1.49981, 1.59975, 1.72962, 1.7995, 1.89925, \
-1.96899, 1.99874,  2.09749, 2.19497, 2.24246, 2.27743, 2.28958, 2.28973};\n\n\
-ma =  N[Table[{H[[i]]*4*Pi*10^(-7), M[[i]]}, {i, 1, Length[H]}]];\n\n",
+1.96899, 1.99874,  2.09749, 2.19497, 2.24246, 2.27743, 2.28958, 2.28973};\n*)\
+\n\n(* VACOFLUX 50 *)\nH = {0, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, \
+80, 90, 100, 120, 140, 160, 180, 200, 250, 300, 350, 400, 449, 500, 550, 600, \
+650, 700, 801, 901, 1002, 1205, 1398, 1600, 1805, 2004, 2199, 2406, 2798, \
+2997, 3509, 4011, 4491, 4979, 5501, 7486, 7982, 9021, 9997, 11958, 12984, \
+14060, 16000, 20000, 30000, 40000};\nM = {0.000, 0.044, 0.063, 0.086, 0.116, \
+0.148, 0.182, 0.218, 0.260, 0.305, 0.356, 0.412, 0.540, 0.685, 0.839, 1.134, \
+1.355, 1.497, 1.592, 1.659, 1.767, 1.835, 1.882, 1.918, 1.948, 1.972, 1.993, \
+2.011, 2.027, 2.041, 2.066, 2.087, 2.104, 2.132, 2.151, 2.168, 2.182, 2.193, \
+2.202, 2.212, 2.223, 2.229, 2.240, 2.247, 2.253, 2.258, 2.261, 2.272, 2.274, \
+2.278, 2.280, 2.285, 2.288, 2.290, 2.293, 2.302, 2.317, 2.331};\n\nma =  \
+N[Table[{H[[i]]*4*Pi*10^(-7), M[[i]]}, {i, 1, Length[H]}]];\n\n",
  StyleBox["RadPlotOptions",
   FontColor->RGBColor[1, 0, 0]],
  "[];\nListPlot[ma,\nJoined->True,\nAxesLabel->{\"H [Tesla]\",\"Mag \
@@ -186,9 +197,35 @@ AxesLabel->{\"H [Tesla]\",\"Mag [Tesla]\"}]\n\nmp=",
 }], "Input",
  CellChangeTimes->{{3.6700863622205486`*^9, 3.6700863679301586`*^9}, {
    3.6700864088334303`*^9, 3.670086412078236*^9}, {3.8495772906656523`*^9, 
-   3.8495773035543327`*^9}, 3.849577391661707*^9},
- CellLabel->"In[4]:=",ExpressionUUID->"dc1242ef-4d98-4bd0-ab04-28bea0ccd1bc"]
-}, Open  ]],
+   3.8495773035543327`*^9}, 3.849577391661707*^9, 3.9345053726927814`*^9},
+ CellLabel->"In[4]:=",ExpressionUUID->"dc1242ef-4d98-4bd0-ab04-28bea0ccd1bc"],
+
+Cell[TextData[{
+ "(* VACODYM 807TP 20C *)\nH = {0.00, -2.75, -5.50, -8.25, -10.99, -13.74, \
+-16.49, -19.24, -21.99, -24.74, -27.49, -27.61, -27.74, -27.86, -27.99, \
+-28.11, -28.24, -28.37, -28.49, -28.62, -28.74, -28.81, -28.88, -28.95, \
+-29.03, -29.10, -29.17, -29.24, -29.31, -29.38, -29.45, -29.50, -29.56, \
+-29.61, -29.67, -29.72, -29.78, -29.83, -29.89, -29.94, -30.00};\nM = {1.30, \
+1.02, 0.73, 0.45, 0.17, -0.11, -0.40, -0.68, -0.96, -1.24, -1.53, -1.54, \
+-1.55, -1.57, -1.58, -1.60, -1.61, -1.63, -1.65, -1.67, -1.69, -1.71, -1.72, \
+-1.74, -1.76, -1.79, -1.82, -1.86, -1.92, -1.99, -2.09, -2.18, -2.27, -2.37, \
+-2.46, -2.55, -2.64, -2.73, -2.82, -2.91, -3.00};\n\nmb =  \
+N[Table[{H[[i]]*0.1, M[[i]]}, {i, 1, Length[H]}]];\n\n",
+ StyleBox["RadPlotOptions",
+  FontColor->RGBColor[1, 0, 0]],
+ "[];\nListPlot[mb,\nJoined->True,\nAxesLabel->{\"H [Tesla]\",\"Mag \
+[Tesla]\"}]\n\n(*mm=",
+ StyleBox["radMatSatIso",
+  FontColor->RGBColor[1, 0, 0]],
+ "[mb];*)"
+}], "Input",
+ CellChangeTimes->{{3.6700863622205486`*^9, 3.6700863679301586`*^9}, {
+   3.6700864088334303`*^9, 3.670086412078236*^9}, {3.8495772906656523`*^9, 
+   3.8495773035543327`*^9}, 3.849577391661707*^9, 3.9345053726927814`*^9, {
+   3.9345083078943377`*^9, 3.9345083872993913`*^9}, {3.9345086106698227`*^9, 
+   3.934508611067051*^9}, {3.934508957811307*^9, 3.9345090270209584`*^9}},
+ CellLabel->"In[18]:=",ExpressionUUID->"cdb81a31-0028-4b1d-a2ed-462f0664f749"]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -360,15 +397,13 @@ Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
   FontColor->GrayLevel[0]],
  StyleBox["RadMatNdFeB",
   FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n",
-  FontColor->GrayLevel[0]],
- StyleBox["If[sd==0,sx=0, sx=RandomVariate[NormalDistribution[0,sdsx]]];\n\
-If[sd==0,sy=1, sy=RandomVariate[NormalDistribution[1,sdsy]]];\nIf[sd==0,sz=1, \
-sz=RandomVariate[NormalDistribution[1,sdsz]]];",
-  FontColor->GrayLevel[0]],
- StyleBox["\n(*Print[\"Random radians before end1 (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
+ StyleBox["[mt*r]];\nIf[sd==0,sx=0, \
+sx=RandomVariate[NormalDistribution[0,sdsx]]];\nIf[sd==0,sy=1, \
+sy=RandomVariate[NormalDistribution[1,sdsy]]];\nIf[sd==0,sz=1, \
+sz=RandomVariate[NormalDistribution[1,sdsz]]];\n(*Print[\"Random radians \
+before end1 (\",r,\", \",theta,\", \",phi,\"), cartesian (\",ms[[1]],\", \
+\",ms[[2]],\", \",ms[[3]],\"), norm (\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\
+\"];*)",
   FontColor->GrayLevel[0]],
  "\n",
  StyleBox["(* Magnet before End pole p *)",
@@ -399,15 +434,13 @@ Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
   FontColor->GrayLevel[0]],
  StyleBox["RadMatNdFeB",
   FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n",
-  FontColor->GrayLevel[0]],
- StyleBox["If[sd==0,sx=0, sx=RandomVariate[NormalDistribution[0,sdsx]]];\n\
-If[sd==0,sy=1, sy=RandomVariate[NormalDistribution[1,sdsy]]];\nIf[sd==0,sz=1, \
-sz=RandomVariate[NormalDistribution[1,sdsz]]];",
-  FontColor->GrayLevel[0]],
- StyleBox["\n(*Print[\"Random radians before end2 (\",r,\", \",theta,\", \
-\",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
+ StyleBox["[mt*r]];\nIf[sd==0,sx=0, \
+sx=RandomVariate[NormalDistribution[0,sdsx]]];\nIf[sd==0,sy=1, \
+sy=RandomVariate[NormalDistribution[1,sdsy]]];\nIf[sd==0,sz=1, \
+sz=RandomVariate[NormalDistribution[1,sdsz]]];\n(*Print[\"Random radians \
+before end2 (\",r,\", \",theta,\", \",phi,\"), cartesian (\",ms[[1]],\", \
+\",ms[[2]],\", \",ms[[3]],\"), norm (\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\
+\"];*)",
   FontColor->GrayLevel[0]],
  "\n",
  StyleBox["(* Magnet before End pole p *)",
@@ -457,15 +490,12 @@ Cos[theta], Sin[theta]*Sin[phi]}];\nIf[sd==0,mm=",
   FontColor->GrayLevel[0]],
  StyleBox["RadMatNdFeB",
   FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n",
-  FontColor->GrayLevel[0]],
- StyleBox["If[sd==0,sx=0, sx=RandomVariate[NormalDistribution[0,sdsx]]];\n\
-If[sd==0,sy=1, sy=RandomVariate[NormalDistribution[1,sdsy]]];\nIf[sd==0,sz=1, \
-sz=RandomVariate[NormalDistribution[1,sdsz]]];",
-  FontColor->GrayLevel[0]],
- StyleBox["\n(*Print[\"Random radians end (\",r,\", \",theta,\", \",phi,\"), \
-cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
+ StyleBox["[mt*r]];\nIf[sd==0,sx=0, \
+sx=RandomVariate[NormalDistribution[0,sdsx]]];\nIf[sd==0,sy=1, \
+sy=RandomVariate[NormalDistribution[1,sdsy]]];\nIf[sd==0,sz=1, \
+sz=RandomVariate[NormalDistribution[1,sdsz]]];\n(*Print[\"Random radians end \
+(\",r,\", \",theta,\", \",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \
+\",ms[[3]],\"), norm (\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
   FontColor->GrayLevel[0]],
  "\n",
  StyleBox["(* End magnet for half size and unit model p *)",
@@ -556,10 +586,10 @@ If[(NumPer==0)||(ending==0),y+=lm[[2]]/4,y+=lm[[2]]/4];\n\
 If[(NumPer==0),y+=sp[[2]],y];\n\nundfrc=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[{pole,magnet}];\n\n(*undc=",
+ "[{pole,magnet}];\nundc=",
  StyleBox["radObjCutMag",
   FontColor->RGBColor[1, 0, 0]],
- "[und,{0,0,40},{0,0,1},Frame->Lab][[1]];*)\n(*Print[\"Total length \
+ "[und,{0,0,0},{0,0,1},Frame->Lab][[1]];\n\n(*Print[\"Total length \
 (\",NumPer*2+1,\" poles):    \",N[(y+lm[[2]]/4)*2,5],\"  mm\"];*)\n\
 totallength=N[(y+lm[[2]]/4)*2,5];\nnumPoles=NumPer*2+1;\nund\n]"
 }], "Input",
@@ -939,10 +969,12 @@ totallength=N[(y+lm[[2]]/4)*2,5];\nnumPoles=NumPer*2+1;\nund\n]"
    3.9029720026787353`*^9, 3.9029720148587294`*^9}, {3.9029721533967113`*^9, 
    3.9029727286559134`*^9}, {3.902972873644926*^9, 3.9029729117686343`*^9}, {
    3.9029731591226892`*^9, 3.9029732188313074`*^9}, {3.902973864438696*^9, 
-   3.9029739074596624`*^9}, {3.902974308126629*^9, 3.902974409869705*^9}},
+   3.9029739074596624`*^9}, {3.902974308126629*^9, 3.902974409869705*^9}, {
+   3.9448580979777412`*^9, 3.944858106974691*^9}, 3.944858219144351*^9},
  AspectRatioFixed->True,
  Background->RGBColor[0.88, 1, 0.88],
- CellLabel->"In[16]:=",ExpressionUUID->"55d175db-2e2d-4acd-b57c-348bc9f05e56"]
+ CellLabel->
+  "In[252]:=",ExpressionUUID->"55d175db-2e2d-4acd-b57c-348bc9f05e56"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -1004,15 +1036,12 @@ If[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi],Cos[theta],Sin[theta]*Sin[phi]}];\
   FontColor->GrayLevel[0]],
  StyleBox["RadMatNdFeB",
   FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n",
-  FontColor->GrayLevel[0]],
- StyleBox["If[sd==0,sx=0, sx=RandomVariate[NormalDistribution[0,sdsx]]];\n\
-If[sd==0,sy=1, sy=RandomVariate[NormalDistribution[1,sdsy]]];\nIf[sd==0,sz=1, \
-sz=RandomVariate[NormalDistribution[1,sdsz]]];",
-  FontColor->GrayLevel[0]],
- StyleBox["\n(*Print[\"Random radians end (\",r,\", \",theta,\", \",phi,\"), \
-cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
+ StyleBox["[mt*r]];\nIf[sd==0,sx=0, \
+sx=RandomVariate[NormalDistribution[0,sdsx]]];\nIf[sd==0,sy=1, \
+sy=RandomVariate[NormalDistribution[1,sdsy]]];\nIf[sd==0,sz=1, \
+sz=RandomVariate[NormalDistribution[1,sdsz]]];\n(*Print[\"Random radians end \
+(\",r,\", \",theta,\", \",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \
+\",ms[[3]],\"), norm (\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
   FontColor->GrayLevel[0]],
  "\n",
  StyleBox["(* Periodic Magnet 1 *)\n",
@@ -1059,15 +1088,12 @@ If[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi],Cos[theta],Sin[theta]*Sin[phi]}];\
   FontColor->GrayLevel[0]],
  StyleBox["RadMatNdFeB",
   FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n",
-  FontColor->GrayLevel[0]],
- StyleBox["If[sd==0,sx=0, sx=RandomVariate[NormalDistribution[0,sdsx]]];\n\
-If[sd==0,sy=1, sy=RandomVariate[NormalDistribution[1,sdsy]]];\nIf[sd==0,sz=1, \
-sz=RandomVariate[NormalDistribution[1,sdsz]]];",
-  FontColor->GrayLevel[0]],
- StyleBox["\n(*Print[\"Random radians end (\",r,\", \",theta,\", \",phi,\"), \
-cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
+ StyleBox["[mt*r]];\nIf[sd==0,sx=0, \
+sx=RandomVariate[NormalDistribution[0,sdsx]]];\nIf[sd==0,sy=1, \
+sy=RandomVariate[NormalDistribution[1,sdsy]]];\nIf[sd==0,sz=1, \
+sz=RandomVariate[NormalDistribution[1,sdsz]]];\n(*Print[\"Random radians end \
+(\",r,\", \",theta,\", \",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \
+\",ms[[3]],\"), norm (\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
   FontColor->GrayLevel[0]],
  "\n",
  StyleBox["(* Periodic Magnet 2 *)",
@@ -1114,15 +1140,12 @@ If[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi],Cos[theta],Sin[theta]*Sin[phi]}];\
   FontColor->GrayLevel[0]],
  StyleBox["RadMatNdFeB",
   FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n",
-  FontColor->GrayLevel[0]],
- StyleBox["If[sd==0,sx=0, sx=RandomVariate[NormalDistribution[0,sdsx]]];\n\
-If[sd==0,sy=1, sy=RandomVariate[NormalDistribution[1,sdsy]]];\nIf[sd==0,sz=1, \
-sz=RandomVariate[NormalDistribution[1,sdsz]]];",
-  FontColor->GrayLevel[0]],
- StyleBox["\n(*Print[\"Random radians end (\",r,\", \",theta,\", \",phi,\"), \
-cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
+ StyleBox["[mt*r]];\nIf[sd==0,sx=0, \
+sx=RandomVariate[NormalDistribution[0,sdsx]]];\nIf[sd==0,sy=1, \
+sy=RandomVariate[NormalDistribution[1,sdsy]]];\nIf[sd==0,sz=1, \
+sz=RandomVariate[NormalDistribution[1,sdsz]]];\n(*Print[\"Random radians end \
+(\",r,\", \",theta,\", \",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \
+\",ms[[3]],\"), norm (\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
   FontColor->GrayLevel[0]],
  "\n",
  StyleBox["(* Magnet before End pole p *)",
@@ -1171,15 +1194,12 @@ If[sd==0,ms={0,1,0},ms={Sin[theta]*Cos[phi],Cos[theta],Sin[theta]*Sin[phi]}];\
   FontColor->GrayLevel[0]],
  StyleBox["RadMatNdFeB",
   FontColor->RGBColor[1, 0, 0]],
- StyleBox["[mt*r]];\n",
-  FontColor->GrayLevel[0]],
- StyleBox["If[sd==0,sx=0, sx=RandomVariate[NormalDistribution[0,sdsx]]];\n\
-If[sd==0,sy=1, sy=RandomVariate[NormalDistribution[1,sdsy]]];\nIf[sd==0,sz=1, \
-sz=RandomVariate[NormalDistribution[1,sdsz]]];",
-  FontColor->GrayLevel[0]],
- StyleBox["\n(*Print[\"Random radians end (\",r,\", \",theta,\", \",phi,\"), \
-cartesian (\",ms[[1]],\", \",ms[[2]],\", \",ms[[3]],\"), norm \
-(\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
+ StyleBox["[mt*r]];\nIf[sd==0,sx=0, \
+sx=RandomVariate[NormalDistribution[0,sdsx]]];\nIf[sd==0,sy=1, \
+sy=RandomVariate[NormalDistribution[1,sdsy]]];\nIf[sd==0,sz=1, \
+sz=RandomVariate[NormalDistribution[1,sdsz]]];\n(*Print[\"Random radians end \
+(\",r,\", \",theta,\", \",phi,\"), cartesian (\",ms[[1]],\", \",ms[[2]],\", \
+\",ms[[3]],\"), norm (\",Sqrt[ms[[1]]^2+ms[[2]]^2+ms[[3]]],\")\"];*)",
   FontColor->GrayLevel[0]],
  "\n",
  StyleBox["(* End magnet for half size and unit model p *)",
@@ -1253,10 +1273,10 @@ array==1),pole=",
 undfrc=",
  StyleBox["radObjCnt",
   FontColor->RGBColor[1, 0, 0]],
- "[{pole,magnet}];\n\n(*undc=",
+ "[{pole,magnet}];\nundc=",
  StyleBox["radObjCutMag",
   FontColor->RGBColor[1, 0, 0]],
- "[und,{0,0,40},{0,0,1},Frame->Lab][[1]];*)\n(*Print[\"Total length \
+ "[und,{0,0,0},{0,0,1},Frame->Lab][[1]];\n\n(*Print[\"Total length \
 (\",NumPer*2,\" poles):    \",N[(y+lm[[2]]/4)*2,5],\"  mm\"];*)\n\
 totallength=N[(y+lm[[2]]/4)*2,5];\nnumPoles=NumPer*2;\nund\n]"
 }], "Input",
@@ -1513,11 +1533,11 @@ totallength=N[(y+lm[[2]]/4)*2,5];\nnumPoles=NumPer*2;\nund\n]"
    3.9025522733823547`*^9, 3.902552335050336*^9}, {3.902972767718835*^9, 
    3.9029728644789505`*^9}, {3.902972935109724*^9, 3.90297307592826*^9}, {
    3.902973224051712*^9, 3.9029732696624722`*^9}, {3.9029739117297153`*^9, 
-   3.9029739498426423`*^9}, {3.9029741959308863`*^9, 3.90297430145007*^9}},
+   3.9029739498426423`*^9}, {3.9029741959308863`*^9, 3.90297430145007*^9}, {
+   3.944858230104353*^9, 3.944858236390573*^9}},
  AspectRatioFixed->True,
- Background->RGBColor[1, 0.85, 0.85],
- CellLabel->
-  "In[1055]:=",ExpressionUUID->"c55f66be-e2ff-4d35-b2a5-2eb6f91ef814"]
+ Background->RGBColor[
+  1, 0.85, 0.85],ExpressionUUID->"c55f66be-e2ff-4d35-b2a5-2eb6f91ef814"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -1574,16 +1594,16 @@ lp={79,(per-lm[[2]]*2)/2,61};np={subDiv,subDiv};cp={1,0,1};chp={10,0,10};\n\n\
 (* chambers: chmp for pole, chmk for keeper *)\n\
 chmp={chp[[1]],chp[[2]]};chmk=chp[[1]];\n\n(* End Pole Parameters *)\n\
 lep={lp[[1]],lp[[2]]-5.5,lp[[3]]};\n\n(* Ending gaps: gap to end pole, gap to \
-end mag *)\ndpm={0,0};\n\n(* Define Pole Material *)\nmp=",
+end mag *)\ndpm={0,0};\n\n(* Define Pole Material *)\n(*mp=",
  StyleBox["RadMatAFK502",
   FontColor->RGBColor[1, 0, 0]],
- "[];\n(*mp=",
+ "[];*)\nmp=",
  StyleBox["radMatSatIso",
   FontColor->RGBColor[1, 0, 0]],
- "[ma];*)\n\n(* Define NdFeB with 1.2 Tesla Remanent Magnetization *)\n(*mm=",
+ "[ma];\n\n(* Define NdFeB with 1.2 Tesla Remanent Magnetization *)\n(*mm=",
  StyleBox["RadMatNdFeB",
   FontColor->RGBColor[1, 0, 0]],
- "[1.29];*)\nmt=1.2;\n\n(* Define magnetization errors, if sd=1, sdr: \
+ "[1.29];*)\nmt=1.28;\n\n(* Define magnetization errors, if sd=1, sdr: \
 standard deviation (SD) in mt (%/100), sdt: SD in theta (degrees) *)\nsd=0;\n\
 sdr=0.0001;\nsdt=0.0001;\n(* Define mechanical errors, if sd=1, sdsx=: SD \
 (mm) in x axis, sdsy=: SD sep2 in (%/100) in y axis, sdsz=: SD half gap in \
@@ -1955,10 +1975,13 @@ Period: \",strPer,\" mm, Subdivision: \",strSub,\"\"]"
    3.931316523550501*^9}, 3.9313232603760967`*^9, {3.9313951393293543`*^9, 
    3.9313951415485153`*^9}, {3.932780341567487*^9, 3.932780342137499*^9}, {
    3.9327805344848347`*^9, 3.932780534914836*^9}, 3.9327807188665*^9, {
-   3.93311745074891*^9, 3.9331174510167694`*^9}},
+   3.93311745074891*^9, 3.9331174510167694`*^9}, {3.934505396239271*^9, 
+   3.9345054002688017`*^9}, {3.934505681438961*^9, 3.9345056925209513`*^9}, 
+   3.944858142445943*^9},
  AspectRatioFixed->True,
- CellLabel->"In[17]:=",ExpressionUUID->"f9610f9d-2237-404b-bdbc-ee8eeedef1ac"]
-}, Open  ]],
+ CellLabel->
+  "In[253]:=",ExpressionUUID->"f9610f9d-2237-404b-bdbc-ee8eeedef1ac"]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -1981,7 +2004,7 @@ Cell[TextData[{
   FontColor->GrayLevel[0]],
  StyleBox["radObjDrw",
   FontColor->RGBColor[1, 0, 0]],
- StyleBox["[und];",
+ StyleBox["[undc];",
   FontColor->GrayLevel[0]],
  StyleBox["\n\nRadPlot3DOptions",
   FontColor->RGBColor[1, 0, 0]],
@@ -2041,10 +2064,12 @@ Export[FileNameJoin[{NotebookDirectory[],\"Mag_p\"<>strPoles<>\"_n\"<>strSub<>\
    3.901851082658117*^9}, {3.9018511290217915`*^9, 3.9018511297898026`*^9}, {
    3.901851261373671*^9, 3.9018512616614656`*^9}, {3.901852215728075*^9, 
    3.9018522338235273`*^9}, {3.9313868564426537`*^9, 
-   3.9313868991655416`*^9}, {3.93138694103596*^9, 3.9313869516236134`*^9}},
+   3.9313868991655416`*^9}, {3.93138694103596*^9, 3.9313869516236134`*^9}, {
+   3.9448581950645695`*^9, 3.944858207740568*^9}},
  AspectRatioFixed->True,
- CellLabel->"In[69]:=",ExpressionUUID->"c7896b99-1018-444a-acab-41eef79736aa"]
-}, Open  ]],
+ CellLabel->
+  "In[210]:=",ExpressionUUID->"c7896b99-1018-444a-acab-41eef79736aa"]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -2092,8 +2117,9 @@ Bz(0,\",-per/4,\",0) : \",N[",
   3.8753238586263113`*^9, 3.8753238586263113`*^9}, {3.9010683920241995`*^9, 
   3.9010684077983055`*^9}},
  AspectRatioFixed->True,
- CellLabel->"In[75]:=",ExpressionUUID->"177175c9-89ec-406b-9603-c0cf26effe5b"]
-}, Open  ]],
+ CellLabel->
+  "In[305]:=",ExpressionUUID->"177175c9-89ec-406b-9603-c0cf26effe5b"]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -2173,7 +2199,7 @@ strSub<>\"_g\"<>strGap<>\".dat\"}],t]"
    3.879893454849868*^9}},
  AspectRatioFixed->True,
  CellLabel->"In[94]:=",ExpressionUUID->"e9f58193-654c-4f92-8a2c-0c0bd8095936"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -2225,10 +2251,13 @@ Cell[TextData[{
    3.8731688898395004`*^9, 3.873168891549518*^9}, {3.8731689713219075`*^9, 
    3.873168980048828*^9}, {3.873769704252731*^9, 3.87376974901378*^9}, {
    3.901659594436122*^9, 3.901659597827736*^9}, {3.901659932277869*^9, 
-   3.901659948667948*^9}, {3.9016603461155977`*^9, 3.901660347591601*^9}},
+   3.901659948667948*^9}, {3.9016603461155977`*^9, 3.901660347591601*^9}, {
+   3.9345080123505335`*^9, 3.934508012530529*^9}, {3.934508193388276*^9, 
+   3.9345081997130346`*^9}, {3.934508752178185*^9, 3.9345087732312827`*^9}, {
+   3.934508883681299*^9, 3.934508939377211*^9}},
  AspectRatioFixed->True,
  CellLabel->
-  "In[723]:=",ExpressionUUID->"9113889a-20af-485c-be53-acb2e2734784"]
+  "In[523]:=",ExpressionUUID->"9113889a-20af-485c-be53-acb2e2734784"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -2327,7 +2356,7 @@ PlotStyle->{Thickness[0.002]}]"
  AspectRatioFixed->True,
  CellLabel->
   "In[100]:=",ExpressionUUID->"87010605-74fc-48a9-915f-936cc44eff69"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -2396,7 +2425,7 @@ strSub<>\"_g\"<>strGap<>\"_epy\"<>ToString[lep[[2]]]<>\".dat\"}],t]"
  AspectRatioFixed->True,
  CellLabel->
   "In[114]:=",ExpressionUUID->"2148320c-9341-4d90-84da-6b03cbbe43c4"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -2557,7 +2586,7 @@ Cell[BoxData[{
    3.9012243330753336`*^9, 3.901224349817649*^9}},
  CellLabel->
   "In[120]:=",ExpressionUUID->"38b94814-3bb7-4c90-8e7f-ddbabc2517b2"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -2601,7 +2630,7 @@ Cell[BoxData[{
    RowBox[{
     StyleBox["radFldEnrFrc",
      FontColor->RGBColor[1, 0, 0]], "[", 
-    RowBox[{"poleF", ",", "und", ",", "\"\<\>\"", ",", "k"}], "]"}]}], 
+    RowBox[{"undc", ",", "und", ",", "\"\<\>\"", ",", "k"}], "]"}]}], 
   ";"}], "\n", 
  RowBox[{
   RowBox[{"t2", "=", 
@@ -2628,10 +2657,11 @@ Cell[BoxData[{
    3.851134284374837*^9}, {3.8511366993379183`*^9, 3.851136700349275*^9}, 
    3.853544520033885*^9, {3.8538214765601015`*^9, 3.853821525853097*^9}, {
    3.853821571510219*^9, 3.853821579845916*^9}, {3.853821613578614*^9, 
-   3.8538216169785976`*^9}, 3.9012268253635263`*^9},
+   3.8538216169785976`*^9}, 3.9012268253635263`*^9, {3.9448583064946375`*^9, 
+   3.944858308831766*^9}},
  CellLabel->
-  "In[125]:=",ExpressionUUID->"49ef75ca-1487-4a29-b498-91c185383a97"]
-}, Open  ]],
+  "In[246]:=",ExpressionUUID->"49ef75ca-1487-4a29-b498-91c185383a97"]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -3001,7 +3031,7 @@ Cell[BoxData[
    3.933304248900402*^9}},
  CellLabel->
   "In[131]:=",ExpressionUUID->"6fae57be-63f5-4bed-bd2a-437897e95773"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -3214,7 +3244,7 @@ t=0\n)]\nt2=AbsoluteTime[];\nPrint [\"cpu time : \",N[t2-t1,3],\" seconds\"];\
  AspectRatioFixed->True,
  CellLabel->
   "In[150]:=",ExpressionUUID->"9279ef9f-baea-4903-b5a1-eb035aebc7f2"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -3435,7 +3465,7 @@ dat\"}],t]\n(* ListPlot[t,Joined->True,AxesLabel->{\"lesz\",\"fldint\"}] *)"
    3.933368306064123*^9}},
  AspectRatioFixed->
   True,ExpressionUUID->"b55ebfdd-804e-4c31-9d32-d62728080c52"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -3468,10 +3498,10 @@ lep={lp[[1]],lp[[2]]-5.5,lp[[3]]};\nchmp={chp[[1]],chp[[2]]};chmk=10;\n\n\
 F[]:=Module[{},\nlp[[2]]=(per-lm[[2]]*2)/2;\nsp[[3]]=gap/2;\n",
  StyleBox["radUtiDelAll",
   FontColor->RGBColor[1, 0, 0]],
- "[];\nmm=",
+ "[];\n(* mm=",
  StyleBox["RadMatNdFeB",
   FontColor->RGBColor[1, 0, 0]],
- "[1.29];\nmp=",
+ "[1.29]; *)\nmt=1.28;\nmp=",
  StyleBox["RadMatAFK502",
   FontColor->RGBColor[1, 0, 0]],
  "[];\nund=wig[];\nre=",
@@ -3480,10 +3510,10 @@ F[]:=Module[{},\nlp[[2]]=(per-lm[[2]]*2)/2;\nsp[[3]]=gap/2;\n",
  "[und,0.0003,1000];\nN[",
  StyleBox["radFldEnrFrc",
   FontColor->RGBColor[1, 0, 0]],
- "[poleF,und,\"\",{1,1,4}][[3]],3]\n]\n\n\
-t=Table[{y,(gap=y;F[])},{y,5,200,5}];\nt=Prepend[t,headers];\n\
-Export[FileNameJoin[{NotebookDirectory[],\"force_gap.dat\"}],t];\n\
-ListPlot[t,Joined->True,AxesLabel->{\"Gap\",\"Force\"}]\n\n\
+ "[undc,und,\"\",{1,1,4}][[3]],3]\n]\n\nt=Table[{y,(gap=y;F[])},{y,5,200,5}];\
+\nt=Prepend[t,headers];\n\
+Export[FileNameJoin[{NotebookDirectory[],\"force_gap_ivw230_mt1.28.dat\"}],t];\
+\nListPlot[t,Joined->True,AxesLabel->{\"Gap\",\"Force\"}]\n\n\
 (*t=Table[{y,(NumPer=y;F[])},{y,1,5,1}];\nt=Prepend[t,headers];\n\
 Export[FileNameJoin[{NotebookDirectory[],\"force_pole_odd.dat\"}],t];\n\
 ListPlot[t,Joined->True,AxesLabel->{\"Pole\",\"Force\"}]*)"
@@ -3519,11 +3549,13 @@ ListPlot[t,Joined->True,AxesLabel->{\"Pole\",\"Force\"}]*)"
    3.9012273978173823`*^9, 3.9012274161707945`*^9}, {3.902185658875017*^9, 
    3.9021856711822567`*^9}, {3.9325987621764636`*^9, 
    3.9325987802616835`*^9}, {3.9325990446809874`*^9, 
-   3.9325990449709954`*^9}, {3.9333683614745827`*^9, 3.9333683619167194`*^9}},
- AspectRatioFixed->True,
- CellLabel->
-  "In[194]:=",ExpressionUUID->"6fdeb01d-bf8b-43e4-ab50-17585b125c3a"]
-}, Open  ]],
+   3.9325990449709954`*^9}, {3.9333683614745827`*^9, 
+   3.9333683619167194`*^9}, {3.944858594700925*^9, 3.94485861547001*^9}, {
+   3.944858653088601*^9, 3.944858666395362*^9}, {3.944859395770153*^9, 
+   3.9448593960661483`*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"6fdeb01d-bf8b-43e4-ab50-17585b125c3a"]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -3544,7 +3576,7 @@ in the Radia.exe  file.",
 Cell["?rad*", "Input",
  AspectRatioFixed->True,
  CellLabel->
-  "In[701]:=",ExpressionUUID->"4d7b3697-ab5f-45d8-84ba-8880dfcc4657"],
+  "In[504]:=",ExpressionUUID->"4d7b3697-ab5f-45d8-84ba-8880dfcc4657"],
 
 Cell[TextData[StyleBox["The following command gives the template and the \
 description of the function  \"radObjArcCur\".",
@@ -3584,7 +3616,7 @@ Init.m file. These functions are fully written in ",
 Cell["?Rad*", "Input",
  AspectRatioFixed->True,
  CellLabel->
-  "In[703]:=",ExpressionUUID->"05136f8d-7cda-4537-9b50-de11ac86b179"],
+  "In[503]:=",ExpressionUUID->"05136f8d-7cda-4537-9b50-de11ac86b179"],
 
 Cell[TextData[{
  "The following command gives the full mathematica definition of the function \
@@ -3596,23 +3628,24 @@ Cell[TextData[{
 
 Cell[BoxData[
  RowBox[{"??", 
-  StyleBox["radFldFocKickPer",
+  StyleBox["radMatSatIso",
    FontColor->RGBColor[1, 0, 0]]}]], "Input",
  CellChangeTimes->{
   3.8495758510074816`*^9, 3.8495759120888677`*^9, {3.8495760884780216`*^9, 
    3.849576104682849*^9}, 3.927153811903002*^9, {3.9285384521862774`*^9, 
    3.9285384643146887`*^9}, 3.9285488183520856`*^9, 3.9294077897170663`*^9, 
    3.931305861077851*^9, 3.932782563952468*^9, {3.932786899863312*^9, 
-   3.9327869011433105`*^9}, 3.932786944141128*^9, 3.9331175716511693`*^9},
+   3.9327869011433105`*^9}, 3.932786944141128*^9, 3.9331175716511693`*^9, 
+   3.934508648370195*^9, 3.934508825008167*^9},
  CellLabel->
-  "In[528]:=",ExpressionUUID->"f8fc8852-812b-4696-aca0-0afef93de670"]
-}, Open  ]]
+  "In[510]:=",ExpressionUUID->"f8fc8852-812b-4696-aca0-0afef93de670"]
+}, Closed]]
 },
 PrintingStyleEnvironment->"Working",
 WindowToolbars->"EditBar",
 CellGrouping->Manual,
 WindowSize->{1218.75, 841.5},
-WindowMargins->{{-1308, Automatic}, {Automatic, 55.5}},
+WindowMargins->{{225.75, Automatic}, {Automatic, 16.5}},
 PrintingCopies->1,
 PrintingPageRange->{Automatic, Automatic},
 PageHeaders->{{
@@ -3662,137 +3695,138 @@ Cell[1333, 42, 135, 3, 54, "Section",ExpressionUUID->"61178415-e883-4c84-ac7e-e8
  Evaluatable->False],
 Cell[1471, 47, 3020, 56, 230, "Text",ExpressionUUID->"717b5375-299b-4a73-b1c4-5b4c657d9166",
  Evaluatable->False]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[4528, 108, 148, 3, 54, "Section",ExpressionUUID->"dcd0e42c-1b7c-44b2-ace2-3d9a57a69efb",
+Cell[4528, 108, 148, 3, 34, "Section",ExpressionUUID->"dcd0e42c-1b7c-44b2-ace2-3d9a57a69efb",
  Evaluatable->False],
 Cell[4679, 113, 275, 6, 24, "Text",ExpressionUUID->"55364a9b-41af-4208-be09-cf8c70609193",
  Evaluatable->False],
 Cell[4957, 121, 480, 13, 82, "Input",ExpressionUUID->"0a81d872-9815-47a6-a8ca-b399b670058c"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[5474, 139, 218, 4, 54, "Section",ExpressionUUID->"252e519d-81eb-497c-88b0-81b5bad93f75",
- Evaluatable->False],
-Cell[5695, 145, 852, 21, 41, "Text",ExpressionUUID->"e6a5c227-0ba1-40b6-9f43-47dbab68bcd6",
- Evaluatable->False],
-Cell[6550, 168, 1222, 21, 320, "Input",ExpressionUUID->"dc1242ef-4d98-4bd0-ab04-28bea0ccd1bc"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[7809, 194, 757, 22, 54, "Section",ExpressionUUID->"6448deeb-d2ba-43c7-8b1b-7a7791494f61",
- Evaluatable->False],
-Cell[8569, 218, 574, 10, 41, "Text",ExpressionUUID->"e745422a-8ea8-4e90-9e99-c52555fec598",
- Evaluatable->False],
-Cell[9146, 230, 42259, 714, 3040, "Input",ExpressionUUID->"55d175db-2e2d-4acd-b57c-348bc9f05e56"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[51442, 949, 607, 20, 34, "Section",ExpressionUUID->"299921ee-134d-47aa-b8be-840f476c3a44",
+Cell[5474, 139, 246, 5, 34, "Section",ExpressionUUID->"252e519d-81eb-497c-88b0-81b5bad93f75",
  Evaluatable->False],
-Cell[52052, 971, 574, 10, 41, "Text",ExpressionUUID->"4e552465-4ec0-4637-a637-47ed123e34e8",
+Cell[5723, 146, 852, 21, 41, "Text",ExpressionUUID->"e6a5c227-0ba1-40b6-9f43-47dbab68bcd6",
  Evaluatable->False],
-Cell[52629, 983, 30309, 536, 2428, "Input",ExpressionUUID->"c55f66be-e2ff-4d35-b2a5-2eb6f91ef814"]
+Cell[6578, 169, 2021, 31, 405, "Input",ExpressionUUID->"dc1242ef-4d98-4bd0-ab04-28bea0ccd1bc"],
+Cell[8602, 202, 1436, 24, 235, "Input",ExpressionUUID->"cdb81a31-0028-4b1d-a2ed-462f0664f749"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[82975, 1524, 236, 5, 34, "Section",ExpressionUUID->"41b9a76f-0607-4676-9b4f-a188723677db",
+Cell[10075, 231, 757, 22, 34, "Section",ExpressionUUID->"6448deeb-d2ba-43c7-8b1b-7a7791494f61",
  Evaluatable->False],
-Cell[83214, 1531, 990, 30, 41, "Text",ExpressionUUID->"5e0d4460-f976-471c-bfde-5c529251cdb7",
+Cell[10835, 255, 574, 10, 41, "Text",ExpressionUUID->"e745422a-8ea8-4e90-9e99-c52555fec598",
  Evaluatable->False],
-Cell[84207, 1563, 28537, 396, 915, "Input",ExpressionUUID->"f9610f9d-2237-404b-bdbc-ee8eeedef1ac"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[112781, 1964, 206, 4, 54, "Section",ExpressionUUID->"6a40f96f-68cb-45d3-903a-0cca6a81d7d5",
- Evaluatable->False],
-Cell[112990, 1970, 246, 6, 24, "Text",ExpressionUUID->"5e3354bb-12e3-478d-8e39-b51d423c832d",
- Evaluatable->False],
-Cell[113239, 1978, 4218, 67, 184, "Input",ExpressionUUID->"c7896b99-1018-444a-acab-41eef79736aa"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[117494, 2050, 128, 3, 54, "Section",ExpressionUUID->"f2047b13-2bc0-4c07-9f29-d3a1640badca",
- Evaluatable->False],
-Cell[117625, 2055, 303, 7, 24, "Text",ExpressionUUID->"74e90033-9ad3-4443-87b6-7ba9132b1854",
- Evaluatable->False],
-Cell[117931, 2064, 1501, 30, 235, "Input",ExpressionUUID->"177175c9-89ec-406b-9603-c0cf26effe5b"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[119469, 2099, 190, 4, 54, "Section",ExpressionUUID->"13a563cc-9ccb-4a8d-94c4-8905ca7468b5",
- Evaluatable->False],
-Cell[119662, 2105, 2238, 37, 201, "Input",ExpressionUUID->"c23c1001-0828-48db-935f-f2cd6a792019"],
-Cell[121903, 2144, 1629, 30, 184, "Input",ExpressionUUID->"e9f58193-654c-4f92-8a2c-0c0bd8095936"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[123569, 2179, 153, 3, 54, "Section",ExpressionUUID->"e828e54d-83b4-4eec-9b65-9a304282b9bf",
- Evaluatable->False],
-Cell[123725, 2184, 358, 7, 24, "Text",ExpressionUUID->"f141ba92-ffae-45d5-8d00-15d26515a7ef",
- Evaluatable->False],
-Cell[124086, 2193, 1891, 37, 252, "Input",ExpressionUUID->"9113889a-20af-485c-be53-acb2e2734784"]
+Cell[11412, 267, 42090, 709, 3040, "Input",ExpressionUUID->"55d175db-2e2d-4acd-b57c-348bc9f05e56"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[126014, 2235, 243, 5, 34, "Section",ExpressionUUID->"e04a0304-5016-4e5e-8082-9f5a6046bd21",
+Cell[53539, 981, 607, 20, 34, "Section",ExpressionUUID->"299921ee-134d-47aa-b8be-840f476c3a44",
  Evaluatable->False],
-Cell[126260, 2242, 5953, 86, 337, "Input",ExpressionUUID->"87010605-74fc-48a9-915f-936cc44eff69"]
-}, Open  ]],
+Cell[54149, 1003, 574, 10, 41, "Text",ExpressionUUID->"4e552465-4ec0-4637-a637-47ed123e34e8",
+ Evaluatable->False],
+Cell[54726, 1015, 30000, 524, 2428, "Input",ExpressionUUID->"c55f66be-e2ff-4d35-b2a5-2eb6f91ef814"]
+}, Closed]],
 Cell[CellGroupData[{
-Cell[132250, 2333, 213, 4, 54, "Section",ExpressionUUID->"a2a1ed25-3eb1-4bb4-a51c-16e39b7cdbb1",
+Cell[84763, 1544, 236, 5, 34, "Section",ExpressionUUID->"41b9a76f-0607-4676-9b4f-a188723677db",
  Evaluatable->False],
-Cell[132466, 2339, 3832, 58, 167, "Input",ExpressionUUID->"2148320c-9341-4d90-84da-6b03cbbe43c4"]
-}, Open  ]],
+Cell[85002, 1551, 990, 30, 41, "Text",ExpressionUUID->"5e0d4460-f976-471c-bfde-5c529251cdb7",
+ Evaluatable->False],
+Cell[85995, 1583, 28668, 399, 915, "Input",ExpressionUUID->"f9610f9d-2237-404b-bdbc-ee8eeedef1ac"]
+}, Closed]],
 Cell[CellGroupData[{
-Cell[136335, 2402, 273, 5, 54, "Section",ExpressionUUID->"9f4fbd33-34e8-4c18-a846-4d6c516cc774",
+Cell[114700, 1987, 206, 4, 34, "Section",ExpressionUUID->"6a40f96f-68cb-45d3-903a-0cca6a81d7d5",
  Evaluatable->False],
-Cell[136611, 2409, 312, 7, 24, "Text",ExpressionUUID->"547c101f-275c-4514-9faf-65051eb7d800",
+Cell[114909, 1993, 246, 6, 24, "Text",ExpressionUUID->"5e3354bb-12e3-478d-8e39-b51d423c832d",
  Evaluatable->False],
-Cell[136926, 2418, 6330, 140, 257, "Input",ExpressionUUID->"38b94814-3bb7-4c90-8e7f-ddbabc2517b2"]
-}, Open  ]],
+Cell[115158, 2001, 4275, 69, 184, "Input",ExpressionUUID->"c7896b99-1018-444a-acab-41eef79736aa"]
+}, Closed]],
 Cell[CellGroupData[{
-Cell[143293, 2563, 138, 3, 54, "Section",ExpressionUUID->"d15fabc2-96b4-4a55-b25d-8819783997ee",
+Cell[119470, 2075, 128, 3, 34, "Section",ExpressionUUID->"f2047b13-2bc0-4c07-9f29-d3a1640badca",
  Evaluatable->False],
-Cell[143434, 2568, 891, 20, 41, "Text",ExpressionUUID->"b91a60b9-8c56-4759-a8a7-0709b316b6a3",
+Cell[119601, 2080, 303, 7, 24, "Text",ExpressionUUID->"74e90033-9ad3-4443-87b6-7ba9132b1854",
  Evaluatable->False],
-Cell[144328, 2590, 1722, 42, 134, "Input",ExpressionUUID->"49ef75ca-1487-4a29-b498-91c185383a97"]
-}, Open  ]],
+Cell[119907, 2089, 1505, 31, 235, "Input",ExpressionUUID->"177175c9-89ec-406b-9603-c0cf26effe5b"]
+}, Closed]],
 Cell[CellGroupData[{
-Cell[146087, 2637, 202, 4, 54, "Section",ExpressionUUID->"fe48622e-8603-4276-9d1f-bfe344babb35",
+Cell[121449, 2125, 190, 4, 34, "Section",ExpressionUUID->"13a563cc-9ccb-4a8d-94c4-8905ca7468b5",
  Evaluatable->False],
-Cell[146292, 2643, 949, 15, 41, "Text",ExpressionUUID->"37c612b7-6e4f-42bb-a3d5-cf02b4880eae",
- Evaluatable->False],
-Cell[147244, 2660, 16293, 342, 468, "Input",ExpressionUUID->"6fae57be-63f5-4bed-bd2a-437897e95773"]
-}, Open  ]],
+Cell[121642, 2131, 2238, 37, 201, "Input",ExpressionUUID->"c23c1001-0828-48db-935f-f2cd6a792019"],
+Cell[123883, 2170, 1629, 30, 184, "Input",ExpressionUUID->"e9f58193-654c-4f92-8a2c-0c0bd8095936"]
+}, Closed]],
 Cell[CellGroupData[{
-Cell[163574, 3007, 240, 4, 54, "Section",ExpressionUUID->"da6efea5-2765-4b3e-99fc-4997ed78ea2f",
+Cell[125549, 2205, 153, 3, 34, "Section",ExpressionUUID->"e828e54d-83b4-4eec-9b65-9a304282b9bf",
  Evaluatable->False],
-Cell[163817, 3013, 583, 12, 41, "Text",ExpressionUUID->"a3592047-feec-4b42-88ad-40a01e8a5b1a",
+Cell[125705, 2210, 358, 7, 24, "Text",ExpressionUUID->"f141ba92-ffae-45d5-8d00-15d26515a7ef",
  Evaluatable->False],
-Cell[164403, 3027, 12760, 188, 864, "Input",ExpressionUUID->"9279ef9f-baea-4903-b5a1-eb035aebc7f2"]
-}, Open  ]],
+Cell[126066, 2219, 2093, 40, 252, "Input",ExpressionUUID->"9113889a-20af-485c-be53-acb2e2734784"]
+}, Closed]],
 Cell[CellGroupData[{
-Cell[177200, 3220, 430, 8, 54, "Section",ExpressionUUID->"86fab811-3e67-43b6-889c-dabd0fb90927",
+Cell[128196, 2264, 243, 5, 34, "Section",ExpressionUUID->"e04a0304-5016-4e5e-8082-9f5a6046bd21",
  Evaluatable->False],
-Cell[177633, 3230, 583, 12, 41, "Text",ExpressionUUID->"31fe8877-035f-437e-95c3-29f142885a28",
- Evaluatable->False],
-Cell[178219, 3244, 5489, 89, 422, "Input",ExpressionUUID->"7c577dcf-29f6-4104-b3de-12c260e1ee51"],
-Cell[183711, 3335, 6500, 101, 507, "Input",ExpressionUUID->"b55ebfdd-804e-4c31-9d32-d62728080c52"]
-}, Open  ]],
+Cell[128442, 2271, 5953, 86, 337, "Input",ExpressionUUID->"87010605-74fc-48a9-915f-936cc44eff69"]
+}, Closed]],
 Cell[CellGroupData[{
-Cell[190248, 3441, 214, 4, 54, "Section",ExpressionUUID->"f6c6205a-4abc-4639-8baf-7f06c1cc5fe9",
+Cell[134432, 2362, 213, 4, 34, "Section",ExpressionUUID->"a2a1ed25-3eb1-4bb4-a51c-16e39b7cdbb1",
  Evaluatable->False],
-Cell[190465, 3447, 583, 12, 41, "Text",ExpressionUUID->"fe642e10-e03e-4330-b4e7-e37838182556",
- Evaluatable->False],
-Cell[191051, 3461, 3633, 63, 490, "Input",ExpressionUUID->"6fdeb01d-bf8b-43e4-ab50-17585b125c3a"]
-}, Open  ]],
+Cell[134648, 2368, 3832, 58, 167, "Input",ExpressionUUID->"2148320c-9341-4d90-84da-6b03cbbe43c4"]
+}, Closed]],
 Cell[CellGroupData[{
-Cell[194721, 3529, 182, 4, 54, "Section",ExpressionUUID->"7fe160c3-17a9-4432-abc7-23d9121950e5",
+Cell[138517, 2431, 273, 5, 34, "Section",ExpressionUUID->"9f4fbd33-34e8-4c18-a846-4d6c516cc774",
  Evaluatable->False],
-Cell[194906, 3535, 265, 6, 24, "Text",ExpressionUUID->"742ac2b3-d67f-4920-b35d-4703457ac75c",
+Cell[138793, 2438, 312, 7, 24, "Text",ExpressionUUID->"547c101f-275c-4514-9faf-65051eb7d800",
  Evaluatable->False],
-Cell[195174, 3543, 130, 3, 48, "Input",ExpressionUUID->"4d7b3697-ab5f-45d8-84ba-8880dfcc4657"],
-Cell[195307, 3548, 283, 6, 24, "Text",ExpressionUUID->"f05d35ce-682b-401a-9b5e-b5bc7ed6b5c4",
+Cell[139108, 2447, 6330, 140, 257, "Input",ExpressionUUID->"38b94814-3bb7-4c90-8e7f-ddbabc2517b2"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[145475, 2592, 138, 3, 34, "Section",ExpressionUUID->"d15fabc2-96b4-4a55-b25d-8819783997ee",
  Evaluatable->False],
-Cell[195593, 3556, 270, 8, 48, "Input",ExpressionUUID->"1459a613-b464-440b-86d3-1b2f0448148b"],
-Cell[195866, 3566, 472, 15, 24, "Text",ExpressionUUID->"284281e6-6e4f-4ae1-9e97-69b9d9742e53",
+Cell[145616, 2597, 891, 20, 41, "Text",ExpressionUUID->"b91a60b9-8c56-4759-a8a7-0709b316b6a3",
  Evaluatable->False],
-Cell[196341, 3583, 130, 3, 48, "Input",ExpressionUUID->"05136f8d-7cda-4537-9b50-de11ac86b179"],
-Cell[196474, 3588, 251, 6, 24, "Text",ExpressionUUID->"24c81614-623f-4844-81ed-bc4048b37110"],
-Cell[196728, 3596, 582, 11, 46, "Input",ExpressionUUID->"f8fc8852-812b-4696-aca0-0afef93de670"]
-}, Open  ]]
+Cell[146510, 2619, 1773, 43, 134, "Input",ExpressionUUID->"49ef75ca-1487-4a29-b498-91c185383a97"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[148320, 2667, 202, 4, 34, "Section",ExpressionUUID->"fe48622e-8603-4276-9d1f-bfe344babb35",
+ Evaluatable->False],
+Cell[148525, 2673, 949, 15, 41, "Text",ExpressionUUID->"37c612b7-6e4f-42bb-a3d5-cf02b4880eae",
+ Evaluatable->False],
+Cell[149477, 2690, 16293, 342, 468, "Input",ExpressionUUID->"6fae57be-63f5-4bed-bd2a-437897e95773"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[165807, 3037, 240, 4, 34, "Section",ExpressionUUID->"da6efea5-2765-4b3e-99fc-4997ed78ea2f",
+ Evaluatable->False],
+Cell[166050, 3043, 583, 12, 41, "Text",ExpressionUUID->"a3592047-feec-4b42-88ad-40a01e8a5b1a",
+ Evaluatable->False],
+Cell[166636, 3057, 12760, 188, 864, "Input",ExpressionUUID->"9279ef9f-baea-4903-b5a1-eb035aebc7f2"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[179433, 3250, 430, 8, 34, "Section",ExpressionUUID->"86fab811-3e67-43b6-889c-dabd0fb90927",
+ Evaluatable->False],
+Cell[179866, 3260, 583, 12, 41, "Text",ExpressionUUID->"31fe8877-035f-437e-95c3-29f142885a28",
+ Evaluatable->False],
+Cell[180452, 3274, 5489, 89, 422, "Input",ExpressionUUID->"7c577dcf-29f6-4104-b3de-12c260e1ee51"],
+Cell[185944, 3365, 6500, 101, 507, "Input",ExpressionUUID->"b55ebfdd-804e-4c31-9d32-d62728080c52"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[192481, 3471, 214, 4, 34, "Section",ExpressionUUID->"f6c6205a-4abc-4639-8baf-7f06c1cc5fe9",
+ Evaluatable->False],
+Cell[192698, 3477, 583, 12, 41, "Text",ExpressionUUID->"fe642e10-e03e-4330-b4e7-e37838182556",
+ Evaluatable->False],
+Cell[193284, 3491, 3788, 65, 507, "Input",ExpressionUUID->"6fdeb01d-bf8b-43e4-ab50-17585b125c3a"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[197109, 3561, 182, 4, 34, "Section",ExpressionUUID->"7fe160c3-17a9-4432-abc7-23d9121950e5",
+ Evaluatable->False],
+Cell[197294, 3567, 265, 6, 24, "Text",ExpressionUUID->"742ac2b3-d67f-4920-b35d-4703457ac75c",
+ Evaluatable->False],
+Cell[197562, 3575, 130, 3, 48, "Input",ExpressionUUID->"4d7b3697-ab5f-45d8-84ba-8880dfcc4657"],
+Cell[197695, 3580, 283, 6, 24, "Text",ExpressionUUID->"f05d35ce-682b-401a-9b5e-b5bc7ed6b5c4",
+ Evaluatable->False],
+Cell[197981, 3588, 270, 8, 48, "Input",ExpressionUUID->"1459a613-b464-440b-86d3-1b2f0448148b"],
+Cell[198254, 3598, 472, 15, 24, "Text",ExpressionUUID->"284281e6-6e4f-4ae1-9e97-69b9d9742e53",
+ Evaluatable->False],
+Cell[198729, 3615, 130, 3, 48, "Input",ExpressionUUID->"05136f8d-7cda-4537-9b50-de11ac86b179"],
+Cell[198862, 3620, 251, 6, 24, "Text",ExpressionUUID->"24c81614-623f-4844-81ed-bc4048b37110"],
+Cell[199116, 3628, 626, 12, 46, "Input",ExpressionUUID->"f8fc8852-812b-4696-aca0-0afef93de670"]
+}, Closed]]
 }
 ]
 *)
