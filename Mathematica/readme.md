@@ -1,4 +1,4 @@
-MPW simulation is based on the design of MPW at BL1 in SPL (SLRI, Thailand). However, the MPW was designed, constructed, and donated by the ASTeC, UK.
+In-vacuum multipole wiggler (IVW) simulation is based on the design of MPW at BL1W in SPL (SLRI, Thailand). The MPW was originally designed and constructed in ASTeC, UK. 
 
 Optimizing parameters are required to initialize the parameters prior to rerunning the different optimization.
 
