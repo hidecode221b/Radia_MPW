@@ -34,3 +34,6 @@ Eample#3mpw_noc_rtg_nos_for.nb is updated for the kick map in T2m2 for horizonta
 Rev. 20240815
 Eample#3mpw_noc_rtg_nos_for.nb is updated for the gap dependence based on sp[[3]] in the module.
 
+Rev. 20250103
+Eample#3mpw_noc_rtg_nos_for.nb is updated for the magnetic force simulation correctly.
+
