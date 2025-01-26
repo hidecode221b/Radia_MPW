@@ -69,8 +69,9 @@ else:
 # Plot 3D vector field by pyvista
 #und.plot_vector_field(-100,100,5,-400,400,5,-5,5,5,3,plot_save=True, plot_title=fileName)
 
-# Plot kick maps (second field integral)
-#und.plot_vector_field_int(1.2,-100,100,1,-230,0,1,-7,7,1,method='fld_int',plot_save=True,plot_title='Kickmap')
+# Plot kick maps (second field integral) - T2m2 or microrad
+# und.plot_vector_field_int(1.2,-45,45,1,500,500,1,-7,7,1,method='fld',unit='T2m2',plot_save=True,plot_title='Kickmap')
+# und.plot_vector_field_int(1.2,-100,100,1,-230,0,28,-7,7,1,method='fld',unit='microrad',plot_save=True,plot_title='Kickmap')
 
 # Plot field integral
 #und.plot_field_int(xyz_end=[0, 2000, 0], xyz_start=[0, -2000, 0], dir_int=[1, 0, 0], n=1000, b='bz', x_axis='d', plot_show=True, plot_title='field_int')
