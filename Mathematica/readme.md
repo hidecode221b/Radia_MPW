@@ -37,6 +37,6 @@ Eample#3mpw_noc_rtg_nos_for.nb is updated for the gap dependence based on sp[[3]
 Rev. 20250103
 Eample#3mpw_noc_rtg_nos_for.nb is updated for the magnetic force simulation in cut models.
 
-Rev. 20250113
-Eample#3mpw_noc_rtg_nos_for.nb is updated for the kickmap in a total length.
+Rev. 20250127
+Eample#3mpw_noc_rtg_nos_for.nb is updated for the kickmap in a period and total length.
 
