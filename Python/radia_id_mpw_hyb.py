@@ -42,7 +42,7 @@ class HybridWigParam(UndParam):
     """
     Radia parameters for hybrid wigglers
     """
-    def __init__(self, period, n_poles, gap, mag_width=120, mag_height=[130, 110, 32], mag_chamfer=[10, 0, 10], pole_length=35, pole_width=70, pole_height=90, pole_chamfer=[0, 0, 10], ext_pole=[20, 0], ext_mag=[37.5, 0, 10], mag_mat='ndfeb', br=1.29, sep_exp=[0, 0, 0], pole_mat='fecov', mag_area_max=200, pole_area_max=100, mag_long_sub=[2, 2], pole_long_sub=[1, 1], mag_color=[[0, 1, 1],[0, 0.5, 1]], pole_color=[1, 0, 1], wig_build='full'):
+    def __init__(self, period, n_poles, sdr, sdt, gap, mag_width=120, mag_height=[130, 110, 32], mag_chamfer=[10, 0, 10], pole_length=35, pole_width=70, pole_height=90, pole_chamfer=[0, 0, 10], ext_pole=[20, 0], ext_mag=[37.5, 0, 10], mag_mat='ndfeb', br=1.29, sep_exp=[0, 0, 0], pole_mat='fecov', mag_area_max=200, pole_area_max=100, mag_long_sub=[2, 2], pole_long_sub=[1, 1], mag_color=[[0, 1, 1],[0, 0.5, 1]], pole_color=[1, 0, 1], wig_build='full'):
         """
         Parameters for hybrid wiggler -- SLRI BL1 type
         :param period: period (mm)
@@ -71,7 +71,7 @@ class HybridWigParam(UndParam):
 
         self.period = period
         self.n_poles = n_poles
-        self.gap=gap
+        self.gap = gap
         self.mag_width = mag_width
         self.mag_height = mag_height
         self.mag_chamfer = mag_chamfer
@@ -862,7 +862,7 @@ class HybridWiggler(Undulator):
         :param period_id: identifies the period in the undulator
         :return: the PM block
         """
-
+        print(self.radia_und_param.period)
         period = self.radia_und_param.period
         n_poles = self.radia_und_param.n_poles
         ly_pole = self.radia_und_param.pole_length

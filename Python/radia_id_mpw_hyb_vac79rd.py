@@ -1135,10 +1135,7 @@ class HybridWiggler(Undulator):
         # --- Build the block (extrusion)
         # odd n_poles
         if pole_id == 0 or pole_id == 1 or pole_id == -1:
-            if pole_id == 0:
-                p1=[[0,pos_y,array_id * (sep_z + gap/2)],[lx_pole-2*cx_pole,ly_pole-2*cy_pole]]
-            else:
-                p1=[[0,pos_y,array_id * (sep_z + gap/2)],[lx_pole-2*cx_pole,ly_pole-2*cy_pole]]
+            p1=[[0,pos_y,array_id * (sep_z + gap/2)],[lx_pole-2*cx_pole,ly_pole-2*cy_pole]]
             p2=[[0,pos_y, array_id * (cz_pole+sep_z+gap/2)],[lx_pole,ly_pole]]
             p3=[[0,pos_y,array_id * (lz_pole+sep_z+gap/2)],[lx_pole,ly_pole]]
         # even n_poles
@@ -1489,10 +1486,10 @@ class HybridWiggler(Undulator):
             #mag_side_ext_1 = self.build_block_side_ext(1) # Extremity side magnet block
             pole_ext_p1u = self.build_pole_ext(1, 1) # Extremity pole
             pole_ext_n1u = self.build_pole_ext(-1, 1) # Extremity pole
-            pole_ext_p1d = self.build_pole_ext(1, 1) # Extremity pole
-            pole_ext_n1d = self.build_pole_ext(-1, 1) # Extremity pole
-            mag_ext_pu = self.build_block_ext(1, -1) # Extremity magnet
-            mag_ext_nu = self.build_block_ext(-1, -1) # Extremity magnet
+            pole_ext_p1d = self.build_pole_ext(1, -1) # Extremity pole
+            pole_ext_n1d = self.build_pole_ext(-1, -1) # Extremity pole
+            mag_ext_pu = self.build_block_ext(1, 1) # Extremity magnet
+            mag_ext_nu = self.build_block_ext(-1, 1) # Extremity magnet
             mag_ext_pd = self.build_block_ext(1, -1) # Extremity magnet
             mag_ext_nd = self.build_block_ext(-1, -1) # Extremity magnet
             #mag_ext_cla = self.build_block_ext_clamp() # Extremity magnet clamp
@@ -1566,10 +1563,10 @@ class HybridWiggler(Undulator):
             #mag_side_ext_1 = self.build_block_side_ext(1) # Extremity side magnet block
             pole_ext_p1u = self.build_pole_ext(1, 1) # Extremity pole
             pole_ext_n1u = self.build_pole_ext(-1, 1) # Extremity pole
-            mag_ext_pu = self.build_block_ext(1, 1) # Extremity magnet
-            mag_ext_nu = self.build_block_ext(-1, 1) # Extremity magnet
             pole_ext_p1d = self.build_pole_ext(1, -1) # Extremity pole
             pole_ext_n1d = self.build_pole_ext(-1, -1) # Extremity pole
+            mag_ext_pu = self.build_block_ext(1, 1) # Extremity magnet
+            mag_ext_nu = self.build_block_ext(-1, 1) # Extremity magnet
             mag_ext_pd = self.build_block_ext(1, -1) # Extremity magnet
             mag_ext_nd = self.build_block_ext(-1, -1) # Extremity magnet
             #mag_ext_cla = self.build_block_ext_clamp() # Extremity magnet clamp
